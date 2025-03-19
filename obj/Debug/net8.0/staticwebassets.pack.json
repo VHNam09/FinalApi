@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\HP\\source\\repos\\MovieApi\\wwwroot\\pages\\htmlpage.html",
+      "PackagePath": "staticwebassets\\pages\\htmlpage.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.MovieApi.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.MovieApi.props",
+      "PackagePath": "build\\MovieApi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.MovieApi.props",
+      "PackagePath": "buildMultiTargeting\\MovieApi.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.MovieApi.props",
+      "PackagePath": "buildTransitive\\MovieApi.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
