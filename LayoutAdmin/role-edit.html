@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/admin/movies.css" />
+    <link rel="stylesheet" href="../assets/css/admin/role-edit.css" />
+    <title>NOTFLEX Admin - Chỉnh sửa Vai trò</title>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="menu-toggle">☰</div>
+        <a href="dashboard.html" class="logo">NOTFLEX</a>
+        <div class="header-title">Chỉnh sửa Vai trò</div>
+        <div class="user-menu">
+            <a href="#">Admin</a>
+            <a href="#">Đăng xuất</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-menu">
+                <div class="menu-title">Quản lý nội dung</div>
+                <a href="dashboard.html" class="menu-item">
+                    <i class="fa fa-dashboard">📊</i> Dashboard
+                </a>
+                <a href="movies.html" class="menu-item">
+                    <i class="fa fa-film">🎬</i> Phim
+                </a>
+                <a href="genres.html" class="menu-item">
+                    <i class="fa fa-tags">🏷️</i> Thể loại
+                </a>
+
+                <div class="menu-title">Quản lý người dùng</div>
+                <a href="users.html" class="menu-item">
+                    <i class="fa fa-users">👥</i> Users
+                </a>
+                <a href="roles.html" class="menu-item active">
+                    <i class="fa fa-lock">🔒</i> Role
+                </a>
+
+                <div class="menu-title">Hệ thống</div>
+                <a href="settings.html" class="menu-item">
+                    <i class="fa fa-cog">⚙️</i> Cài đặt
+                </a>
+                <a href="statistics.html" class="menu-item">
+                    <i class="fa fa-bar-chart">📈</i> Thống kê
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-title">
+                <h1>Chỉnh sửa Vai trò</h1>
+                <a href="roles.html" class="btn btn-cancel">Quay lại danh sách</a>
+            </div>
+
+            <div class="role-stats">
+                <div class="stat-card">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">ID</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">8,706</div>
+                    <div class="stat-label">Số người dùng</div>
+                </div>
+            </div>
+
+            <div class="form-container">
+                <div class="form-title">Thông tin vai trò</div>
+                <form id="editRoleForm">
+                    <input type="hidden" id="roleId" value="2">
+
+                    <div class="form-group">
+                        <label for="roleName" class="required-field">Tên vai trò</label>
+                        <input type="text" id="roleName" class="form-control" value="user" required>
+                        <div id="roleName-error" class="error-message">Vui lòng nhập tên vai trò</div>
+                        <div class="preview-container" style="margin-top: 15px;">
+                            <div>Xem trước:</div>
+                            <span id="rolePreview" class="role-badge">user</span>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="cancelButton" class="btn btn-cancel">Hủy</button>
+                        <button type="submit" id="submitButton" class="btn btn-submit">Cập nhật vai trò</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="danger-zone">
+                <div class="danger-zone-title">Vùng nguy hiểm</div>
+                <div class="danger-zone-description">
+                    Xóa vai trò sẽ ảnh hưởng đến tất cả người dùng đang sử dụng vai trò này. Hành động này không thể
+                    hoàn tác.
+                    Người dùng có vai trò này sẽ được chuyển sang vai trò mặc định (user).
+                </div>
+                <button type="button" id="deleteRoleButton" class="btn btn-danger">Xóa vai trò này</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/admin/role-edit.js">
+
+    </script>
+</body>
+
+</html>

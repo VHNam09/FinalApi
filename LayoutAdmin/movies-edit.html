@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/admin/movies.css" />
+    <link rel="stylesheet" href="../assets/css/admin/movies-edit.css" />
+    <title>NOTFLEX Admin - Chỉnh sửa Phim</title>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="menu-toggle">☰</div>
+        <a href="dashboard.html" class="logo">NOTFLEX</a>
+        <div class="header-title">Chỉnh sửa Phim</div>
+        <div class="user-menu">
+            <a href="#">Admin</a>
+            <a href="#">Đăng xuất</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-menu">
+                <div class="menu-title">Quản lý nội dung</div>
+                <a href="dashboard.html" class="menu-item">
+                    <i class="fa fa-dashboard">📊</i> Dashboard
+                </a>
+                <a href="movies.html" class="menu-item active">
+                    <i class="fa fa-film">🎬</i> Phim
+                </a>
+                <a href="genres.html" class="menu-item">
+                    <i class="fa fa-tags">🏷️</i> Thể loại
+                </a>
+
+                <div class="menu-title">Quản lý người dùng</div>
+                <a href="users.html" class="menu-item">
+                    <i class="fa fa-users">👥</i> Users
+                </a>
+                <a href="roles.html" class="menu-item">
+                    <i class="fa fa-lock">🔒</i> Role
+                </a>
+
+                <div class="menu-title">Hệ thống</div>
+                <a href="settings.html" class="menu-item">
+                    <i class="fa fa-cog">⚙️</i> Cài đặt
+                </a>
+                <a href="statistics.html" class="menu-item">
+                    <i class="fa fa-bar-chart">📈</i> Thống kê
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-title">
+                <h1>Chỉnh sửa Phim</h1>
+                <a href="movies.html" class="btn btn-cancel">Quay lại danh sách</a>
+            </div>
+<div >
+    <div class="movie-stats">
+        <div class="stat-card">
+            <div class="stat-value"></div>
+            <div class="stat-label">ID</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">45,678</div>
+            <div class="stat-label">Lượt xem</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="createdAtDisplay">01/01/2023</div>
+            <div class="stat-label">Ngày tạo</div>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <div class="form-title">Thông tin phim</div>
+        <form id="editMovieForm">
+            <input type="hidden" id="movieId" value="1">
+            <input type="hidden" id="createdAt" value="2023-01-01T00:00:00.000Z">
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="title" class="required-field">Tên phim</label>
+                    <input type="text" id="title" class="form-control" value="" required>
+                    <div id="title-error" class="error-message">Vui lòng nhập tên phim</div>
+                </div>
+                <div class="form-group">
+                    <label for="releaseYear" class="required-field">Năm phát hành</label>
+                    <input type="number" id="releaseYear" class="form-control" value="2022" min="1900"
+                        max="2100" required>
+                    <div id="releaseYear-error" class="error-message">Vui lòng nhập năm phát hành hợp lệ</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description" class="required-field">Mô tả</label>
+                <textarea id="description" class="form-control" rows="4"
+                    required></textarea>
+                <div id="description-error" class="error-message">Vui lòng nhập mô tả phim</div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="director" class="required-field">Đạo diễn</label>
+                    <input type="text" id="director" class="form-control" value="" required>
+                    <div id="director-error" class="error-message">Vui lòng nhập tên đạo diễn</div>
+                </div>
+                <div class="form-group">
+                    <label for="country" class="required-field">Quốc gia</label>
+                    <input type="text" id="country" class="form-control" value="" required>
+                    <div id="country-error" class="error-message">Vui lòng nhập quốc gia sản xuất</div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="actors" class="required-field">Diễn viên</label>
+                    <input type="text" id="actors" class="form-control"
+                        value="" required>
+                    <div id="actors-error" class="error-message">Vui lòng nhập tên diễn viên</div>
+                </div>
+                <div class="form-group">
+                    <label for="duration" class="required-field">Thời lượng (phút)</label>
+                    <input type="number" id="duration" class="form-control" value="115" min="1" required>
+                    <div id="duration-error" class="error-message">Vui lòng nhập thời lượng phim</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="genres" class="required-field">Thể loại</label>
+                <div class="genres-container">
+                    <div class="genre-items">
+                        <div class="genre-item">
+                            <input type="checkbox" id="genre1" name="genres" value="1" checked>
+                            <label for="genre1">Hành động</label>
+                        </div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="genre2" name="genres" value="2" checked>
+                            <label for="genre2">Hoạt hình</label>
+                        </div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="genre3" name="genres" value="3">
+                            <label for="genre3">Tình cảm</label>
+                        </div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="genre4" name="genres" value="4">
+                            <label for="genre4">Kinh dị</label>
+                        </div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="genre5" name="genres" value="5">
+                            <label for="genre5">Khoa học viễn tưởng</label>
+                        </div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="genre6" name="genres" value="6">
+                            <label for="genre6">Hài</label>
+                        </div>
+                        <div class="genre-item">
+                            <input type="checkbox" id="genre7" name="genres" value="7">
+                            <label for="genre7">Tâm lý</label>
+                        </div>
+                    </div>
+                </div>
+                <div id="genres-error" class="error-message">Vui lòng chọn ít nhất một thể loại</div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="poster" class="required-field">URL Poster</label>
+                    <input type="text" id="poster" class="form-control"
+                        value="" required>
+                    <div id="poster-error" class="error-message">Vui lòng nhập URL poster</div>
+                    <div class="poster-preview" id="posterPreview">
+                        <img src="" alt="Movie Poster">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="trailerUrl" class="required-field">URL Trailer</label>
+                    <input type="text" id="trailerUrl" class="form-control"
+                        value="" required>
+                    <div id="trailerUrl-error" class="error-message">Vui lòng nhập URL trailer</div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" id="cancelButton" class="btn btn-cancel">Hủy</button>
+                <button type="submit" id="submitButton" class="btn btn-submit">Cập nhật phim</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="danger-zone">
+        <div class="danger-zone-title">Vùng nguy hiểm</div>
+        <div class="danger-zone-description">
+            Xóa phim sẽ xóa tất cả dữ liệu liên quan đến phim này. Hành động này không thể hoàn tác.
+        </div>
+        <button type="button" id="deleteMovieButton" class="btn btn-danger">Xóa phim này</button>
+    </div>
+</div>
+     
+        </main>
+    </div>
+
+    <script src="../assets/js/admin/movies-edit.js">
+
+    </script>
+        <!-- <script src="../assets/js/fetch.js">
+
+        </script> -->
+  
+</body>
+
+</html>

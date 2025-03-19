@@ -1,0 +1,253 @@
+:root {
+    --primary: #0070f3;
+    --primary-hover: #0060df;
+    --background: #ffffff;
+    --foreground: #333333;
+    --muted: #f5f5f5;
+    --muted-foreground: #737373;
+    --border: #e2e8f0;
+    --input: #e2e8f0;
+    --ring: #0070f3;
+    --radius: 0.5rem;
+    --error: #ef4444;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+      "Helvetica Neue", sans-serif;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+      url("https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-dPsUVLuwooO2JzOFdlKijxg8WZ6fpn.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--foreground);
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+  
+  .container {
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  
+  .card {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 28rem;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .card-header {
+    padding: 1.5rem 1.5rem 0.5rem;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-description {
+    color: var(--muted-foreground);
+    text-align: center;
+    font-size: 0.875rem;
+  }
+  
+  .card-content {
+    padding: 1.5rem;
+  }
+  
+  .card-footer {
+    padding: 1.5rem;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    border: 1px solid var(--input);
+    border-radius: var(--radius);
+    background-color: var(--background);
+    color: var(--foreground);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    outline: none;
+    border-color: var(--ring);
+    box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
+  }
+  
+  .password-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .forgot-password {
+    font-size: 0.75rem;
+    color: var(--primary);
+    text-decoration: none;
+  }
+  
+  .forgot-password:hover {
+    text-decoration: underline;
+  }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius);
+    font-weight: 500;
+    font-size: 0.875rem;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border: 1px solid transparent;
+  }
+  
+  .btn-primary {
+    background-color: var(--primary);
+    color: white;
+    width: 100%;
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--primary-hover);
+  }
+  
+  .divider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+  }
+  
+  .divider::before,
+  .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: var(--border);
+  }
+  
+  .divider span {
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    text-transform: uppercase;
+  }
+  
+  .register-link,
+  .login-link {
+    font-size: 0.875rem;
+    margin-top: 1rem;
+  }
+  
+  .register-link a,
+  .login-link a {
+    color: var(--primary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .register-link a:hover,
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+  
+  .icon {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+  }
+  
+  .checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+  
+  .checkbox-group input[type="checkbox"] {
+    margin-right: 0.5rem;
+    margin-top: 0.25rem;
+  }
+  
+  .checkbox-group label {
+    font-size: 0.875rem;
+    margin-bottom: 0;
+  }
+  
+  .terms-link {
+    color: var(--primary);
+    text-decoration: none;
+  }
+  
+  .terms-link:hover {
+    text-decoration: underline;
+  }
+  
+  .error-message {
+    display: block;
+    color: var(--error);
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+  }
+  
+  @media (max-width: 640px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  

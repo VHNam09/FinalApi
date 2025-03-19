@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/admin/movies.css" />
+    <link rel="stylesheet" href="../assets/css/admin/role-add.css" />
+    <title>NOTFLEX Admin - Thêm Vai trò</title>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="menu-toggle">☰</div>
+        <a href="dashboard.html" class="logo">NOTFLEX</a>
+        <div class="header-title">Thêm Vai trò</div>
+        <div class="user-menu">
+            <a href="#">Admin</a>
+            <a href="#">Đăng xuất</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-menu">
+                <div class="menu-title">Quản lý nội dung</div>
+                <a href="dashboard.html" class="menu-item">
+                    <i class="fa fa-dashboard">📊</i> Dashboard
+                </a>
+                <a href="movies.html" class="menu-item">
+                    <i class="fa fa-film">🎬</i> Phim
+                </a>
+                <a href="genres.html" class="menu-item">
+                    <i class="fa fa-tags">🏷️</i> Thể loại
+                </a>
+
+                <div class="menu-title">Quản lý người dùng</div>
+                <a href="users.html" class="menu-item">
+                    <i class="fa fa-users">👥</i> Users
+                </a>
+                <a href="roles.html" class="menu-item active">
+                    <i class="fa fa-lock">🔒</i> Role
+                </a>
+
+                <div class="menu-title">Hệ thống</div>
+                <a href="settings.html" class="menu-item">
+                    <i class="fa fa-cog">⚙️</i> Cài đặt
+                </a>
+                <a href="statistics.html" class="menu-item">
+                    <i class="fa fa-bar-chart">📈</i> Thống kê
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-title">
+                <h1>Thêm Vai trò mới</h1>
+                <a href="roles.html" class="btn btn-cancel">Quay lại danh sách</a>
+            </div>
+
+            <div class="form-container">
+                <div class="form-title">Thông tin vai trò</div>
+                <form id="addRoleForm">
+                    <div class="form-group">
+                        <label for="roleName" class="required-field">Tên vai trò</label>
+                        <input type="text" id="roleName" class="form-control" placeholder="Nhập tên vai trò" required>
+                        <div id="roleName-error" class="error-message">Vui lòng nhập tên vai trò</div>
+                        <div class="preview-container" style="margin-top: 15px;">
+                            <div>Xem trước:</div>
+                            <span id="rolePreview" class="role-badge">Tên vai trò</span>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="cancelButton" class="btn btn-cancel">Hủy</button>
+                        <button type="submit" id="submitButton" class="btn btn-submit">Thêm vai trò</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/admin/role-add.js">
+
+    </script>
+</body>
+
+</html>

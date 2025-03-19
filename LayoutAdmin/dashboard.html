@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/admin/admin.css" />
+    <title>NOTFLEX Admin Dashboard</title>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="menu-toggle">☰</div>
+        <a href="#" class="logo">NOTFLEX</a>
+        <div class="header-title">Admin Dashboard</div>
+        <div class="user-menu">
+            <a href="#">Admin</a>
+            <a href="#">Đăng xuất</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-menu">
+                <div class="menu-title">Quản lý nội dung</div>
+                <a href="#" class="menu-item active">
+                    <i class="fa fa-dashboard">📊</i> Dashboard
+                </a>
+                <a href="movies.html" class="menu-item">
+                    <i class="fa fa-film">🎬</i> Phim
+                </a>
+                <a href="genres.html" class="menu-item">
+                    <i class="fa fa-tags">🏷️</i> Thể loại
+                </a>
+
+                <div class="menu-title">Quản lý người dùng</div>
+                <a href="users.html" class="menu-item">
+                    <i class="fa fa-users">👥</i> Users
+                </a>
+                <a href="roles.html" class="menu-item">
+                    <i class="fa fa-lock">🔒</i> Role
+                </a>
+
+                <div class="menu-title">Hệ thống</div>
+                <a href="settings.html" class="menu-item">
+                    <i class="fa fa-cog">⚙️</i> Cài đặt
+                </a>
+                <a href="statistics.html" class="menu-item">
+                    <i class="fa fa-bar-chart">📈</i> Thống kê
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-title">
+                <h1>Dashboard</h1>
+                <button class="btn">Làm mới dữ liệu</button>
+            </div>
+
+            <!-- Dashboard Stats -->
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <h3>Tổng số phim</h3>
+                    <div class="number">1,245</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Thể loại</h3>
+                    <div class="number">28</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Người dùng</h3>
+                    <div class="number">8,392</div>
+                </div>
+            </div>
+
+            <!-- Recent Movies -->
+            <div class="page-title">
+                <h2>Phim mới thêm gần đây</h2>
+                <button class="btn">Thêm phim mới</button>
+            </div>
+
+            <div class="filters">
+                <div class="search-box">
+                    <i class="fa fa-search">🔍</i>
+                    <input type="text" placeholder="Tìm kiếm phim...">
+                </div>
+                <select class="filter-select">
+                    <option>Tất cả thể loại</option>
+                    <option>Hành động</option>
+                    <option>Hoạt hình</option>
+                    <option>Tình cảm</option>
+                    <option>Kinh dị</option>
+                </select>
+                <select class="filter-select">
+                    <option>Sắp xếp theo</option>
+                    <option>Mới nhất</option>
+                    <option>Lượt xem</option>
+                    <option>Đánh giá</option>
+                </select>
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên phim</th>
+                        <th>Thể loại</th>
+                        <th>Năm</th>
+                        <th>Lượt xem</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>One Piece Film Red</td>
+                        <td>Hoạt hình, Hành động</td>
+                        <td>2022</td>
+                        <td>45,678</td>
+                        <td>Đang chiếu</td>
+                        <td class="action-buttons">
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn delete">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Tên cậu là gì?</td>
+                        <td>Hoạt hình, Tình cảm</td>
+                        <td>2016</td>
+                        <td>89,432</td>
+                        <td>Đang chiếu</td>
+                        <td class="action-buttons">
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn delete">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Chú Thuật Hồi Chiến</td>
+                        <td>Hoạt hình, Hành động</td>
+                        <td>2023</td>
+                        <td>32,145</td>
+                        <td>Đang chiếu</td>
+                        <td class="action-buttons">
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn delete">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Tôi Sẽ Đỡ Hết Mọi Đòn</td>
+                        <td>Hoạt hình, Hành động</td>
+                        <td>2023</td>
+                        <td>18,976</td>
+                        <td>Đang chiếu</td>
+                        <td class="action-buttons">
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn delete">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>13 Phút Sống Còn</td>
+                        <td>Hành động, Thảm họa</td>
+                        <td>2021</td>
+                        <td>27,543</td>
+                        <td>Đang chiếu</td>
+                        <td class="action-buttons">
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn delete">Xóa</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+    <script src="../assets/js/admin/admin.js">
+
+
+    </script>
+</body>
+
+</html>

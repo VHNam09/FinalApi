@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOTFLEX Admin - Cài đặt</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Variables */
+        :root {
+            --primary-color: #e50914;
+            --dark-bg: #141414;
+            --darker-bg: #0a0a0a;
+            --light-text: #ffffff;
+            --gray-text: #b3b3b3;
+            --sidebar-width: 250px;
+            --header-height: 60px;
+            --border-color: #333;
+            --hover-bg: #333;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: var(--darker-bg);
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .header-title {
+            flex-grow: 1;
+            font-size: 18px;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-menu a {
+            color: var(--light-text);
+            text-decoration: none;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            padding-top: var(--header-height);
+            min-height: calc(100vh - var(--header-height));
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--darker-bg);
+            border-right: 1px solid var(--border-color);
+            height: calc(100vh - var(--header-height));
+            position: fixed;
+            overflow-y: auto;
+        }
+
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+
+        .menu-title {
+            padding: 10px 20px;
+            color: var(--gray-text);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .menu-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--light-text);
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .menu-item:hover,
+        .menu-item.active {
+            background-color: var(--hover-bg);
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .menu-item i {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+        }
+
+        .page-title {
+            margin-bottom: 20px;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: opacity 0.3s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Settings Styles */
+        .settings-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .settings-container {
+                grid-template-columns: 250px 1fr;
+            }
+        }
+
+        .settings-nav {
+            background-color: var(--darker-bg);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .settings-nav-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .settings-nav-item:hover,
+        .settings-nav-item.active {
+            background-color: var(--hover-bg);
+        }
+
+        .settings-nav-item i {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .settings-content {
+            background-color: var(--darker-bg);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .settings-section {
+            margin-bottom: 30px;
+        }
+
+        .settings-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .settings-section h2 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--light-text);
+        }
+
+        .form-check {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--light-text);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 0;
+                transition: width 0.3s;
+            }
+
+            .sidebar.active {
+                width: var(--sidebar-width);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+                margin-right: 15px;
+                cursor: pointer;
+                font-size: 20px;
+            }
+        }
+
+        /* Font Awesome Icons (simulated) */
+        .fa {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            background-size: cover;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="menu-toggle">☰</div>
+        <a href="dashboard.html" class="logo">NOTFLEX</a>
+        <div class="header-title">Cài đặt</div>
+        <div class="user-menu">
+            <a href="#">Admin</a>
+            <a href="#">Đăng xuất</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-menu">
+                <div class="menu-title">Quản lý nội dung</div>
+                <a href="dashboard.html" class="menu-item">
+                    <i class="fa fa-dashboard">📊</i> Dashboard
+                </a>
+                <a href="movies.html" class="menu-item">
+                    <i class="fa fa-film">🎬</i> Phim
+                </a>
+                <a href="genres.html" class="menu-item">
+                    <i class="fa fa-tags">🏷️</i> Thể loại
+                </a>
+
+                <div class="menu-title">Quản lý người dùng</div>
+                <a href="users.html" class="menu-item">
+                    <i class="fa fa-users">👥</i> Users
+                </a>
+                <a href="roles.html" class="menu-item">
+                    <i class="fa fa-lock">🔒</i> Role
+                </a>
+
+                <div class="menu-title">Hệ thống</div>
+                <a href="settings.html" class="menu-item active">
+                    <i class="fa fa-cog">⚙️</i> Cài đặt
+                </a>
+                <a href="statistics.html" class="menu-item">
+                    <i class="fa fa-bar-chart">📈</i> Thống kê
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-title">
+                <h1>Cài đặt hệ thống</h1>
+            </div>
+
+            <div class="settings-container">
+                <div class="settings-nav">
+                    <div class="settings-nav-item active">
+                        <i class="fa fa-globe">🌐</i> Cài đặt chung
+                    </div>
+                    <div class="settings-nav-item">
+                        <i class="fa fa-film">🎬</i> Cài đặt phim
+                    </div>
+                    <div class="settings-nav-item">
+                        <i class="fa fa-users">👥</i> Cài đặt người dùng
+                    </div>
+                    <div class="settings-nav-item">
+                        <i class="fa fa-envelope">✉️</i> Cài đặt email
+                    </div>
+                    <div class="settings-nav-item">
+                        <i class="fa fa-server">🖥️</i> Cài đặt máy chủ
+                    </div>
+                    <div class="settings-nav-item">
+                        <i class="fa fa-shield">🛡️</i> Bảo mật
+                    </div>
+                </div>
+
+                <div class="settings-content">
+                    <div class="settings-section">
+                        <h2>Cài đặt chung</h2>
+                        <div class="form-group">
+                            <label for="site-name">Tên trang web</label>
+                            <input type="text" id="site-name" class="form-control" value="NOTFLEX">
+                        </div>
+                        <div class="form-group">
+                            <label for="site-description">Mô tả trang web</label>
+                            <textarea id="site-description" class="form-control"
+                                rows="3">Trang web xem phim trực tuyến hàng đầu Việt Nam</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="site-logo">Logo trang web</label>
+                            <input type="file" id="site-logo" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="site-favicon">Favicon</label>
+                            <input type="file" id="site-favicon" class="form-control">
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="maintenance-mode" checked>
+                            <label for="maintenance-mode">Chế độ bảo trì (chỉ admin có thể truy cập)</label>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h2>Cài đặt hiển thị</h2>
+                        <div class="form-group">
+                            <label for="movies-per-page">Số phim hiển thị trên mỗi trang</label>
+                            <input type="number" id="movies-per-page" class="form-control" value="20">
+                        </div>
+                        <div class="form-group">
+                            <label for="featured-movies">Số phim nổi bật trên trang chủ</label>
+                            <input type="number" id="featured-movies" class="form-control" value="5">
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="show-trending" checked>
+                            <label for="show-trending">Hiển thị phim xu hướng</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="show-latest" checked>
+                            <label for="show-latest">Hiển thị phim mới nhất</label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="btn btn-secondary">Hủy</button>
+                        <button class="btn">Lưu thay đổi</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple toggle for responsive sidebar
+        document.querySelector('.menu-toggle').addEventListener('click', function () {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        // Toggle between settings sections
+        document.querySelectorAll('.settings-nav-item').forEach(item => {
+            item.addEventListener('click', function () {
+                document.querySelectorAll('.settings-nav-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>

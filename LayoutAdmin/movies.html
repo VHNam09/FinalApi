@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/admin/movies.css" />
+    <title>NOTFLEX Admin - Quản lý Phim</title>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="menu-toggle">☰</div>
+        <a href="dashboard.html" class="logo">NOTFLEX</a>
+        <div class="header-title">Quản lý Phim</div>
+        <div class="user-menu">
+            <a href="#">Admin</a>
+            <a href="#">Đăng xuất</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-menu">
+                <div class="menu-title">Quản lý nội dung</div>
+                <a href="dashboard.html" class="menu-item">
+                    <i class="fa fa-dashboard">📊</i> Dashboard
+                </a>
+                <a href="movies.html" class="menu-item active">
+                    <i class="fa fa-film">🎬</i> Phim
+                </a>
+                <a href="genres.html" class="menu-item">
+                    <i class="fa fa-tags">🏷️</i> Thể loại
+                </a>
+
+                <div class="menu-title">Quản lý người dùng</div>
+                <a href="users.html" class="menu-item">
+                    <i class="fa fa-users">👥</i> Users
+                </a>
+                <a href="roles.html" class="menu-item">
+                    <i class="fa fa-lock">🔒</i> Role
+                </a>
+
+                <div class="menu-title">Hệ thống</div>
+                <a href="settings.html" class="menu-item">
+                    <i class="fa fa-cog">⚙️</i> Cài đặt
+                </a>
+                <a href="statistics.html" class="menu-item">
+                    <i class="fa fa-bar-chart">📈</i> Thống kê
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-title">
+                <h1>Quản lý Phim</h1>
+                <button class="btn"><a href="movies-add.html">Thêm phim mới</a></button>
+            </div>
+
+            <div class="filters">
+                <div class="search-box" >
+                    <i class="fa fa-search">🔍</i>
+                    <input type="text" placeholder="Tìm kiếm phim...">
+                </div>
+                <select class="filter-select"  id="boxSearchs">
+                    <option>Tất cả thể loại</option>
+                    <option>Hành động</option>
+                    <option>Hoạt hình</option>
+                    <option>Tình cảm</option>
+                    <option>Kinh dị</option>
+                </select>
+                <select class="filter-select">
+                    <option>Tất cả năm</option>
+                    <option>2023</option>
+                    <option>2022</option>
+                    <option>2021</option>
+                    <option>2020</option>
+                </select>
+                <select class="filter-select">
+                    <option>Sắp xếp theo</option>
+                    <option>Mới nhất</option>
+                    <option>Năm phát hành</option>
+                    <option>Tên A-Z</option>
+                </select>
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Poster</th>
+                        <th>Tên phim</th>
+                        <th>Thể loại</th>
+                        <th>Năm phát hành</th>
+                        <th>Đạo diễn</th>
+                        <th>Thời lượng</th>
+                        <th>Ngày tạo</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody id="movies-list-api">
+           <!--Hiện phim để thêm sửa xóa-->
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <button class="pagination-btn">«</button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn">»</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple toggle for responsive sidebar
+        document.querySelector('.menu-toggle').addEventListener('click', function () {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+    </script>
+
+
+
+<script src="../assets/js/fetch.js"></script>
+
+<script>
+        
+function fetchMovies2() {
+    var apiUrl = 'https://localhost:7186/api/Movie/with-genres'; // Nên trỏ đúng route lấy kèm genres
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(movies => {
+            if (!Array.isArray(movies)) {
+                throw new Error("Invalid response format. Expected an array.");
+            }
+
+            var html1 = movies.map(movie => `
+            <tr>
+                <td>${movie.id}</td>
+                <td>
+                    <img src="${movie.poster}" alt="${movie.title}" class="movie-thumbnail">
+                </td>
+                <td>${movie.title}</td>
+                <td>${movie.genreIds.join(", ")}</td> <!-- Chuyển array genres thành chuỗi -->
+                <td>${movie.releaseYear}</td>
+                <td>${movie.director}</td>
+                <td>${movie.duration} phút</td>
+                <td>${new Date(movie.createdAt).toLocaleDateString()}</td> <!-- Format ngày cho đẹp -->
+                <td class="action-buttons">
+                    <button class="action-btn view">Xem</button>
+                    <button class="action-btn edit"><a href="movies-edit.html?id=${movie.id}">Sửa</a></button>
+                    <button class="action-btn delete" onclick="deleteMovie(${movie.id})">Xóa</button>
+                </td>
+            </tr>
+            `).join("");
+
+            // Gán dữ liệu vào phần tử HTML nếu tồn tại
+            let testApiEl = document.getElementById('movies-list-api');
+            if (testApiEl) {
+                testApiEl.innerHTML = html1;
+            } else {
+                console.error("Element with ID 'movies-list-api' not found.");
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching movies:", error);
+            let testApiEl = document.getElementById('movies-list-api');
+            if (testApiEl) {
+                testApiEl.innerHTML = `<p class="error-message">Failed to load movies. Please try again later.</p>`;
+            }
+        });
+}
+
+// Gọi hàm để lấy danh sách phim
+fetchMovies2();
+
+
+
+
+function fetchGenres() {
+    var apiUrl = 'https://localhost:7186/api/Genres'; // Nên trỏ đúng route lấy kèm genres
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(genress => {
+            if (!Array.isArray(genress)) {
+                throw new Error("Invalid response format. Expected an array.");
+            }
+
+            var html1 = genress.map(genress => `
+            
+                    <option>${genress.name}</option>
+         
+   
+            `).join("");
+
+            // Gán dữ liệu vào phần tử HTML nếu tồn tại
+            let testApiEl = document.getElementById('boxSearchs');
+            if (testApiEl) {
+                testApiEl.innerHTML = html1;
+            } else {
+                console.error("Element with ID 'boxSearchs' not found.");
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching genress:", error);
+            let testApiEl = document.getElementById('boxSearchs');
+            if (testApiEl) {
+                testApiEl.innerHTML = `<p class="error-message">Failed to load movies. Please try again later.</p>`;
+            }
+        });
+}
+
+// Gọi hàm để lấy danh sách phim
+fetchGenres();
+</script>
+
+
+</body>
+
+</html>

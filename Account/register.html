@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký</title>
+    <link rel="stylesheet" href="../assets/css/account.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Đăng ký tài khoản</h1>
+                <p class="card-description">Nhập thông tin của bạn để tạo tài khoản mới</p>
+            </div>
+            <div class="card-content">
+                <form id="registerForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">Họ</label>
+                            <input type="text" id="firstName" placeholder="Nguyễn" required>
+                            <span class="error-message" id="firstNameError"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Tên</label>
+                            <input type="text" id="lastName" placeholder="Văn A" required>
+                            <span class="error-message" id="lastNameError"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="example@example.com" required>
+                        <span class="error-message" id="emailError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mật khẩu</label>
+                        <input type="password" id="password" required>
+                        <span class="error-message" id="passwordError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Xác nhận mật khẩu</label>
+                        <input type="password" id="confirmPassword" required>
+                        <span class="error-message" id="confirmPasswordError"></span>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">
+                            Tôi đồng ý với <a href="#" class="terms-link">điều khoản và điều kiện</a>
+                        </label>
+                        <span class="error-message" id="termsError"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Đăng ký</button>
+                </form>
+            </div>
+            <div class="card-footer">
+                <p class="login-link">
+                    Đã có tài khoản?
+                    <a href="login.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="icon">
+                            <path d="m19 12-7-7-7 7"></path>
+                            <path d="M5 12h14"></path>
+                        </svg>
+                        Đăng nhập
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="register.js"></script>
+</body>
+
+</html>

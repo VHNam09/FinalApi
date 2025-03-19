@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/admin/movies.css" />
+    <link rel="stylesheet" href="../assets/css/admin/genres-edit.css" />
+    <title>NOTFLEX Admin - Chỉnh sửa Thể loại</title>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="menu-toggle">☰</div>
+        <a href="dashboard.html" class="logo">NOTFLEX</a>
+        <div class="header-title">Chỉnh sửa Thể loại</div>
+        <div class="user-menu">
+            <a href="#">Admin</a>
+            <a href="#">Đăng xuất</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-menu">
+                <div class="menu-title">Quản lý nội dung</div>
+                <a href="dashboard.html" class="menu-item">
+                    <i class="fa fa-dashboard">📊</i> Dashboard
+                </a>
+                <a href="movies.html" class="menu-item">
+                    <i class="fa fa-film">🎬</i> Phim
+                </a>
+                <a href="genres.html" class="menu-item active">
+                    <i class="fa fa-tags">🏷️</i> Thể loại
+                </a>
+
+                <div class="menu-title">Quản lý người dùng</div>
+                <a href="users.html" class="menu-item">
+                    <i class="fa fa-users">👥</i> Users
+                </a>
+                <a href="roles.html" class="menu-item">
+                    <i class="fa fa-lock">🔒</i> Role
+                </a>
+
+                <div class="menu-title">Hệ thống</div>
+                <a href="settings.html" class="menu-item">
+                    <i class="fa fa-cog">⚙️</i> Cài đặt
+                </a>
+                <a href="statistics.html" class="menu-item">
+                    <i class="fa fa-bar-chart">📈</i> Thống kê
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-title">
+                <h1>Chỉnh sửa Thể loại</h1>
+                <a href="genres.html" class="btn btn-cancel">Quay lại danh sách</a>
+            </div>
+
+            <div class="genre-stats">
+                <div class="stat-card">
+                    <div class="stat-value">1</div>
+                    <div class="stat-label">ID</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">245</div>
+                    <div class="stat-label">Số phim</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="createdAtDisplay">01/01/2023</div>
+                    <div class="stat-label">Ngày tạo</div>
+                </div>
+            </div>
+
+            <div class="form-container">
+                <div class="form-title">Thông tin thể loại</div>
+                <form id="editGenreForm">
+                    <input type="hidden" id="genreId" value="1">
+                    <input type="hidden" id="createdAt" value="2023-01-01T00:00:00.000Z">
+
+                    <div class="form-group">
+                        <label for="name" class="required-field">Tên thể loại</label>
+                        <input type="text" id="name" class="form-control" value="Hành động" required>
+                        <div id="name-error" class="error-message">Vui lòng nhập tên thể loại</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description" class="required-field">Mô tả</label>
+                        <textarea id="description" class="form-control" rows="4"
+                            required>Phim có nhiều cảnh hành động, đánh đấm, rượt đuổi</textarea>
+                        <div id="description-error" class="error-message">Vui lòng nhập mô tả thể loại</div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="cancelButton" class="btn btn-cancel">Hủy</button>
+                        <button type="submit" id="submitButton" class="btn btn-submit">Cập nhật thể loại</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="danger-zone">
+                <div class="danger-zone-title">Vùng nguy hiểm</div>
+                <div class="danger-zone-description">
+                    Xóa thể loại sẽ ảnh hưởng đến tất cả phim thuộc thể loại này. Hành động này không thể hoàn tác.
+                </div>
+                <button type="button" id="deleteGenreButton" class="btn btn-danger">Xóa thể loại này</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/admin/genres-edit.js">
+
+    </script>
+</body>
+
+</html>

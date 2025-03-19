@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/admin/movies.css" />
+    <title>NOTFLEX Admin - Quản lý Vai trò</title>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="menu-toggle">☰</div>
+        <a href="dashboard.html" class="logo">NOTFLEX</a>
+        <div class="header-title">Quản lý Vai trò</div>
+        <div class="user-menu">
+            <a href="#">Admin</a>
+            <a href="#">Đăng xuất</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-menu">
+                <div class="menu-title">Quản lý nội dung</div>
+                <a href="dashboard.html" class="menu-item">
+                    <i class="fa fa-dashboard">📊</i> Dashboard
+                </a>
+                <a href="movies.html" class="menu-item">
+                    <i class="fa fa-film">🎬</i> Phim
+                </a>
+                <a href="genres.html" class="menu-item">
+                    <i class="fa fa-tags">🏷️</i> Thể loại
+                </a>
+
+                <div class="menu-title">Quản lý người dùng</div>
+                <a href="users.html" class="menu-item">
+                    <i class="fa fa-users">👥</i> Users
+                </a>
+                <a href="roles.html" class="menu-item active">
+                    <i class="fa fa-lock">🔒</i> Role
+                </a>
+
+                <div class="menu-title">Hệ thống</div>
+                <a href="settings.html" class="menu-item">
+                    <i class="fa fa-cog">⚙️</i> Cài đặt
+                </a>
+                <a href="statistics.html" class="menu-item">
+                    <i class="fa fa-bar-chart">📈</i> Thống kê
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-title">
+                <h1>Quản lý Vai trò</h1>
+                <button class="btn"><a href="role-add.html">Thêm vai trò mới</a></button>
+            </div>
+
+            <div class="filters">
+                <div class="search-box">
+                    <i class="fa fa-search">🔍</i>
+                    <input type="text" placeholder="Tìm kiếm vai trò...">
+                </div>
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên vai trò</th>
+                        <th>Mô tả</th>
+                        <th>Quyền hạn</th>
+                        <th>Số người dùng</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><span class="role-badge role-admin">Admin</span></td>
+                        <td>Quản trị viên với toàn quyền trên hệ thống</td>
+                        <td>
+                            <div class="permission-tags">
+                                <span class="permission-tag">Quản lý phim</span>
+                                <span class="permission-tag">Quản lý thể loại</span>
+                                <span class="permission-tag">Quản lý người dùng</span>
+                                <span class="permission-tag">Quản lý vai trò</span>
+                                <span class="permission-tag">Quản lý hệ thống</span>
+                            </div>
+                        </td>
+                        <td>2</td>
+                        <td class="action-buttons">
+                            <button class="action-btn view">Xem người dùng</button>
+                            <button class="action-btn edit"><a href="role-edit.html">Sửa</a></button>
+                            <button class="action-btn delete">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><span class="role-badge role-moderator">Moderator</span></td>
+                        <td>Người kiểm duyệt nội dung</td>
+                        <td>
+                            <div class="permission-tags">
+                                <span class="permission-tag">Quản lý phim</span>
+                                <span class="permission-tag">Quản lý thể loại</span>
+                                <span class="permission-tag">Xem thông tin người dùng</span>
+                            </div>
+                        </td>
+                        <td>5</td>
+                        <td class="action-buttons">
+                            <button class="action-btn view">Xem người dùng</button>
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn delete">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><span class="role-badge role-user">User</span></td>
+                        <td>Người dùng thông thường</td>
+                        <td>
+                            <div class="permission-tags">
+                                <span class="permission-tag">Xem phim</span>
+                                <span class="permission-tag">Bình luận</span>
+                                <span class="permission-tag">Đánh giá</span>
+                            </div>
+                        </td>
+                        <td>8,706</td>
+                        <td class="action-buttons">
+                            <button class="action-btn view">Xem người dùng</button>
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn delete">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><span class="role-badge role-premium">Premium</span></td>
+                        <td>Người dùng trả phí với các đặc quyền</td>
+                        <td>
+                            <div class="permission-tags">
+                                <span class="permission-tag">Xem phim</span>
+                                <span class="permission-tag">Bình luận</span>
+                                <span class="permission-tag">Đánh giá</span>
+                                <span class="permission-tag">Tải phim</span>
+                                <span class="permission-tag">Không quảng cáo</span>
+                            </div>
+                        </td>
+                        <td>1,254</td>
+                        <td class="action-buttons">
+                            <button class="action-btn view">Xem người dùng</button>
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn delete">Xóa</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+
+    <script>
+        // Simple toggle for responsive sidebar
+        document.querySelector('.menu-toggle').addEventListener('click', function () {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/admin/movies.css" />
+    <title>NOTFLEX Admin - Quản lý Thể loại</title>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="menu-toggle">☰</div>
+        <a href="dashboard.html" class="logo">NOTFLEX</a>
+        <div class="header-title">Quản lý Thể loại</div>
+        <div class="user-menu">
+            <a href="#">Admin</a>
+            <a href="#">Đăng xuất</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-menu">
+                <div class="menu-title">Quản lý nội dung</div>
+                <a href="dashboard.html" class="menu-item">
+                    <i class="fa fa-dashboard">📊</i> Dashboard
+                </a>
+                <a href="movies.html" class="menu-item">
+                    <i class="fa fa-film">🎬</i> Phim
+                </a>
+                <a href="genres.html" class="menu-item active">
+                    <i class="fa fa-tags">🏷️</i> Thể loại
+                </a>
+
+                <div class="menu-title">Quản lý người dùng</div>
+                <a href="users.html" class="menu-item">
+                    <i class="fa fa-users">👥</i> Users
+                </a>
+                <a href="roles.html" class="menu-item">
+                    <i class="fa fa-lock">🔒</i> Role
+                </a>
+
+                <div class="menu-title">Hệ thống</div>
+                <a href="settings.html" class="menu-item">
+                    <i class="fa fa-cog">⚙️</i> Cài đặt
+                </a>
+                <a href="statistics.html" class="menu-item">
+                    <i class="fa fa-bar-chart">📈</i> Thống kê
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-title">
+                <h1>Quản lý Thể loại</h1>
+                <button class="btn"><a href="genres-add.html">Thêm thể loại mới</a></button>
+            </div>
+
+            <div class="filters">
+                <div class="search-box">
+                    <i class="fa fa-search">🔍</i>
+                    <input type="text" placeholder="Tìm kiếm thể loại...">
+                </div>
+                <select class="filter-select">
+                    <option>Sắp xếp theo</option>
+                    <option>Tên A-Z</option>
+                    <option>Số phim</option>
+                    <option>Ngày tạo</option>
+                </select>
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên thể loại</th>
+                        <th>Mô tả</th>
+                        <th>Số phim</th>
+                        <th>Ngày tạo</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Hành động</td>
+                        <td>Phim có nhiều cảnh hành động, đánh đấm, rượt đuổi</td>
+                        <td>245</td>
+                        <td>01/01/2023</td>
+                        <td class="action-buttons">
+                            <button class="action-btn view">Xem phim</button>
+                            <button class="action-btn edit"><a href="genres-edit.html">Sửa</a></button>
+                            <button class="action-btn delete">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Hoạt hình</td>
+                        <td>Phim hoạt hình, anime</td>
+                        <td>312</td>
+                        <td>05/01/2023</td>
+                        <td class="action-buttons">
+                            <button class="action-btn view">Xem phim</button>
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn delete">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Tình cảm</td>
+                        <td>Phim về tình yêu, tình cảm lãng mạn</td>
+                        <td>187</td>
+                        <td>10/01/2023</td>
+                        <td class="action-buttons">
+                            <button class="action-btn view">Xem phim</button>
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn delete">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Kinh dị</td>
+                        <td>Phim có nội dung đáng sợ, gây căng thẳng và hồi hộp</td>
+                        <td>124</td>
+                        <td>15/01/2023</td>
+                        <td class="action-buttons">
+                            <button class="action-btn view">Xem phim</button>
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn delete">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Khoa học viễn tưởng</td>
+                        <td>Phim với các yếu tố khoa học, công nghệ tương lai và thế giới giả tưởng</td>
+                        <td>98</td>
+                        <td>20/01/2023</td>
+                        <td class="action-buttons">
+                            <button class="action-btn view">Xem phim</button>
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn delete">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Hài</td>
+                        <td>Phim với nội dung hài hước, vui nhộn</td>
+                        <td>176</td>
+                        <td>25/01/2023</td>
+                        <td class="action-buttons">
+                            <button class="action-btn view">Xem phim</button>
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn delete">Xóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Tâm lý</td>
+                        <td>Phim khai thác sâu vào tâm lý nhân vật</td>
+                        <td>103</td>
+                        <td>30/01/2023</td>
+                        <td class="action-buttons">
+                            <button class="action-btn view">Xem phim</button>
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn delete">Xóa</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <button class="pagination-btn">«</button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">»</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple toggle for responsive sidebar
+        document.querySelector('.menu-toggle').addEventListener('click', function () {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+    </script>
+</body>
+
+</html>

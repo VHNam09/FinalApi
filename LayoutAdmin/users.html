@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/admin/movies.css" />
+    <title>NOTFLEX Admin - Quản lý Người dùng</title>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="menu-toggle">☰</div>
+        <a href="dashboard.html" class="logo">NOTFLEX</a>
+        <div class="header-title">Quản lý Người dùng</div>
+        <div class="user-menu">
+            <a href="#">Admin</a>
+            <a href="#">Đăng xuất</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-menu">
+                <div class="menu-title">Quản lý nội dung</div>
+                <a href="dashboard.html" class="menu-item">
+                    <i class="fa fa-dashboard">📊</i> Dashboard
+                </a>
+                <a href="movies.html" class="menu-item">
+                    <i class="fa fa-film">🎬</i> Phim
+                </a>
+                <a href="genres.html" class="menu-item">
+                    <i class="fa fa-tags">🏷️</i> Thể loại
+                </a>
+
+                <div class="menu-title">Quản lý người dùng</div>
+                <a href="users.html" class="menu-item active">
+                    <i class="fa fa-users">👥</i> Users
+                </a>
+                <a href="roles.html" class="menu-item">
+                    <i class="fa fa-lock">🔒</i> Role
+                </a>
+
+                <div class="menu-title">Hệ thống</div>
+                <a href="settings.html" class="menu-item">
+                    <i class="fa fa-cog">⚙️</i> Cài đặt
+                </a>
+                <a href="statistics.html" class="menu-item">
+                    <i class="fa fa-bar-chart">📈</i> Thống kê
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-title">
+                <h1>Quản lý Người dùng</h1>
+                <button class="btn"><a href="user-add.html">Thêm người dùng mới</a></button>
+            </div>
+
+            <div class="filters">
+                <div class="search-box">
+                    <i class="fa fa-search">🔍</i>
+                    <input type="text" placeholder="Tìm kiếm người dùng...">
+                </div>
+                <select class="filter-select">
+                    <option>Tất cả vai trò</option>
+                    <option>Admin</option>
+                    <option>Moderator</option>
+                    <option>User</option>
+                </select>
+                <select class="filter-select">
+                    <option>Tất cả trạng thái</option>
+                    <option>Hoạt động</option>
+                    <option>Bị khóa</option>
+                </select>
+                <select class="filter-select">
+                    <option>Sắp xếp theo</option>
+                    <option>Mới nhất</option>
+                    <option>Tên A-Z</option>
+                </select>
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Người dùng</th>
+                        <th>Email</th>
+                        <th>Vai trò</th>
+                        <th>Ngày đăng ký</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>
+                            <div class="user-info">
+                                <img src="https://via.placeholder.com/32" alt="Admin" class="user-avatar">
+                                <span>admin</span>
+                            </div>
+                        </td>
+                        <td>admin@notflex.com</td>
+                        <td><span class="role-badge role-admin">Admin</span></td>
+                        <td>01/01/2023</td>
+                        <td><span class="status-badge status-active">Hoạt động</span></td>
+                        <td class="action-buttons">
+                            <button class="action-btn view">Xem</button>
+                            <button class="action-btn edit"><a href="user-edit.html">Sửa</a></button>
+                            <button class="action-btn lock">Khóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>
+                            <div class="user-info">
+                                <img src="https://via.placeholder.com/32" alt="Moderator" class="user-avatar">
+                                <span>moderator</span>
+                            </div>
+                        </td>
+                        <td>mod@notflex.com</td>
+                        <td><span class="role-badge role-moderator">Moderator</span></td>
+                        <td>15/03/2023</td>
+                        <td><span class="status-badge status-active">Hoạt động</span></td>
+                        <td class="action-buttons">
+                            <button class="action-btn view">Xem</button>
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn lock">Khóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>
+                            <div class="user-info">
+                                <img src="https://via.placeholder.com/32" alt="User" class="user-avatar">
+                                <span>user123</span>
+                            </div>
+                        </td>
+                        <td>user123@gmail.com</td>
+                        <td><span class="role-badge role-user">User</span></td>
+                        <td>05/06/2023</td>
+                        <td><span class="status-badge status-active">Hoạt động</span></td>
+                        <td class="action-buttons">
+                            <button class="action-btn view">Xem</button>
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn lock">Khóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>
+                            <div class="user-info">
+                                <img src="https://via.placeholder.com/32" alt="Blocked User" class="user-avatar">
+                                <span>blocked_user</span>
+                            </div>
+                        </td>
+                        <td>blocked@gmail.com</td>
+                        <td><span class="role-badge role-user">User</span></td>
+                        <td>10/08/2023</td>
+                        <td><span class="status-badge status-inactive">Bị khóa</span></td>
+                        <td class="action-buttons">
+                            <button class="action-btn view">Xem</button>
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn unlock">Mở khóa</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>
+                            <div class="user-info">
+                                <img src="https://via.placeholder.com/32" alt="New User" class="user-avatar">
+                                <span>newuser</span>
+                            </div>
+                        </td>
+                        <td>newuser@gmail.com</td>
+                        <td><span class="role-badge role-user">User</span></td>
+                        <td>15/03/2024</td>
+                        <td><span class="status-badge status-active">Hoạt động</span></td>
+                        <td class="action-buttons">
+                            <button class="action-btn view">Xem</button>
+                            <button class="action-btn edit">Sửa</button>
+                            <button class="action-btn lock">Khóa</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <button class="pagination-btn">«</button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <button class="pagination-btn">»</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple toggle for responsive sidebar
+        document.querySelector('.menu-toggle').addEventListener('click', function () {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+    </script>
+</body>
+
+</html>

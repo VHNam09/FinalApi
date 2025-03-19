@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/admin/movies.css" />
+    <link rel="stylesheet" href="../assets/css/admin/genres-add.css" />
+    <title>NOTFLEX Admin - Thêm Thể loại</title>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="menu-toggle">☰</div>
+        <a href="dashboard.html" class="logo">NOTFLEX</a>
+        <div class="header-title">Thêm Thể loại</div>
+        <div class="user-menu">
+            <a href="#">Admin</a>
+            <a href="#">Đăng xuất</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-menu">
+                <div class="menu-title">Quản lý nội dung</div>
+                <a href="dashboard.html" class="menu-item">
+                    <i class="fa fa-dashboard">📊</i> Dashboard
+                </a>
+                <a href="movies.html" class="menu-item">
+                    <i class="fa fa-film">🎬</i> Phim
+                </a>
+                <a href="genres.html" class="menu-item active">
+                    <i class="fa fa-tags">🏷️</i> Thể loại
+                </a>
+
+                <div class="menu-title">Quản lý người dùng</div>
+                <a href="users.html" class="menu-item">
+                    <i class="fa fa-users">👥</i> Users
+                </a>
+                <a href="roles.html" class="menu-item">
+                    <i class="fa fa-lock">🔒</i> Role
+                </a>
+
+                <div class="menu-title">Hệ thống</div>
+                <a href="settings.html" class="menu-item">
+                    <i class="fa fa-cog">⚙️</i> Cài đặt
+                </a>
+                <a href="statistics.html" class="menu-item">
+                    <i class="fa fa-bar-chart">📈</i> Thống kê
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-title">
+                <h1>Thêm Thể loại mới</h1>
+                <a href="genres.html" class="btn btn-cancel">Quay lại danh sách</a>
+            </div>
+
+            <div class="form-container">
+                <div class="form-title">Thông tin thể loại</div>
+                <form id="addGenreForm">
+                    <div class="form-group">
+                        <label for="name" class="required-field">Tên thể loại</label>
+                        <input type="text" id="name" class="form-control" placeholder="Nhập tên thể loại" required>
+                        <div id="name-error" class="error-message">Vui lòng nhập tên thể loại</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description" class="required-field">Mô tả</label>
+                        <textarea id="description" class="form-control" rows="4" placeholder="Nhập mô tả thể loại"
+                            required></textarea>
+                        <div id="description-error" class="error-message">Vui lòng nhập mô tả thể loại</div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="cancelButton" class="btn btn-cancel">Hủy</button>
+                        <button type="submit" id="submitButton" class="btn btn-submit">Thêm thể loại</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/admin/genres-add.js">
+
+    </script>
+</body>
+
+</html>

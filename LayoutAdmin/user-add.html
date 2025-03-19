@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/admin/movies.css" />
+    <link rel="stylesheet" href="../assets/css/admin/users-add.css" />
+    <title>NOTFLEX Admin - Thêm Người dùng</title>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="menu-toggle">☰</div>
+        <a href="dashboard.html" class="logo">NOTFLEX</a>
+        <div class="header-title">Thêm Người dùng</div>
+        <div class="user-menu">
+            <a href="#">Admin</a>
+            <a href="#">Đăng xuất</a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav class="sidebar-menu">
+                <div class="menu-title">Quản lý nội dung</div>
+                <a href="dashboard.html" class="menu-item">
+                    <i class="fa fa-dashboard">📊</i> Dashboard
+                </a>
+                <a href="movies.html" class="menu-item">
+                    <i class="fa fa-film">🎬</i> Phim
+                </a>
+                <a href="genres.html" class="menu-item">
+                    <i class="fa fa-tags">🏷️</i> Thể loại
+                </a>
+
+                <div class="menu-title">Quản lý người dùng</div>
+                <a href="users.html" class="menu-item active">
+                    <i class="fa fa-users">👥</i> Users
+                </a>
+                <a href="roles.html" class="menu-item">
+                    <i class="fa fa-lock">🔒</i> Role
+                </a>
+
+                <div class="menu-title">Hệ thống</div>
+                <a href="settings.html" class="menu-item">
+                    <i class="fa fa-cog">⚙️</i> Cài đặt
+                </a>
+                <a href="statistics.html" class="menu-item">
+                    <i class="fa fa-bar-chart">📈</i> Thống kê
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-title">
+                <h1>Thêm Người dùng mới</h1>
+                <a href="users.html" class="btn btn-cancel">Quay lại danh sách</a>
+            </div>
+
+            <div class="form-container">
+                <div class="form-title">Thông tin người dùng</div>
+                <form id="addUserForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="username" class="required-field">Tên đăng nhập</label>
+                            <input type="text" id="username" class="form-control" placeholder="Nhập tên đăng nhập"
+                                required>
+                            <div id="username-error" class="error-message">Vui lòng nhập tên đăng nhập</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="required-field">Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="Nhập địa chỉ email"
+                                required>
+                            <div id="email-error" class="error-message">Vui lòng nhập email hợp lệ</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="password" class="required-field">Mật khẩu</label>
+                            <input type="password" id="password" class="form-control" placeholder="Nhập mật khẩu"
+                                required>
+                            <div id="password-error" class="error-message">Mật khẩu phải có ít nhất 8 ký tự</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword" class="required-field">Xác nhận mật khẩu</label>
+                            <input type="password" id="confirmPassword" class="form-control"
+                                placeholder="Nhập lại mật khẩu" required>
+                            <div id="confirmPassword-error" class="error-message">Mật khẩu không khớp</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role" class="required-field">Vai trò</label>
+                        <select id="role" class="form-control" required>
+                            <option value="">Chọn vai trò</option>
+                            <option value="1">admin</option>
+                            <option value="2" selected>user</option>
+                            <option value="3">moderator</option>
+                        </select>
+                        <div id="role-error" class="error-message">Vui lòng chọn vai trò</div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" id="cancelButton" class="btn btn-cancel">Hủy</button>
+                        <button type="submit" id="submitButton" class="btn btn-submit">Thêm người dùng</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/admin/users-add.js">
+
+    </script>
+</body>
+
+</html>
