@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieApi.Data;
 
-#nullable disable
+#nullable disable   
 
 namespace MovieApi.Migrations
 {

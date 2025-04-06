@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using MovieApi.Data;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,19 +11,35 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<GenresContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("MovieContext")));
 
-// Cấu hình CORS chỉ 1 lần
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+// Cấu hình CORS đúng cách
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      policy =>
-                      {
-                          policy.WithOrigins("http://127.0.0.1:5501/") // Cho phép FE chạy từ Live Server (VS Code)
-                                .AllowAnyHeader()
-                                .AllowAnyMethod();
-                      });
+    options.AddPolicy("AllowLocalhost", policy =>
+    {
+        policy.WithOrigins(
+                "http://127.0.0.1:5500",
+                "http://127.0.0.1:5501",
+                "https://localhost:7186")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials(); // Thêm dòng này nếu cần xác thực qua CORS
+    });
 });
 
+// Cấu hình JWT Authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],  // Thêm vào appsettings.json
+            ValidAudience = builder.Configuration["Jwt:Audience"],  // Thêm vào appsettings.json
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"])) // Thêm vào appsettings.json
+        };
+    });
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -39,62 +58,12 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseDeveloperExceptionPage();
 
-// Đặt UseCors trước UseAuthorization
-app.UseCors(MyAllowSpecificOrigins);
+app.UseRouting();
+// Áp dụng CORS - QUAN TRỌNG: Phải đặt trước UseAuthorization
+app.UseCors("AllowLocalhost");
+app.UseAuthentication();
 app.UseAuthorization();
-
 
 app.MapControllers();
 
 app.Run();
-
-
-//using Microsoft.EntityFrameworkCore;
-//using MovieApi.Data;
-
-//var builder = WebApplication.CreateBuilder(args);
-
-//// Add services to the container
-//builder.Services.AddControllersWithViews();
-//builder.Services.AddDbContext<MovieContext>(opt =>
-//    opt.UseSqlServer(builder.Configuration.GetConnectionString("MovieContext")));
-
-//// Thêm CORS chỉ 1 lần ở đây
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowAll",
-//        policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-//});
-
-//builder.Services.AddControllers();
-//builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
-//builder.Services.AddHttpClient();
-
-//var app = builder.Build();
-
-//// Configure the HTTP request pipeline
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
-
-//app.UseHttpsRedirection();
-//app.UseDeveloperExceptionPage();
-
-//// Áp dụng CORS trước khi Authorization
-//app.UseCors("AllowAll");
-
-//app.UseAuthorization();
-
-//// Cho phép chạy file tĩnh (HTML, CSS, JS)
-//app.UseDefaultFiles();
-//app.UseStaticFiles();
-
-//// Điều hướng tới file HTML frontend
-//app.MapGet("/", () => Results.Redirect("/pages/htmlpage.html"));
-
-//app.MapControllers();
-
-//app.Run();
