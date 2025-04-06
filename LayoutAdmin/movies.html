@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/admin/movies.css" />
-    <title>NOTFLEX Admin - Quản lý Phim DMM</title>
+    <title>NOTFLEX Admin - Quản lý Phims</title>
 </head>
 
 <body>
@@ -58,37 +58,29 @@
         <main class="main-content">
             <div class="page-title">
                 <h1>Quản lý Phim</h1>
-                <button class="btn"><a href="movies-add.html">Thêm phim mới</a></button>
+                <button class="btn" ><a href="movies-add.html">Thêm Phim mới</a></button>
             </div>
-
             <div class="filters">
-                <div class="search-box" >
+                <div class="search-box">
                     <i class="fa fa-search">🔍</i>
                     <input type="text" placeholder="Tìm kiếm phim...">
                 </div>
-                <select class="filter-select"  id="boxSearchs">
-                    <option>Tất cả thể loại</option>
-                    <option>Hành động</option>
-                    <option>Hoạt hình</option>
-                    <option>Tình cảm</option>
-                    <option>Kinh dị</option>
+                <div class="search-box" style="display: flex; align-items: center;">
+                    <input type="number" id="yearInput" placeholder="Nhập năm phát hành" />
+                    <button style=" height: 37.2px; width: 20%; background-color: black; color: rgb(237, 226, 226); font-weight: 600;" onclick="filterByYear()">🔍</button>
+                </div>
+                <table class="data-table">
+                <select class="filter-select" id="genreSelect">
+                 
                 </select>
-                <select class="filter-select">
-                    <option>Tất cả năm</option>
-                    <option>2023</option>
-                    <option>2022</option>
-                    <option>2021</option>
-                    <option>2020</option>
-                </select>
-                <select class="filter-select">
+                <select class="filter-select" id="sort-options">
                     <option>Sắp xếp theo</option>
-                    <option>Mới nhất</option>
-                    <option>Năm phát hành</option>
-                    <option>Tên A-Z</option>
+                    <option value="newest">Mới nhất</option>
+                    <option value="Az">A-Z</option>
+                
                 </select>
             </div>
-
-            <table class="data-table">
+  
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -130,105 +122,63 @@
 
 <script>
         
-function fetchMovies2() {
-    var apiUrl = 'https://localhost:7186/api/Movie/with-genres'; // Nên trỏ đúng route lấy kèm genres
 
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(movies => {
-            if (!Array.isArray(movies)) {
-                throw new Error("Invalid response format. Expected an array.");
-            }
-
-            var html1 = movies.map(movie => `
-            <tr>
+    let selectedGenreId = "";
+    let selectedSortOrder = "";
+    
+    // Gọi API với bộ lọc thể loại và sắp xếp
+    function fetchMovies() {
+        let apiUrl = `https://localhost:7186/api/Movie/filtered-sorted?`;
+    
+        if (selectedGenreId) apiUrl += `genreId=${selectedGenreId}&`;
+        if (selectedSortOrder) apiUrl += `sortOrder=${selectedSortOrder}`;
+    
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(movies => {
+                let moviesContainer = document.getElementById('movies-list-api');
+                if (moviesContainer) {
+                    moviesContainer.innerHTML = movies.length ?
+                        movies.map(movie => `
+                     <tr>
                 <td>${movie.id}</td>
                 <td>
                     <img src="${movie.poster}" alt="${movie.title}" class="movie-thumbnail">
                 </td>
                 <td>${movie.title}</td>
-                <td>${movie.genreIds.join(", ")}</td> <!-- Chuyển array genres thành chuỗi -->
+                <td id="nameGenres">${movie.genreIds.join(", ")}</td> <!-- Chuyển array genres thành chuỗi -->
                 <td>${movie.releaseYear}</td>
                 <td>${movie.director}</td>
                 <td>${movie.duration} phút</td>
                 <td>${new Date(movie.createdAt).toLocaleDateString()}</td> <!-- Format ngày cho đẹp -->
                 <td class="action-buttons">
                     <button class="action-btn view">Xem</button>
-                    <button class="action-btn edit"><a href="movies-edit.html?id=${movie.id}">Sửa</a></button>
+                    <button class="action-btn edit"><a href="movies-edit.html?id=${movie.id}" style="color: #3498db;">Sửa</a></button>
                     <button class="action-btn delete" onclick="deleteMovie(${movie.id})">Xóa</button>
                 </td>
             </tr>
-            `).join("");
-
-            // Gán dữ liệu vào phần tử HTML nếu tồn tại
-            let testApiEl = document.getElementById('movies-list-api');
-            if (testApiEl) {
-                testApiEl.innerHTML = html1;
-            } else {
-                console.error("Element with ID 'movies-list-api' not found.");
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching movies:", error);
-            let testApiEl = document.getElementById('movies-list-api');
-            if (testApiEl) {
-                testApiEl.innerHTML = `<p class="error-message">Failed to load movies. Please try again later.</p>`;
-            }
-        });
-}
-
-// Gọi hàm để lấy danh sách phim
-fetchMovies2();
-
-
-
-
-function fetchGenres() {
-    var apiUrl = 'https://localhost:7186/api/Genres'; // Nên trỏ đúng route lấy kèm genres
-
-    fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(genress => {
-            if (!Array.isArray(genress)) {
-                throw new Error("Invalid response format. Expected an array.");
-            }
-
-            var html1 = genress.map(genress => `
-            
-                    <option>${genress.name}</option>
-         
-   
-            `).join("");
-
-            // Gán dữ liệu vào phần tử HTML nếu tồn tại
-            let testApiEl = document.getElementById('boxSearchs');
-            if (testApiEl) {
-                testApiEl.innerHTML = html1;
-            } else {
-                console.error("Element with ID 'boxSearchs' not found.");
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching genress:", error);
-            let testApiEl = document.getElementById('boxSearchs');
-            if (testApiEl) {
-                testApiEl.innerHTML = `<p class="error-message">Failed to load movies. Please try again later.</p>`;
-            }
-        });
-}
-
-// Gọi hàm để lấy danh sách phim
-fetchGenres();
+                        `).join("") :
+                        `<p>Không có phim nào.</p>`;
+                }
+            })
+            .catch(error => console.error("Lỗi khi lấy danh sách phim:", error));
+    }
+    
+    // Cập nhật khi chọn thể loại
+    document.getElementById('genreSelect').addEventListener('change', function () {
+        selectedGenreId = this.value;
+        fetchMovies();
+    });
+    
+    // Cập nhật khi chọn sắp xếp
+    document.getElementById("sort-options").addEventListener("change", function () {
+        selectedSortOrder = this.value;
+        fetchMovies();
+    });
+    
+    // Gọi API khi trang tải lần đầu
+    fetchMovies();
+    
 </script>
 
 

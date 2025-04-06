@@ -1,81 +1,114 @@
-// Simple toggle for responsive sidebar
-document.querySelector('.menu-toggle').addEventListener('click', function () {
-    document.querySelector('.sidebar').classList.toggle('active');
-});
 
-// Form validation
-document.getElementById('addUserForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    let isValid = true;
+// Khi DOM tải xong
+document.addEventListener('DOMContentLoaded', function () {
+    const addUserForm = document.getElementById('submitButton');
+    const cancelButton = document.getElementById('cancelButton');
 
-    // Username validation
-    const username = document.getElementById('username');
-    if (!username.value.trim()) {
-        document.getElementById('username-error').style.display = 'block';
-        isValid = false;
-    } else {
-        document.getElementById('username-error').style.display = 'none';
+    // 1. Tải danh sách role từ API
+    fetchRoles();
+
+    function fetchRoles() {
+        fetch('https://localhost:7186/api/Roles') // Đổi URL API thật vào đây
+            .then(response => response.json())
+            .then(data => populateRoleDropdown(data))
+            .catch(error => console.error('Error fetching roles:', error));
     }
 
-    // Email validation
-    const email = document.getElementById('email');
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email.value.trim() || !emailRegex.test(email.value.trim())) {
-        document.getElementById('email-error').style.display = 'block';
-        isValid = false;
-    } else {
-        document.getElementById('email-error').style.display = 'none';
+    function populateRoleDropdown(roles) {
+        const roleSelect = document.getElementById('role');
+        roles.forEach(role => {
+            const option = document.createElement('option');
+            option.value = role.id;
+            option.textContent = role.name;
+            roleSelect.appendChild(option);
+        });
     }
 
-    // Password validation
-    const password = document.getElementById('password');
-    if (!password.value.trim() || password.value.length < 8) {
-        document.getElementById('password-error').style.display = 'block';
-        isValid = false;
-    } else {
-        document.getElementById('password-error').style.display = 'none';
+    // 2. Validate form
+    function validateForm() {
+        let isValid = true;
+
+        // Clear hết error cũ
+        document.querySelectorAll('.error-message').forEach(error => error.style.display = 'none');
+
+        const username = document.getElementById('username').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const roleId = document.getElementById('role').value;
+
+        if (!username) {
+            showError('username-error');
+            isValid = false;
+        }
+
+        if (!validateEmail(email)) {
+            showError('email-error');
+            isValid = false;
+        }
+
+        if (password.length < 8) {
+            showError('password-error');
+            isValid = false;
+        }
+
+        if (!roleId) {
+            showError('role-error');
+            isValid = false;
+        }
+
+        return isValid;
     }
 
-    // Confirm password validation
-    const confirmPassword = document.getElementById('confirmPassword');
-    if (password.value !== confirmPassword.value) {
-        document.getElementById('confirmPassword-error').style.display = 'block';
-        isValid = false;
-    } else {
-        document.getElementById('confirmPassword-error').style.display = 'none';
+    function showError(id) {
+        document.getElementById(id).style.display = 'block';
     }
 
-    // Role validation
-    const role = document.getElementById('role');
-    if (!role.value) {
-        document.getElementById('role-error').style.display = 'block';
-        isValid = false;
-    } else {
-        document.getElementById('role-error').style.display = 'none';
+    function validateEmail(email) {
+        // Regex kiểm tra email
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
     }
 
-    if (isValid) {
-        // Prepare data for submission
+    // 3. Xử lý submit form
+    addUserForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        alert('Please enter')
+        if (!validateForm()) {
+            return;
+        }
+
         const userData = {
-            username: username.value,
-            email: email.value,
-            password: password.value, // In a real app, you'd hash this on the server
-            roleId: parseInt(role.value),
-            createdAt: new Date().toISOString() // Current date/time
+            username: document.getElementById('username').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            password: document.getElementById('password').value,
+            roleId: document.getElementById('role').value
         };
 
-        console.log('User data to submit:', userData);
+        // Gửi dữ liệu lên API
+        fetch('https://localhost:7186/api/Users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Lỗi khi thêm người dùng');
+            }
+            alert('Thêm người dùng thành công!');
+            window.location.href = 'users.html'; // Quay lại danh sách
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Có lỗi xảy ra khi thêm người dùng.');
+        });
+    });
 
-        // In a real application, you would submit the form to the server
-        alert('Người dùng đã được thêm thành công!');
-        // Redirect to users list
-        window.location.href = 'users.html';
-    }
-});
-
-// Cancel button
-document.getElementById('cancelButton').addEventListener('click', function () {
-    if (confirm('Bạn có chắc muốn hủy? Mọi thay đổi sẽ không được lưu.')) {
-        window.location.href = 'users.html';
-    }
+    // 4. Xử lý nút Hủy
+    cancelButton.addEventListener('click', function () {
+        if (confirm('Bạn có chắc chắn muốn hủy?')) {
+            window.location.href = 'users.html';
+        }
+    });
 });

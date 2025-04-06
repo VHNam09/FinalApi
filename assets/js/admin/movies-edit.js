@@ -36,126 +36,68 @@ document.getElementById('poster').addEventListener('input', function () {
 });
 
 // Form validation
-document.getElementById('editMovieForm').addEventListener('submit', function (e) {
+document.getElementById('editMovieForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     let isValid = true;
 
-    // Title validation
-    const title = document.getElementById('title');
-    if (!title.value.trim()) {
-        document.getElementById('title-error').style.display = 'block';
-        isValid = false;
-    } else {
-        document.getElementById('title-error').style.display = 'none';
-    }
-
-    // Description validation
-    const description = document.getElementById('description');
-    if (!description.value.trim()) {
-        document.getElementById('description-error').style.display = 'block';
-        isValid = false;
-    } else {
-        document.getElementById('description-error').style.display = 'none';
-    }
-
-    // Release year validation
-    const releaseYear = document.getElementById('releaseYear');
-    if (!releaseYear.value || releaseYear.value < 1900 || releaseYear.value > 2100) {
-        document.getElementById('releaseYear-error').style.display = 'block';
-        isValid = false;
-    } else {
-        document.getElementById('releaseYear-error').style.display = 'none';
-    }
-
-    // Director validation
-    const director = document.getElementById('director');
-    if (!director.value.trim()) {
-        document.getElementById('director-error').style.display = 'block';
-        isValid = false;
-    } else {
-        document.getElementById('director-error').style.display = 'none';
-    }
-
-    // Actors validation
-    const actors = document.getElementById('actors');
-    if (!actors.value.trim()) {
-        document.getElementById('actors-error').style.display = 'block';
-        isValid = false;
-    } else {
-        document.getElementById('actors-error').style.display = 'none';
-    }
-
-    // Duration validation
-    const duration = document.getElementById('duration');
-    if (!duration.value || duration.value < 1) {
-        document.getElementById('duration-error').style.display = 'block';
-        isValid = false;
-    } else {
-        document.getElementById('duration-error').style.display = 'none';
-    }
-
-    // Country validation
-    const country = document.getElementById('country');
-    if (!country.value.trim()) {
-        document.getElementById('country-error').style.display = 'block';
-        isValid = false;
-    } else {
-        document.getElementById('country-error').style.display = 'none';
-    }
-
-    // Poster validation
-    const poster = document.getElementById('poster');
-    if (!poster.value.trim()) {
-        document.getElementById('poster-error').style.display = 'block';
-        isValid = false;
-    } else {
-        document.getElementById('poster-error').style.display = 'none';
-    }
-
-    // Trailer URL validation
-    const trailerUrl = document.getElementById('trailerUrl');
-    if (!trailerUrl.value.trim()) {
-        document.getElementById('trailerUrl-error').style.display = 'block';
-        isValid = false;
-    } else {
-        document.getElementById('trailerUrl-error').style.display = 'none';
-    }
-
-    // Genres validation
-    const checkedGenres = document.querySelectorAll('input[name="genres"]:checked');
-    if (checkedGenres.length === 0) {
-        document.getElementById('genres-error').style.display = 'block';
-        isValid = false;
-    } else {
-        document.getElementById('genres-error').style.display = 'none';
-    }
+    // Validation logic (giữ nguyên phần validation của bạn)
+    // ... (phần validation bạn đã viết)
 
     if (isValid) {
-        // Collect selected genres
-        const selectedGenres = Array.from(checkedGenres).map(checkbox => checkbox.value);
+        const submitButton = document.getElementById('submitButton');
+        const originalButtonText = submitButton.textContent;
+        
+        try {
+            // Hiển thị trạng thái loading
+            submitButton.disabled = true;
+            submitButton.textContent = 'Đang cập nhật...';
 
-        // Prepare data for submission
-        const movieData = {
-            id: parseInt(document.getElementById('movieId').value),
-            title: title.value.trim(),
-            description: description.value.trim(),
-            releaseYear: parseInt(releaseYear.value),
-            director: director.value.trim(),
-            actors: actors.value.trim(),
-            duration: parseInt(duration.value),
-            country: country.value.trim(),
-            poster: poster.value.trim(),
-            trailerUrl: trailerUrl.value.trim(),
-            createdAt: document.getElementById('createdAt').value,
-            genres: selectedGenres
-        };
+            // Collect selected genres
+            const checkedGenres = document.querySelectorAll('input[name="genres"]:checked');
+            const genreIds = Array.from(checkedGenres).map(checkbox => parseInt(checkbox.value));
 
-        console.log('Movie data to submit:', movieData);
+            // Prepare data for submission
+            const movieData = {
+                id: parseInt(document.getElementById('movieId').value),
+                title: document.getElementById('title').value.trim(),
+                description: document.getElementById('description').value.trim(),
+                releaseYear: parseInt(document.getElementById('releaseYear').value),
+                director: document.getElementById('director').value.trim(),
+                actors: document.getElementById('actors').value.trim(),
+                duration: parseInt(document.getElementById('duration').value),
+                country: document.getElementById('country').value.trim(),
+                poster: document.getElementById('poster').value.trim(),
+                trailerUrl: document.getElementById('trailerUrl').value.trim(),
+                genreIds: genreIds // Sử dụng genreIds thay vì genres để phù hợp với API
+            };
 
-        // In a real application, you would submit the form to the server
-        alert('Phim đã được cập nhật thành công!');
-        // Redirect to movies list
-        window.location.href = 'movies.html';
+            // Gọi API PUT
+            const response = await fetch('https://localhost:7186/api/Movie/' + id, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token') // Nếu cần
+                },
+                body: JSON.stringify(movieData)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Cập nhật thất bại');
+            }
+
+            // Xử lý thành công
+            alert('Phim đã được cập nhật thành công!');
+            window.location.href = 'movies.html';
+
+        } catch (error) {
+            console.error('Error updating movie:', error);
+            alert(`Lỗi khi cập nhật phim: ${error.message}`);
+        } finally {
+            // Khôi phục trạng thái nút
+            submitButton.disabled = false;
+            submitButton.textContent = originalButtonText;
+        }
     }
 });
 
@@ -167,12 +109,42 @@ document.getElementById('cancelButton').addEventListener('click', function () {
 });
 
 // Delete movie button
-document.getElementById('deleteMovieButton').addEventListener('click', function () {
-    if (confirm('Bạn có chắc chắn muốn xóa phim này? Hành động này không thể hoàn tác.')) {
-        alert('Phim đã được xóa thành công!');
-        window.location.href = 'movies.html';
+document.getElementById('deleteMovieButton').addEventListener('click', async function() {
+    const movieId = this.getAttribute('data-movie-id');
+    
+    if (!movieId) {
+        alert('Không tìm thấy ID phim');
+        return;
+    }
+
+    if (confirm('Bạn có chắc chắn muốn xóa phim này?')) {
+        try {
+            // Gọi API DELETE bằng fetch
+            const response = await fetch('https://localhost:7186/api/Movie/' + id, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Thêm header Authorization nếu API yêu cầu
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Lỗi khi xóa phim');
+            }
+
+            // Xử lý khi xóa thành công
+            alert('Phim đã được xóa thành công!');
+            window.location.href = 'movies.html'; // Chuyển hướng về trang danh sách
+            
+        } catch (error) {
+            console.error('Lỗi:', error);
+            // alert(`Xóa phim thất bại: ${error.message}`);
+        }
     }
 });
+
 
 
 

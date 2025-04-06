@@ -64,13 +64,13 @@
             <div class="filters">
                 <div class="search-box">
                     <i class="fa fa-search">🔍</i>
-                    <input type="text" placeholder="Tìm kiếm thể loại...">
+                    <input type="text" placeholder="Tìm kiếm thể loại..." id="search-input">
                 </div>
-                <select class="filter-select">
+                <select class="filter-select" id="sort-select">
                     <option>Sắp xếp theo</option>
-                    <option>Tên A-Z</option>
-                    <option>Số phim</option>
-                    <option>Ngày tạo</option>
+                    <option value="name">Tên A-Z</option>
+                    <option value="movieCount">Số phim</option>
+                    <option value="createdAt">Ngày tạo</option>
                 </select>
             </div>
 
@@ -85,91 +85,9 @@
                         <th>Thao tác</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Hành động</td>
-                        <td>Phim có nhiều cảnh hành động, đánh đấm, rượt đuổi</td>
-                        <td>245</td>
-                        <td>01/01/2023</td>
-                        <td class="action-buttons">
-                            <button class="action-btn view">Xem phim</button>
-                            <button class="action-btn edit"><a href="genres-edit.html">Sửa</a></button>
-                            <button class="action-btn delete">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Hoạt hình</td>
-                        <td>Phim hoạt hình, anime</td>
-                        <td>312</td>
-                        <td>05/01/2023</td>
-                        <td class="action-buttons">
-                            <button class="action-btn view">Xem phim</button>
-                            <button class="action-btn edit">Sửa</button>
-                            <button class="action-btn delete">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Tình cảm</td>
-                        <td>Phim về tình yêu, tình cảm lãng mạn</td>
-                        <td>187</td>
-                        <td>10/01/2023</td>
-                        <td class="action-buttons">
-                            <button class="action-btn view">Xem phim</button>
-                            <button class="action-btn edit">Sửa</button>
-                            <button class="action-btn delete">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Kinh dị</td>
-                        <td>Phim có nội dung đáng sợ, gây căng thẳng và hồi hộp</td>
-                        <td>124</td>
-                        <td>15/01/2023</td>
-                        <td class="action-buttons">
-                            <button class="action-btn view">Xem phim</button>
-                            <button class="action-btn edit">Sửa</button>
-                            <button class="action-btn delete">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Khoa học viễn tưởng</td>
-                        <td>Phim với các yếu tố khoa học, công nghệ tương lai và thế giới giả tưởng</td>
-                        <td>98</td>
-                        <td>20/01/2023</td>
-                        <td class="action-buttons">
-                            <button class="action-btn view">Xem phim</button>
-                            <button class="action-btn edit">Sửa</button>
-                            <button class="action-btn delete">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Hài</td>
-                        <td>Phim với nội dung hài hước, vui nhộn</td>
-                        <td>176</td>
-                        <td>25/01/2023</td>
-                        <td class="action-buttons">
-                            <button class="action-btn view">Xem phim</button>
-                            <button class="action-btn edit">Sửa</button>
-                            <button class="action-btn delete">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>Tâm lý</td>
-                        <td>Phim khai thác sâu vào tâm lý nhân vật</td>
-                        <td>103</td>
-                        <td>30/01/2023</td>
-                        <td class="action-buttons">
-                            <button class="action-btn view">Xem phim</button>
-                            <button class="action-btn edit">Sửa</button>
-                            <button class="action-btn delete">Xóa</button>
-                        </td>
-                    </tr>
+                <tbody id="genre-api-list">
+
+
                 </tbody>
             </table>
 
@@ -187,6 +105,106 @@
         document.querySelector('.menu-toggle').addEventListener('click', function () {
             document.querySelector('.sidebar').classList.toggle('active');
         });
+    </script>
+
+    <script>
+        // Hàm gọi API để lấy danh sách thể loại và hiển thị trong bảng
+        function fetchGenres() {
+            var apiUrl = 'https://localhost:7186/api/Genres'; // URL của API
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json(); // Chuyển đổi phản hồi thành định dạng JSON
+                })
+                .then(genres => {
+                    if (!Array.isArray(genres)) {
+                        throw new Error("Invalid response format. Expected an array.");
+                    }
+
+                    // Lưu dữ liệu thể loại vào biến để xử lý sau
+                    let allGenres = genres;
+
+                    // Gán dữ liệu vào phần tử HTML với ID 'genre-api-list'
+                    let genreListEl = document.getElementById('genre-api-list');
+                    if (genreListEl) {
+                        displayGenres(allGenres); // Hiển thị dữ liệu ban đầu
+                    } else {
+                        console.error("Element with ID 'genre-list' not found.");
+                    }
+
+                    // Lắng nghe sự kiện thay đổi lựa chọn sắp xếp
+                    document.getElementById('sort-select').addEventListener('change', function () {
+                        const sortBy = this.value;
+                        const sortedGenres = sortGenres(allGenres, sortBy);
+                        displayGenres(sortedGenres); // Hiển thị dữ liệu đã sắp xếp
+                    });
+
+                    // Lắng nghe sự kiện nhập từ khóa tìm kiếm
+                    document.getElementById('search-input').addEventListener('input', function () {
+                        const searchQuery = this.value.toLowerCase();
+                        const filteredGenres = allGenres.filter(genre =>
+                            genre.name.toLowerCase().includes(searchQuery) ||  // Tìm kiếm theo tên thể loại
+                            genre.description.toLowerCase().includes(searchQuery)  // Tìm kiếm theo mô tả
+                        );
+                        displayGenres(filteredGenres); // Hiển thị kết quả tìm kiếm
+                    });
+                })
+                .catch(error => {
+                    console.error("Error fetching genres:", error);
+                    let genreListEl = document.getElementById('genre-api-list');
+                    if (genreListEl) {
+                        genreListEl.innerHTML = `<p class="error-message">Failed to load genres. Please try again later.</p>`;
+                    }
+                });
+        }
+
+        // Hàm sắp xếp thể loại
+        function sortGenres(genres, sortBy) {
+            return genres.sort((a, b) => {
+                switch (sortBy) {
+                    case "name":
+                        return a.name.localeCompare(b.name); // Sắp xếp theo tên (A-Z)
+                    case "movieCount":
+                        return a.movieCount - b.movieCount; // Sắp xếp theo số phim
+                    case "createdAt":
+                        return new Date(a.createdAt) - new Date(b.createdAt); // Sắp xếp theo ngày tạo
+                    default:
+                        return 0;
+                }
+            });
+        }
+
+        // Hàm để hiển thị danh sách thể loại
+        function displayGenres(genres) {
+            const html = genres.map(genre => `
+        <tr>
+            <td>${genre.id}</td>
+            <td>${genre.name}</td>
+            <td>${genre.description}</td>
+            <td>${genre.movieCount}</td>  <!-- Số phim -->
+            <td>${new Date(genre.createdAt).toLocaleDateString()}</td>  <!-- Ngày tạo -->
+            <td class="action-buttons">
+                <button class="action-btn view">Xem</button>
+                <a href="genres-edit.html?id=${genre.id}" class="action-btn edit">Sửa</a>
+                <button class="action-btn delete">Xóa</button>
+            </td>
+        </tr>
+    `).join("");
+
+            // Gán dữ liệu vào bảng
+            let genreListEl = document.getElementById('genre-api-list');
+            if (genreListEl) {
+                genreListEl.innerHTML = html;
+            }
+        }
+
+        // Gọi hàm để tải và hiển thị danh sách thể loại khi trang tải
+        fetchGenres();
+
+
     </script>
 </body>
 

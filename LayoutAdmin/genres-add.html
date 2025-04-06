@@ -88,8 +88,65 @@
         </main>
     </div>
 
-    <script src="../assets/js/admin/genres-add.js">
+    <!-- <script src="../assets/js/admin/genres-add.js">
 
+    </script> -->
+    <script>
+        function addGenre() {
+            const apiUrl = 'https://localhost:7186/api/Genres';
+            const nameInput = document.getElementById('name');
+            const descriptionInput = document.getElementById('description');
+            const submitButton = document.getElementById('submitButton');
+
+            // Tạo payload từ form
+            const genreData = {
+                name: nameInput.value.trim(),
+                description: descriptionInput.value.trim()
+            };
+
+            // Disable nút submit trong khi xử lý
+            submitButton.disabled = true;
+            submitButton.textContent = 'Đang xử lý...';
+
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(genreData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(err => { throw err; });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert('Thêm thể loại thành công!');
+                    window.location.href = 'genres.html'; // Chuyển hướng sau khi thành công
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(error.message || 'Có lỗi xảy ra khi thêm thể loại');
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Thêm thể loại';
+                });
+        }
+
+        // Gắn sự kiện cho form
+        document.getElementById('addGenreForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            addGenre();
+        });
+
+        // Xử lý nút hủy
+        document.getElementById('cancelButton').addEventListener('click', function () {
+            if (confirm('Bạn có chắc muốn hủy thao tác này?')) {
+                window.location.href = 'genres.html';
+            }
+        });
     </script>
 </body>
 

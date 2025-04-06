@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../assets/css/style.css" />
+  <link rel="stylesheet" href="../assets/css/grid.css" />
+  <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css" />
+  <title>Movie</title>
+</head>
+
+<body>
+  <div class="app">
+    <div class="header">
+      <div class="header__left">
+        <a href="">
+          <img class="header__logo" src="../assets/img/logo/logo.png" alt="netflix-font" />
+        </a>
+        <nav class="header__directory">
+          <a href="#" class="header__directory-link active">Trang chủ</a>
+          <a href="#" class="header__directory-link">Phim</a>
+          <a href="#" class="header__directory-link">Mới & Phổ biến</a>
+          <a href="#" class="header__directory-link">Danh sách của tôi</a>
+          <a href="#" class="header__directory-link">Duyệt tìm theo ngôn ngữ</a>
+        </nav>
+      </div>
+      <div class="header__right">
+        <div class="header__icon">
+          <div class="header__icon-search">
+            <input type="text" class="header__icon-input" placeholder="Tìm Kiếm Phim Muốn Xem" />
+            <button class="header__icon-btn">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+          <a class="header__icon-bell" href="">
+            <i class="fa-regular fa-bell"></i>
+          </a>
+        </div>
+        <div class="header__button">
+          <button class="header__register">Register</button>
+          <button class="header__login"><span>Login</span></button>
+        </div>
+        <div class="header__user">
+          <img src="../assets/img/banner/one piece red/One_Piece_Film-_Red_-_Áp_phích_Việt_Nam.jpg" alt="" />
+          <p>Admin</p>
+        </div>
+        <div class="header__user-setting">
+          <ul>
+            <li><a href="">Thông Tin Tài Khoản</a></li>
+            <li><a href="">Danh sách phim yêu thích</a></li>
+            <li><a href="">Đổi mật khẩu</a></li>
+            <li><a href="">Đăng xuất</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="app_main">
+      <div class="grid wide container">
+        <div class="row main_container" id="test-api">
+          <!-- Hiện Phim qua Api -->
+        </div>
+      </div>
+      <div class="pagging__container">
+        <li class="pagging__cotainer-items">
+          <a class="pagging__container-link">
+            <i class="pagination-item__icon fa-solid fa-arrow-left"></i>
+          </a>
+        </li>
+        <li class="pagging__cotainer-items">
+          <a class="pagging__container-link">
+            1
+          </a>
+        </li>
+        <li class="pagging__cotainer-items">
+          <a class="pagging__container-link">
+            2
+          </a>
+        </li>
+        <li class="pagging__cotainer-items">
+          <a class="pagging__container-link">
+            3
+          </a>
+        </li>
+        <li class="pagging__cotainer-items">
+          <a class="pagging__container-link">
+            ...
+          </a>
+        </li>
+        <li class="pagging__cotainer-items">
+          <a class="pagging__container-link">
+            15
+          </a>
+        </li>
+        <li class="pagging__cotainer-items">
+          <a class="pagging__container-link">
+            <i class="pagination-item__icon fa-solid fa-arrow-right"></i>
+          </a>
+        </li>
+
+      </div>
+
+    </div>
+
+    <div class="footer">
+      <div class="grid wide">
+        <div class="row">
+          <div class="col l-3 m-4 c-6">
+            <h3 class="footer__heading">Chăm sóc khách hàng</h3>
+            <ul class="footer__list">
+              <li class="footer__list-items">
+                <a href="" class="footer__list-items link">Trung Tâm Trợ Giúp</a>
+              </li>
+              <li class="footer__list-items">
+                <a href="" class="footer__list-items link">Câu hỏi thường gặp</a>
+              </li>
+              <li class="footer__list-items">
+                <a href="" class="footer__list-items link">Quyền Riêng Tư</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col l-3 m-4 c-6">
+            <h3 class="footer__heading">Về MoVie</h3>
+            <ul class="footer__list">
+              <li class="footer__list-items">
+                <a href="" class="footer__list-items link">Giới Thiệu Về MovieMovie Việt Nam</a>
+              </li>
+              <li class="footer__list-items">
+                <a href="" class="footer__list-items link">Điều Khoản Movie</a>
+              </li>
+              <li class="footer__list-items">
+                <a href="" class="footer__list-items link">Liên Hệ Với Truyền Thông</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col l-3 m-4 c-6">
+            <h3 class="footer__heading">Giới Thiệu</h3>
+            <ul class="footer__list">
+              <li class="footer__list-items">
+                <a href="" class="footer__list-items link"><i
+                    class="footer__list-items-icon fa-brands fa-facebook"></i>Facebook</a>
+              </li>
+              <li class="footer__list-items">
+                <a href="" class="footer__list-items link"><i
+                    class="footer__list-items-icon fa-brands fa-instagram"></i>Instagram</a>
+              </li>
+              <li class="footer__list-items">
+                <a href="" class="footer__list-items link"><i
+                    class="footer__list-items-icon fa-brands fa-linkedin"></i>LinkedIn</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col l-3 m-4 c-6">
+            <h3 class="footer__heading">Theo dõi</h3>
+            <ul class="footer__list">
+              <li class="footer__list-items">
+                <a href="" class="footer__list-items link"><i
+                    class="footer__list-items-icon fa-brands fa-facebook"></i>Facebook</a>
+              </li>
+              <li class="footer__list-items">
+                <a href="" class="footer__list-items link"><i
+                    class="footer__list-items-icon fa-brands fa-instagram"></i>Instagram</a>
+              </li>
+              <li class="footer__list-items">
+                <a href="" class="footer__list-items link"><i
+                    class="footer__list-items-icon fa-brands fa-linkedin"></i>LinkedIn</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <div class="grid wide">
+          <p class="footer-text">
+            © 2024 - Bản quyền thuộc về Công ty TNHH Movie
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="../assets/js/main.js"></script>
+
+
+
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const token = localStorage.getItem("token");
+      const username = localStorage.getItem("username");
+      const userId = localStorage.getItem("userId");  // ✨ Thêm dòng này để lấy userId từ localStorage
+
+      if (!token) {
+          window.location.href = "http://127.0.0.1:5501/login.html";
+          return;
+      }
+
+      const welcomeElement = document.getElementById("welcomeMessage");
+      if (welcomeElement && username) {
+          welcomeElement.innerText = `Đang xem phim với tài khoản: ${username}`;
+      }
+
+      fetchMovies(userId);  // ✨ Truyền userId vào hàm fetchMovies
+  });
+
+  function fetchMovies(userId) {
+    var apiUrl = `https://localhost:7186/api/Movie/favorites/${userId}`;
+
+    fetch(apiUrl, {
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("token"), // ✨ Nên thêm Authorization cho an toàn
+            "Content-Type": "application/json"
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(movies => {
+        if (!Array.isArray(movies)) {
+            throw new Error("Invalid response format. Expected an array.");
+        }
+
+        var html1 = movies.map(movie => `
+            <div class="col c-6 m-3 l-2 moviesposter-wrapper">
+                <a href="${movie.trailerUrl}" target="_blank">
+                    <img src="${movie.poster}" alt="${movie.title}" />
+                </a>
+                <h3 class="moviesposter-title">${movie.title}</h3>
+                <div class="moviesposter-practice">1/1</div>
+                <div class="moviesposter-HD">HD</div>
+            </div>
+        `).join("");
+
+        let testApiEl = document.getElementById('test-api');
+        if (testApiEl) {
+            testApiEl.innerHTML = html1;
+        } else {
+            console.error("Element with ID 'test-api' not found.");
+        }
+    })
+    .catch(error => {
+        console.error("Error fetching movies:", error);
+        let testApiEl = document.getElementById('test-api');
+        if (testApiEl) {
+            testApiEl.innerHTML = `<p class="error-message">Failed to load movies. Please try again later.</p>`;
+        }
+    });
+}
+</script>
+
+<h2 id="welcomeMessage"></h2>
+
+
+</html>

@@ -21,7 +21,7 @@
         <a href="#" class="header__directory-link active">Trang chủ</a>
         <a href="movie.html" class="header__directory-link">Phim</a>
         <a href="#" class="header__directory-link">Mới & Phổ biến</a>
-        <a href="#" class="header__directory-link">Danh sách của tôi</a>
+        <a href="favorites.html" class="header__directory-link">Danh sách của tôi</a>
         <a href="#" class="header__directory-link">Duyệt tìm theo ngôn ngữ</a>
       </nav>
     </div>
@@ -272,6 +272,29 @@
 </body>
 <script src="../assets/js/main.js"></script>
 <script src="../assets/js/fetch.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const token = localStorage.getItem("token");
+      const username = localStorage.getItem("username");
+
+      if (!token) {
+          // Nếu không có token => chưa đăng nhập => về trang login
+          window.location.href = "http://127.0.0.1:5501/login.html"; // đổi đúng tên file login nếu khác
+          return;
+      }
+
+      // Nếu có token => cho phép ở lại và hiển thị thông tin user
+      const welcomeElement = document.getElementById("welcomeMessage");
+      if (welcomeElement && username) {
+          welcomeElement.innerText = `Đang xem phim với tài khoản: ${username}`;
+      }
+  });
+</script>
+
+<!-- Ví dụ phần hiển thị -->
+<h2 id="welcomeMessage"></h2>
+<!-- Nội dung phim của bạn sẽ ở dưới -->
 
 
 </html>

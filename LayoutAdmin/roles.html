@@ -74,89 +74,12 @@
                     <tr>
                         <th>ID</th>
                         <th>Tên vai trò</th>
-                        <th>Mô tả</th>
-                        <th>Quyền hạn</th>
                         <th>Số người dùng</th>
-                        <th>Thao tác</th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td><span class="role-badge role-admin">Admin</span></td>
-                        <td>Quản trị viên với toàn quyền trên hệ thống</td>
-                        <td>
-                            <div class="permission-tags">
-                                <span class="permission-tag">Quản lý phim</span>
-                                <span class="permission-tag">Quản lý thể loại</span>
-                                <span class="permission-tag">Quản lý người dùng</span>
-                                <span class="permission-tag">Quản lý vai trò</span>
-                                <span class="permission-tag">Quản lý hệ thống</span>
-                            </div>
-                        </td>
-                        <td>2</td>
-                        <td class="action-buttons">
-                            <button class="action-btn view">Xem người dùng</button>
-                            <button class="action-btn edit"><a href="role-edit.html">Sửa</a></button>
-                            <button class="action-btn delete">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><span class="role-badge role-moderator">Moderator</span></td>
-                        <td>Người kiểm duyệt nội dung</td>
-                        <td>
-                            <div class="permission-tags">
-                                <span class="permission-tag">Quản lý phim</span>
-                                <span class="permission-tag">Quản lý thể loại</span>
-                                <span class="permission-tag">Xem thông tin người dùng</span>
-                            </div>
-                        </td>
-                        <td>5</td>
-                        <td class="action-buttons">
-                            <button class="action-btn view">Xem người dùng</button>
-                            <button class="action-btn edit">Sửa</button>
-                            <button class="action-btn delete">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td><span class="role-badge role-user">User</span></td>
-                        <td>Người dùng thông thường</td>
-                        <td>
-                            <div class="permission-tags">
-                                <span class="permission-tag">Xem phim</span>
-                                <span class="permission-tag">Bình luận</span>
-                                <span class="permission-tag">Đánh giá</span>
-                            </div>
-                        </td>
-                        <td>8,706</td>
-                        <td class="action-buttons">
-                            <button class="action-btn view">Xem người dùng</button>
-                            <button class="action-btn edit">Sửa</button>
-                            <button class="action-btn delete">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td><span class="role-badge role-premium">Premium</span></td>
-                        <td>Người dùng trả phí với các đặc quyền</td>
-                        <td>
-                            <div class="permission-tags">
-                                <span class="permission-tag">Xem phim</span>
-                                <span class="permission-tag">Bình luận</span>
-                                <span class="permission-tag">Đánh giá</span>
-                                <span class="permission-tag">Tải phim</span>
-                                <span class="permission-tag">Không quảng cáo</span>
-                            </div>
-                        </td>
-                        <td>1,254</td>
-                        <td class="action-buttons">
-                            <button class="action-btn view">Xem người dùng</button>
-                            <button class="action-btn edit">Sửa</button>
-                            <button class="action-btn delete">Xóa</button>
-                        </td>
-                    </tr>
+                <tbody id="roles-list-api">
+
                 </tbody>
             </table>
         </main>
@@ -167,6 +90,84 @@
         document.querySelector('.menu-toggle').addEventListener('click', function () {
             document.querySelector('.sidebar').classList.toggle('active');
         });
+    </script>
+
+    <script>
+        function fetchRoles() {
+            var apiUrlRoles = 'https://localhost:7186/api/Roles'; // API để lấy danh sách vai trò
+            var apiUrlUsers = 'https://localhost:7186/api/Users'; // API để lấy danh sách người dùng
+
+            // Lấy danh sách vai trò
+            fetch(apiUrlRoles)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(roles => {
+                    if (!Array.isArray(roles)) {
+                        throw new Error("Invalid response format. Expected an array of roles.");
+                    }
+
+                    // Sau khi lấy danh sách vai trò, ta tiếp tục lấy danh sách người dùng
+                    return fetch(apiUrlUsers)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! Status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(users => {
+                            if (!Array.isArray(users)) {
+                                throw new Error("Invalid response format. Expected an array of users.");
+                            }
+
+                            // Tính số người dùng cho mỗi vai trò
+                            let roleCounts = roles.map(role => {
+                                let count = users.filter(user => user.roleName === role.name).length;
+                                return {
+                                    ...role,
+                                    userCount: count
+                                };
+                            });
+
+                            // Hiển thị vai trò với số người dùng
+                            var html = roleCounts.map(role => `
+                        <tr>
+                            <td>${role.id}</td>
+                            <td><span class="role-badge role-admin">${role.name}</span></td>
+                            <td>${role.userCount}</td> <!-- Hiển thị số người dùng -->
+                            <td class="action-buttons">
+                                <button class="action-btn view">Xem người dùng</button>
+                                <button class="action-btn edit"><a href="role-edit.html">Sửa</a></button>
+                                <button class="action-btn delete">Xóa</button>
+                            </td>
+                        </tr>
+                    `).join("");
+
+                            // Gán dữ liệu vào phần tử HTML nếu tồn tại
+                            let testApiEl = document.getElementById('roles-list-api');
+                            if (testApiEl) {
+                                testApiEl.innerHTML = html;
+                            } else {
+                                console.error("Element with ID 'roles-list-api' not found.");
+                            }
+                        });
+                })
+                .catch(error => {
+                    console.error("Error fetching data:", error);
+                    let testApiEl = document.getElementById('roles-list-api');
+                    if (testApiEl) {
+                        testApiEl.innerHTML = `<p class="error-message">Failed to load data. Please try again later.</p>`;
+                    }
+                });
+        }
+
+        fetchRoles();
+
+
+
     </script>
 </body>
 

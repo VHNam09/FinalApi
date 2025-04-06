@@ -3,6 +3,9 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-decoration: none;
+    color: #e38f8f;
+    
 }
 
 /* Variables */
@@ -137,6 +140,7 @@ body {
     cursor: pointer;
     font-size: 14px;
     transition: opacity 0.3s;
+   
 }
 
 .btn:hover {
@@ -208,7 +212,8 @@ body {
 
 .search-box {
     flex-grow: 1;
-    max-width: 400px;
+    max-width: 200px;
+
     position: relative;
 }
 
@@ -225,7 +230,7 @@ body {
 .search-box i {
     position: absolute;
     left: 15px;
-    top: 50%;
+    top: 25%;
     transform: translateY(-50%);
     color: var(--gray-text);
 }

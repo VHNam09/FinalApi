@@ -58,30 +58,30 @@
         <main class="main-content">
             <div class="page-title">
                 <h1>Quản lý Người dùng</h1>
-                <button class="btn"><a href="user-add.html">Thêm người dùng mới</a></button>
+                <button class="btn"><a href="user-add.html" style="color: aliceblue;">Thêm Admin mới</a></button>
             </div>
 
             <div class="filters">
                 <div class="search-box">
                     <i class="fa fa-search">🔍</i>
-                    <input type="text" placeholder="Tìm kiếm người dùng...">
+                    <input type="text" placeholder="Tìm kiếm người dùng..." id="search-input">
                 </div>
-                <select class="filter-select">
-                    <option>Tất cả vai trò</option>
-                    <option>Admin</option>
-                    <option>Moderator</option>
-                    <option>User</option>
+                <select id="role-filter" class="filter-select">
+                    <option value="">Tất cả vai trò</option>
+                    <option value="Admin">Admin</option>
+                    <option value="User">User</option>
+
                 </select>
-                <select class="filter-select">
-                    <option>Tất cả trạng thái</option>
-                    <option>Hoạt động</option>
-                    <option>Bị khóa</option>
-                </select>
-                <select class="filter-select">
+                <!-- <select class="filter-select">
+                     <option>Tất cả trạng thái</option> -->
+                <!-- <option>Hoạt động</option> -->
+                <!-- <option>Bị khóa</option> -->
+                <!-- </select> -->
+                <!-- <select class="filter-select">
                     <option>Sắp xếp theo</option>
                     <option>Mới nhất</option>
                     <option>Tên A-Z</option>
-                </select>
+                </select> -->
             </div>
 
             <table class="data-table">
@@ -92,101 +92,12 @@
                         <th>Email</th>
                         <th>Vai trò</th>
                         <th>Ngày đăng ký</th>
-                        <th>Trạng thái</th>
-                        <th>Thao tác</th>
+                        <!-- <th>Trạng thái</th> -->
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>
-                            <div class="user-info">
-                                <img src="https://via.placeholder.com/32" alt="Admin" class="user-avatar">
-                                <span>admin</span>
-                            </div>
-                        </td>
-                        <td>admin@notflex.com</td>
-                        <td><span class="role-badge role-admin">Admin</span></td>
-                        <td>01/01/2023</td>
-                        <td><span class="status-badge status-active">Hoạt động</span></td>
-                        <td class="action-buttons">
-                            <button class="action-btn view">Xem</button>
-                            <button class="action-btn edit"><a href="user-edit.html">Sửa</a></button>
-                            <button class="action-btn lock">Khóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>
-                            <div class="user-info">
-                                <img src="https://via.placeholder.com/32" alt="Moderator" class="user-avatar">
-                                <span>moderator</span>
-                            </div>
-                        </td>
-                        <td>mod@notflex.com</td>
-                        <td><span class="role-badge role-moderator">Moderator</span></td>
-                        <td>15/03/2023</td>
-                        <td><span class="status-badge status-active">Hoạt động</span></td>
-                        <td class="action-buttons">
-                            <button class="action-btn view">Xem</button>
-                            <button class="action-btn edit">Sửa</button>
-                            <button class="action-btn lock">Khóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>
-                            <div class="user-info">
-                                <img src="https://via.placeholder.com/32" alt="User" class="user-avatar">
-                                <span>user123</span>
-                            </div>
-                        </td>
-                        <td>user123@gmail.com</td>
-                        <td><span class="role-badge role-user">User</span></td>
-                        <td>05/06/2023</td>
-                        <td><span class="status-badge status-active">Hoạt động</span></td>
-                        <td class="action-buttons">
-                            <button class="action-btn view">Xem</button>
-                            <button class="action-btn edit">Sửa</button>
-                            <button class="action-btn lock">Khóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>
-                            <div class="user-info">
-                                <img src="https://via.placeholder.com/32" alt="Blocked User" class="user-avatar">
-                                <span>blocked_user</span>
-                            </div>
-                        </td>
-                        <td>blocked@gmail.com</td>
-                        <td><span class="role-badge role-user">User</span></td>
-                        <td>10/08/2023</td>
-                        <td><span class="status-badge status-inactive">Bị khóa</span></td>
-                        <td class="action-buttons">
-                            <button class="action-btn view">Xem</button>
-                            <button class="action-btn edit">Sửa</button>
-                            <button class="action-btn unlock">Mở khóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>
-                            <div class="user-info">
-                                <img src="https://via.placeholder.com/32" alt="New User" class="user-avatar">
-                                <span>newuser</span>
-                            </div>
-                        </td>
-                        <td>newuser@gmail.com</td>
-                        <td><span class="role-badge role-user">User</span></td>
-                        <td>15/03/2024</td>
-                        <td><span class="status-badge status-active">Hoạt động</span></td>
-                        <td class="action-buttons">
-                            <button class="action-btn view">Xem</button>
-                            <button class="action-btn edit">Sửa</button>
-                            <button class="action-btn lock">Khóa</button>
-                        </td>
-                    </tr>
+                <tbody id="users-list-api">
+
                 </tbody>
             </table>
 
@@ -205,7 +116,101 @@
         document.querySelector('.menu-toggle').addEventListener('click', function () {
             document.querySelector('.sidebar').classList.toggle('active');
         });
+
     </script>
+
+
+
+    <script>
+        // Hàm để tải và hiển thị danh sách người dùng
+        function fetchUsers() {
+            var apiUrl = 'https://localhost:7186/api/Users'; // API để lấy danh sách người dùng
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(users => {
+                    if (!Array.isArray(users)) {
+                        throw new Error("Invalid response format. Expected an array.");
+                    }
+
+                    // Lưu lại tất cả người dùng để phục vụ cho tìm kiếm và lọc
+                    let allUsers = users;
+
+                    // Lắng nghe sự kiện tìm kiếm
+                    document.getElementById('search-input').addEventListener('input', function () {
+                        const searchQuery = this.value.toLowerCase();
+                        const filteredUsers = allUsers.filter(user =>
+                            user.username.toLowerCase().includes(searchQuery) ||  // Tìm kiếm theo tên người dùng
+                            user.email.toLowerCase().includes(searchQuery)        // Tìm kiếm theo email
+                        );
+                        displayUsers(filteredUsers); // Hiển thị kết quả tìm kiếm
+                    });
+
+                    // Lắng nghe sự kiện lọc theo vai trò
+                    document.getElementById('role-filter').addEventListener('change', function () {
+                        const selectedRole = this.value.toLowerCase();
+                        const filteredUsers = selectedRole ? allUsers.filter(user => user.roleName.toLowerCase() === selectedRole) : allUsers;
+                        displayUsers(filteredUsers); // Hiển thị kết quả lọc theo vai trò
+                    });
+
+                    // Hiển thị danh sách người dùng ban đầu
+                    displayUsers(allUsers);
+                })
+                .catch(error => {
+                    console.error("Error fetching users:", error);
+                    let testApiEl = document.getElementById('users-list-api');
+                    if (testApiEl) {
+                        testApiEl.innerHTML = `<p class="error-message">Failed to load users. Please try again later.</p>`;
+                    }
+                });
+        }
+
+        // Hàm hiển thị người dùng vào bảng
+        function displayUsers(users) {
+            const html = users.map(user => `
+        <tr>
+            <td>${user.id}</td>
+            <td>
+                <div class="user-info">
+                    <span>${user.username}</span>
+                </div>
+            </td>
+            <td>${user.email}</td>
+            <td><span class="role-badge role-${user.roleName.toLowerCase()}">${user.roleName}</span></td>
+            <td>${new Date(user.createdAt).toLocaleDateString()}</td>
+            <td class="action-buttons">
+                <button class="action-btn view">Xem</button>
+                <a class="action-btn edit" href="user-edit.html?id=${user.id}">Sửa</a>
+                <button class="action-btn lock">Khóa</button>
+            </td>
+        </tr>
+    `).join("");
+
+            // Gán dữ liệu vào bảng
+            let testApiEl = document.getElementById('users-list-api');
+            if (testApiEl) {
+                testApiEl.innerHTML = html;
+            }
+        }
+
+        // Gọi hàm để tải và hiển thị danh sách người dùng khi trang tải
+
+
+
+
+
+
+        // Hàm để lấy các vai trò từ API và điền vào select
+
+        fetchUsers();
+
+    </script>
+
 </body>
 
 </html>

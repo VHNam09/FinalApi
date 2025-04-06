@@ -707,6 +707,27 @@ video {
   border-radius: 10px;
   cursor: pointer;
 }
+.abc{
+  display: flex;
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  align-items: center; /* Căn giữa theo chiều dọc */
+
+}
+
+ .button {
+  justify-content: center;  
+  border: none;
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #7024b9;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
 
 .content-base-infor {
   display: flex;

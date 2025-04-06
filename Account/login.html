@@ -19,9 +19,9 @@
             <div class="card-content">
                 <form id="loginForm">
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="example@example.com" required>
-                        <span class="error-message" id="emailError"></span>
+                        <label for="username">Tên đăng nhập</label>
+                        <input type="text" id="username" placeholder="Nhập tên đăng nhập" required>
+                        <span class="error-message" id="usernameError"></span>
                     </div>
                     <div class="form-group">
                         <div class="password-header">
@@ -53,8 +53,53 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+    
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+    
+            fetch("https://localhost:7186/api/Auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.token) {
+                    // Lưu token, id, username vào localStorage
+                    localStorage.setItem("token", data.token);
+                    localStorage.setItem("userId", data.id);
+                    localStorage.setItem("username", data.username);
+                    localStorage.setItem("role", data.role); // lưu thêm role nếu cần
+    
+                    // ⚡ Alert ra ID user
+                    alert("ID của bạn là: " + data.id);
+    
+                    // Điều hướng dựa trên vai trò
+                    if (data.role === 1) {
+                        window.location.href = "http://127.0.0.1:5501/LayoutAdmin/dashboard.html"; // link tới dashboard
+                    } else {
+                        window.location.href = "http://127.0.0.1:5501/LayoutIndex/index.html"; // link tới user trang chính
+                    }
+                } else {
+                    alert("Đăng nhập thất bại: " + (data.message || "Lỗi không xác định"));
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Có lỗi xảy ra khi đăng nhập: " + error.message);
+            });
+        });
+    </script>
+    
 
-    <script src="login.js"></script>
 </body>
 
 </html>

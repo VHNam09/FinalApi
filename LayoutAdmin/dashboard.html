@@ -66,7 +66,7 @@
             <div class="dashboard-stats">
                 <div class="stat-card">
                     <h3>Tổng số phim</h3>
-                    <div class="number">1,245</div>
+                    <div class="number" id="movie-count"></div>
                 </div>
                 <div class="stat-card">
                     <h3>Thể loại</h3>
@@ -81,7 +81,7 @@
             <!-- Recent Movies -->
             <div class="page-title">
                 <h2>Phim mới thêm gần đây</h2>
-                <button class="btn">Thêm phim mới</button>
+                <button class="btn"><a href="movies-add.html">Thêm phim mới</a></button>
             </div>
 
             <div class="filters">
@@ -89,21 +89,17 @@
                     <i class="fa fa-search">🔍</i>
                     <input type="text" placeholder="Tìm kiếm phim...">
                 </div>
-                <select class="filter-select">
-                    <option>Tất cả thể loại</option>
-                    <option>Hành động</option>
-                    <option>Hoạt hình</option>
-                    <option>Tình cảm</option>
-                    <option>Kinh dị</option>
+                <select class="filter-select" id="genreSelect">
+                 
                 </select>
-                <select class="filter-select">
+                <select class="filter-select" id="sort-options">
                     <option>Sắp xếp theo</option>
-                    <option>Mới nhất</option>
-                    <option>Lượt xem</option>
-                    <option>Đánh giá</option>
+                    <option value="newest">Mới nhất</option>
+                    <option value="Az">A-Z</option>
+                
                 </select>
             </div>
-
+           
             <table class="data-table">
                 <thead>
                     <tr>
@@ -116,8 +112,8 @@
                         <th>Thao tác</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
+                <tbody id="Dashboard-api">
+                    <!-- <tr >
                         <td>1</td>
                         <td>One Piece Film Red</td>
                         <td>Hoạt hình, Hành động</td>
@@ -128,54 +124,8 @@
                             <button class="action-btn edit">Sửa</button>
                             <button class="action-btn delete">Xóa</button>
                         </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Tên cậu là gì?</td>
-                        <td>Hoạt hình, Tình cảm</td>
-                        <td>2016</td>
-                        <td>89,432</td>
-                        <td>Đang chiếu</td>
-                        <td class="action-buttons">
-                            <button class="action-btn edit">Sửa</button>
-                            <button class="action-btn delete">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Chú Thuật Hồi Chiến</td>
-                        <td>Hoạt hình, Hành động</td>
-                        <td>2023</td>
-                        <td>32,145</td>
-                        <td>Đang chiếu</td>
-                        <td class="action-buttons">
-                            <button class="action-btn edit">Sửa</button>
-                            <button class="action-btn delete">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Tôi Sẽ Đỡ Hết Mọi Đòn</td>
-                        <td>Hoạt hình, Hành động</td>
-                        <td>2023</td>
-                        <td>18,976</td>
-                        <td>Đang chiếu</td>
-                        <td class="action-buttons">
-                            <button class="action-btn edit">Sửa</button>
-                            <button class="action-btn delete">Xóa</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>13 Phút Sống Còn</td>
-                        <td>Hành động, Thảm họa</td>
-                        <td>2021</td>
-                        <td>27,543</td>
-                        <td>Đang chiếu</td>
-                        <td class="action-buttons">
-                            <button class="action-btn edit">Sửa</button>
-                            <button class="action-btn delete">Xóa</button>
-                        </td>
+                    </tr> -->
+                 
                     </tr>
                 </tbody>
             </table>
@@ -186,6 +136,25 @@
 
 
     </script>
+    <script>
+          document.addEventListener("DOMContentLoaded", function () {
+      const token = localStorage.getItem("token");
+      const username = localStorage.getItem("username");
+
+      if (!token) {
+          // Nếu không có token => chưa đăng nhập => về trang login
+          window.location.href = "http://127.0.0.1:5501/login.html"; // đổi đúng tên file login nếu khác
+          return;
+      }
+
+      // Nếu có token => cho phép ở lại và hiển thị thông tin user
+      const welcomeElement = document.getElementById("welcomeMessage");
+      if (welcomeElement && username) {
+          welcomeElement.innerText = `Đang xem phim với tài khoản: ${username}`;
+      }
+  });
+    </script>
+    <h2 id="welcomeMessage"></h2>
 </body>
 
 </html>

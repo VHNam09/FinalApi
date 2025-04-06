@@ -68,8 +68,8 @@
                 <form id="addUserForm">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="username" class="required-field">Tên đăng nhập</label>
-                            <input type="text" id="username" class="form-control" placeholder="Nhập tên đăng nhập"
+                            <label for="username" class="required-field">Tên người dùng</label>
+                            <input type="text" id="username" class="form-control" placeholder="Nhập tên người dùng"
                                 required>
                             <div id="username-error" class="error-message">Vui lòng nhập tên đăng nhập</div>
                         </div>
@@ -88,24 +88,27 @@
                                 required>
                             <div id="password-error" class="error-message">Mật khẩu phải có ít nhất 8 ký tự</div>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="confirmPassword" class="required-field">Xác nhận mật khẩu</label>
                             <input type="password" id="confirmPassword" class="form-control"
                                 placeholder="Nhập lại mật khẩu" required>
                             <div id="confirmPassword-error" class="error-message">Mật khẩu không khớp</div>
+                        </div> -->
+
+                        <div class="form-group">
+                            <label for="role" class="required-field">Vai trò</label>
+                            <select id="role" class="form-control" required>
+                                <option value="1">Admin</option>
+                                <!-- Các vai trò sẽ được điền vào đây từ API -->
+                            </select>
+
+                            <div id="role-error" class="error-message">Vui lòng chọn vai trò</div>
                         </div>
+
+
                     </div>
 
-                    <div class="form-group">
-                        <label for="role" class="required-field">Vai trò</label>
-                        <select id="role" class="form-control" required>
-                            <option value="">Chọn vai trò</option>
-                            <option value="1">admin</option>
-                            <option value="2" selected>user</option>
-                            <option value="3">moderator</option>
-                        </select>
-                        <div id="role-error" class="error-message">Vui lòng chọn vai trò</div>
-                    </div>
+
 
                     <div class="form-actions">
                         <button type="button" id="cancelButton" class="btn btn-cancel">Hủy</button>
@@ -116,9 +119,141 @@
         </main>
     </div>
 
-    <script src="../assets/js/admin/users-add.js">
+    <script>
+        function addUser() {
+            alert(role.id);
+            const apiUrl = 'https://localhost:7186/api/Users';
+            const usernameInput = document.getElementById('username');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const roleSelect = document.getElementById('role');
+            const submitButton = document.getElementById('submitButton');
 
+            // Tạo payload từ form
+            const userData = {
+                Username: usernameInput.value.trim(),
+                Email: emailInput.value.trim(),
+                Password: passwordInput.value,
+                Role: parseInt(roleSelect.value),
+            };
+
+            // Disable nút submit trong khi xử lý
+            submitButton.disabled = true;
+            submitButton.textContent = 'Đang xử lý...';
+
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        // Kiểm tra nếu mã trạng thái là 409 (Conflict)
+                        if (response.status === 409) {
+                            return response.json().then(err => {
+                                throw new Error('Email hoặc tên người dùng đã tồn tại.');
+                            });
+                        }
+
+                        // Kiểm tra nếu response có body chứa thông tin lỗi
+                        if (response.headers.get('Content-Type')?.includes('application/json')) {
+                            return response.json().then(err => {
+                                throw new Error(err.message || 'Lỗi xảy ra');
+                            });
+                        }
+                        // Nếu phản hồi không phải JSON, trả về một lỗi chung
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    // Nếu response ok và có body JSON
+                    return response.json();
+                })
+                .then(data => {
+                    alert('Thêm người dùng thành công!');
+                    window.location.href = 'users.html';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+
+                    // Hiển thị thông báo lỗi chi tiết hơn
+                    let errorMessage = 'Có lỗi xảy ra khi thêm người dùng';
+                    if (error.message) {
+                        errorMessage = error.message;
+                    }
+                    if (error.errors) {
+                        errorMessage = Object.values(error.errors).join('\n');
+                    }
+
+                    alert(errorMessage);
+                })
+                .finally(() => {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Thêm người dùng';
+                });
+        }
+
+
+        // Gắn sự kiện cho form
+        document.getElementById('addUserForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            addUser();
+           
+        });
+
+        // Xử lý nút hủy
+        document.getElementById('cancelButton').addEventListener('click', function () {
+            if (confirm('Bạn có chắc muốn hủy thao tác này?')) {
+                window.location.href = 'users.html';
+            }
+        });
     </script>
+
+
+
+
+    <!-- <script>    
+        // Hàm để lấy các vai trò từ API và điền vào select
+        function loadRoles() {
+            const apiUrl = 'https://localhost:7186/api/Roles'; // API lấy danh sách vai trò
+            
+            const roleSelect = document.getElementById('role');
+
+            // Gửi yêu cầu GET để lấy danh sách vai trò
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(roles => {
+                    // Xóa các tùy chọn cũ trong select
+                    roleSelect.innerHTML = '<option value="">Chọn vai trò</option>';
+
+                    // Duyệt qua danh sách vai trò và thêm vào thẻ select
+                    roles.forEach(role => {
+                        const option = document.createElement('option');
+                        option.value = role.id;
+                        option.textContent = role.name;
+                        roleSelect.appendChild(option);
+                       
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading roles:', error);
+                    alert('Có lỗi xảy ra khi tải danh sách vai trò.');
+                });
+        }
+
+        // Gọi hàm loadRoles khi trang được tải
+        loadRoles();
+
+    </script> -->
+
+    <!-- <script src="../assets/js/admin/users-add.js">
+
+    </script> -->
 </body>
 
 </html>

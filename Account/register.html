@@ -18,18 +18,13 @@
             </div>
             <div class="card-content">
                 <form id="registerForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="firstName">Họ</label>
-                            <input type="text" id="firstName" placeholder="Nguyễn" required>
-                            <span class="error-message" id="firstNameError"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="lastName">Tên</label>
-                            <input type="text" id="lastName" placeholder="Văn A" required>
-                            <span class="error-message" id="lastNameError"></span>
-                        </div>
+
+                    <div class="form-group">
+                        <label for="username">Tên đăng nhập</label>
+                        <input type="text" id="username" placeholder="Nhập tên đăng nhập" required>
+                        <span class="error-message" id="usernameError"></span>
                     </div>
+
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" placeholder="example@example.com" required>
@@ -72,7 +67,57 @@
         </div>
     </div>
 
-    <script src="register.js"></script>
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            // Kiểm tra mật khẩu và xác nhận mật khẩu có khớp không
+            if (password !== confirmPassword) {
+                alert("Mật khẩu xác nhận không khớp!");
+                return;
+            }
+
+            fetch("https://localhost:7186/api/Auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    username: username,
+                    email: email,
+                    password: password
+                })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Lỗi khi đăng ký: " + response.statusText);
+                    }
+                    return response.json(); // Chuyển đổi phản hồi thành JSON
+                })
+                .then(data => {
+                    if (data.Message) {
+                        alert(data.Message);  // Thông báo kết quả đăng ký
+                        window.location.href = "login.html";  // Chuyển hướng đến trang đăng nhập
+                    } else {
+                        alert("Đăng ký thành công ");
+                        window.location.href = "login.html";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("Có lỗi xảy ra khi đăng ký");
+                });
+        });
+
+
+
+
+    </script>
 </body>
 
 </html>

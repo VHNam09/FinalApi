@@ -65,7 +65,7 @@
 
             <div class="user-stats">
                 <div class="stat-card">
-                    <div class="stat-value">admin</div>
+                    <div class="stat-value" id="roleName">admin</div>
                     <div class="stat-label">Vai trò</div>
                 </div>
                 <div class="stat-card">
@@ -93,12 +93,13 @@
                         </div>
                     </div>
 
+
+
                     <div class="form-group">
                         <label for="role" class="required-field">Vai trò</label>
                         <select id="role" class="form-control" required>
-                            <option value="1" selected>admin</option>
-                            <option value="2">user</option>
-                            <option value="3">moderator</option>
+                            <option value="">Chọn vai trò</option>
+                            <!-- Các vai trò sẽ được điền vào đây từ API -->
                         </select>
                         <div id="role-error" class="error-message">Vui lòng chọn vai trò</div>
                     </div>
@@ -106,11 +107,12 @@
                     <div class="password-section">
                         <div class="password-toggle">
                             <label>
-                                <input type="checkbox" id="changePassword"> Thay đổi mật khẩu
+                                <input type="checkbox" id="changePassword">
+                                <div>Thay đổi mật khẩu</div>
                             </label>
                         </div>
 
-                        <div id="passwordFields" style="display: none;">
+                        <div id="passwordFields">
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="password" class="required-field">Mật khẩu mới</label>
@@ -146,7 +148,217 @@
         </main>
     </div>
 
-    <script src="../assets/js/admin/users-edit.js">
+    <!-- <script src="../assets/js/admin/users-edit.js">
+
+    </script> -->
+
+    <!-- <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const userId = document.getElementById('userId').value; // Lấy ID người dùng từ input ẩn
+            const apiUrl = `https://localhost:7186/api/Users/${userId}`; // URL API để lấy thông tin người dùng
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error fetching user: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Điền thông tin vào form
+                    document.getElementById('username').value = data.username;
+                    document.getElementById('email').value = data.email;
+                    document.getElementById('role').value = data.roleId;
+                    document.getElementById('createdAtDisplay').innerText = new Date(data.createdAt).toLocaleDateString();
+                })
+                .catch(error => {
+                    console.error('Error fetching user data:', error);
+                    alert('Không thể tải thông tin người dùng. Vui lòng thử lại.');
+                });
+        });
+
+    </script> -->
+
+    <script>
+        // Lấy id từ URL
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');  // Lấy ID từ query string
+
+        // Gọi API lấy chi tiết người dùng và fill vào form
+        function fetchDetailUser() {
+            const apiUrl = 'https://localhost:7186/api/Users/' + id; // Kiểm tra lại URL này
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+                    return response.json();
+                })
+                .then(user => {
+                    console.log("Dữ liệu người dùng:", user);  // Kiểm tra dữ liệu trả về
+
+                    // Gán dữ liệu vào form
+                    document.getElementById('username').value = user.username;
+                    document.getElementById('email').value = user.email;
+                    document.getElementById('roleName').innerHTML = user.roleName;  // Gán RoleId vào form
+                    document.getElementById('createdAtDisplay').innerText = new Date(user.createdAt).toLocaleDateString();
+                })
+                .catch(error => {
+                    console.error("Error fetching user:", error);
+                    alert('Không thể tải dữ liệu người dùng. Vui lòng thử lại sau.');
+                });
+        }
+
+        // Gọi hàm khi trang được tải
+        fetchDetailUser();
+
+        // Hàm editUser
+        function editUser() {
+            const userId = id;  // Lấy ID từ URL thay vì từ form
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const roleId = document.getElementById('role').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value; // Lấy xác nhận mật khẩu
+            const submitButton = document.getElementById('submitButton');
+
+            // Kiểm tra nếu mật khẩu thay đổi và xác nhận mật khẩu
+            let updatedPassword = null;
+            if (document.getElementById('changePassword').checked) {
+                if (password !== confirmPassword) {
+                    alert('Mật khẩu và xác nhận mật khẩu không khớp.');
+                    return;  // Dừng nếu mật khẩu không khớp
+                }
+                updatedPassword = password;
+            }
+
+            const userData = {
+                Username: username,
+                Email: email,
+                Password: updatedPassword,
+                RoleId: roleId
+            };
+
+            const apiUrl = `https://localhost:7186/api/Users/${userId}`; // Chắc chắn URL đúng với ID người dùng
+
+            // Disable nút submit trong khi xử lý
+            submitButton.disabled = true;
+            submitButton.textContent = 'Đang xử lý...';
+
+            fetch(apiUrl, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(err => {
+                            throw new Error(err.message || `Lỗi xảy ra khi cập nhật người dùng. Mã lỗi: ${response.status}`);
+                        });
+                    }
+                    return response.json(); // Nếu thành công, trả về dữ liệu JSON
+                })
+                .then(data => {
+                    alert('Cập nhật người dùng thành công!');
+                    window.location.href = 'users.html'; // Chuyển hướng lại trang danh sách người dùng
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert(error.message || 'Có lỗi xảy ra khi cập nhật người dùng');
+                })
+                .finally(() => {
+                    submitButton.disabled = false; // Kích hoạt lại nút submit
+                    submitButton.textContent = 'Cập nhật'; // Khôi phục lại tên nút
+                });
+        }
+
+        // Gắn sự kiện cho form
+        document.getElementById('editUserForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // Ngừng hành động mặc định của form
+            editUser();  // Gọi hàm chỉnh sửa người dùng
+        });
+    </script>
+
+
+    <script>
+        function deleteUser() {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+
+
+            const apiUrl = 'https://localhost:7186/api/Users/' + id; // URL API để xóa thể loại
+
+            if (confirm('Bạn có chắc chắn muốn xóa thể loại này?')) {
+                fetch(apiUrl, {
+                    method: 'DELETE',  // Sử dụng DELETE để xóa
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                        }
+                        // Kiểm tra nếu phản hồi có body trước khi gọi .json()
+                        if (response.status === 204) {
+                            return {};  // Trả về một đối tượng rỗng nếu phản hồi 204 (No Content)
+                        }
+                        return response.json();  // Nếu có dữ liệu, phân tích cú pháp JSON
+                    })
+                    .then(data => {
+                        alert('Thể loại đã được xóa thành công!');
+                        window.location.href = 'users.html'; // Chuyển hướng lại trang danh sách thể loại
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Có lỗi xảy ra khi xóa thể loại. Vui lòng thử lại sau.');
+                    });
+
+            }
+        }
+
+        // Gắn sự kiện cho nút xóa
+        document.getElementById('deleteUserButton').addEventListener('click', function () {
+            deleteUser();
+        });
+
+    </script>
+
+    <script>
+        // Hàm để lấy các vai trò từ API và điền vào select
+        function loadRoles() {
+            const apiUrl = 'https://localhost:7186/api/Roles'; // API lấy danh sách vai trò
+            const roleSelect = document.getElementById('role');
+
+            // Gửi yêu cầu GET để lấy danh sách vai trò
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(roles => {
+                    // Xóa các tùy chọn cũ trong select
+                    roleSelect.innerHTML = '<option value="">Chọn vai trò</option>';
+
+                    // Duyệt qua danh sách vai trò và thêm vào thẻ select
+                    roles.forEach(role => {
+                        const option = document.createElement('option');
+                        option.value = role.id;
+                        option.textContent = role.name;
+                        roleSelect.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading roles:', error);
+                    alert('Có lỗi xảy ra khi tải danh sách vai trò.');
+                });
+        }
+
+        // Gọi hàm loadRoles khi trang được tải
+        loadRoles();
 
     </script>
 </body>

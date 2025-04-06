@@ -13,7 +13,9 @@
 </head>
 
 <body>
+
   <div class="app">
+
     <div class="header">
       <div class="header__left">
         <a href="">
@@ -62,80 +64,20 @@
         <iframe src="https://embed1.streamc.xyz/embed.php?hash=8a7dc71f6ad631c2685d467bf2927f97"
           frameborder="0"></iframe>
       </div>
-      <div class="main__description-container">
-        <div class="img-box">
-          <img src="https://phim.nguonc.com/public/images/Film/125323.jpg" alt="">
-        </div>
-        <div class="content-box">
-          <div class="content-heading">
-            <h3 class="title">One Piece Film Red</h3>
-            <button class="button">
-              <i class="fa-solid fa-plus"></i>
-              <span>Thêm Vào Danh Sách</span>
-            </button>
-          </div>
-          <div class="content-base-infor">
-            <div class="base-infor">
-              <p>2024</p>
-            </div>
-            <div class="base-infor">
-              <p>Hành Động</p>
-            </div>
-            <div class="time">
-              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em"
-                width="1em" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z">
-                </path>
-                <path d="M13 7h-2v5.414l3.293 3.293 1.414-1.414L13 11.586z"></path>
-              </svg>
-              <p>84 Phút</p>
-            </div>
-            <div class="view">
-              <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em"
-                width="1em" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="256" cy="256" r="64"></circle>
-                <path
-                  d="M394.82 141.18C351.1 111.2 304.31 96 255.76 96c-43.69 0-86.28 13-126.59 38.48C88.52 160.23 48.67 207 16 256c26.42 44 62.56 89.24 100.2 115.18C159.38 400.92 206.33 416 255.76 416c49 0 95.85-15.07 139.3-44.79C433.31 345 469.71 299.82 496 256c-26.38-43.43-62.9-88.56-101.18-114.82zM256 352a96 96 0 1 1 96-96 96.11 96.11 0 0 1-96 96z">
-                </path>
-              </svg>
-              <p>123456</p>
-            </div>
-          </div>
-          <div class="content-description">
-            <p>
-              Khi còn nhỏ, Uta cựu nhạc sĩ của băng hải tặc Tóc Đỏ và là bạn thời thơ ấu của Monkey D. Luffy đã hứa rằng
-              cô sẽ xây dựng một kỷ nguyên tự do mới bằng cách biểu diễn âm nhạc vui tươi cho thế giới.
-              Luffy và băng Mũ Rơm đến buổi hòa nhạc trực tiếp đầu tiên của Uta, nơi nhiều người hâm mộ đã tụ tập để
-              thưởng thức giọng hát tuyệt vời của diva. Do chấn thương thời thơ ấu, Uta mang trong mình lòng căm thù hải
-              tặc; cuộc hội ngộ vui vẻ của cô với Luffy bị cắt đứt khi cô biết rằng anh đã trở thành một. Việc Luffy từ
-              chối thay đổi cách thức của mình dẫn đến việc Uta giải phóng sức mạnh của cô ấy lên băng Mũ Rơm. Phi hành
-              đoàn sớm biết rằng tâm trí của họ đã bị mắc kẹt trong thế giới giấc mơ của Uta kể từ khi bắt đầu buổi hòa
-              nhạc, trong khi cơ thể vô thức của họ vẫn ngủ trong thế giới thực.
-              Thời gian không còn nhiều, nhóm Mũ Rơm phải tìm cách thoát khỏi cơn ác mộng hoặc bị mắc kẹt trong giấc mơ
-              của Uta mãi mãi.
-            </p>
-          </div>
-          <div class="content-details">
-            <div class="item">
-              <p>Quốc Gia :</p>
-              <span>Japan</span>
-            </div>
-            <div class="item">
-              <p>Thể Loại :</p>
-              <span>Hoạt Hình</span>
-            </div>
-            <div class="item">
-              <p>Đạo Diễn :</p>
-              <span> Đang cập nhật</span>
-            </div>
-            <div class="item">
-              <p>Diễn Viên :</p>
-              <span>Đang cập nhật</span>
-            </div>
-          </div>
-        </div>
+      <div class="main__description-container" id="api-information">
+    
+      </div >
+    
+    
+      <div class="abc">
+  <button class="button" id="addMovieFavorite">
+        <i class="fa-solid fa-plus"></i>
+        <span >Thêm Vào Danh Sách</span>
+    </button>
       </div>
+       
+    
+   
       <div class="row_posters">
         <div class="content__main-title">
           <h3 class="content__main-title-left">Có thể bạn sẽ thích</h3>
@@ -326,6 +268,7 @@
           </div>
         </div>
       </div>
+ 
     </div>
 
     <div class="footer">
@@ -406,5 +349,145 @@
   </div>
 </body>
 <script src="../assets/js/main.js"></script>
+<script>
+ 
+ 
+ 
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id');
+
+function fetchMovies() {
+    if (!id) {
+        console.error("ID phim không tồn tại!");
+        let testApiEl = document.getElementById('api-information');
+        if (testApiEl) {
+            testApiEl.innerHTML = `<p class="error-message">Không tìm thấy ID phim.</p>`;
+        }
+        return;
+    }
+
+    var apiUrl = `https://localhost:7186/api/Movie/${id}`;
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(movie => {
+            // Kiểm tra nếu response không phải object hợp lệ
+            if (!movie || typeof movie !== "object") {
+                throw new Error("Invalid response format. Expected an object.");
+            }
+
+            var html1 = `
+                <div class="img-box">
+                    <img src="${movie.poster}" alt="">
+                </div>
+                <div class="content-box">
+                    <div class="content-heading">
+                        <h3 class="title">${movie.title}</h3>
+                    </div>
+                    <div class="content-base-infor">
+                        <div class="base-infor"><p>2024</p></div>
+                        <div class="base-infor"><p>123</p></div>
+                        <div class="time">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em"
+                                width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
+                                <path d="M13 7h-2v5.414l3.293 3.293 1.414-1.414L13 11.586z"></path>
+                            </svg>
+                            <p>84 Phút</p>
+                        </div>
+                        <div class="view">
+                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em"
+                                width="1em" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="256" cy="256" r="64"></circle>
+                                <path d="M394.82 141.18C351.1 111.2 304.31 96 255.76 96c-43.69 0-86.28 13-126.59 38.48C88.52 160.23 48.67 207 16 256c26.42 44 62.56 89.24 100.2 115.18C159.38 400.92 206.33 416 255.76 416c49 0 95.85-15.07 139.3-44.79C433.31 345 469.71 299.82 496 256c-26.38-43.43-62.9-88.56-101.18-114.82zM256 352a96 96 0 1 1 96-96 96.11 96.11 0 0 1-96 96z"></path>
+                            </svg>
+                            <p>123456</p>
+                        </div>
+                    </div>
+                    <div class="content-description">
+                        <p>${movie.description}</p>
+                    </div>
+                    <div class="content-details">
+                        <div class="item"><p>Quốc Gia :</p><span>${movie.country}</span></div>
+                        <div class="item"><p>Thể Loại :</p><span>${movie.genres}</span></div>
+                        <div class="item"><p>Đạo Diễn :</p><span>${movie.director}</span></div>
+                        <div class="item"><p>Diễn Viên :</p><span>${movie.actors}</span></div>
+                    </div>
+                </div>`;
+
+            let testApiEl = document.getElementById('api-information');
+            if (testApiEl) {
+                testApiEl.innerHTML = html1;
+            } else {
+                console.error("Element with ID 'api-information' not found.");
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching movie:", error);
+            let testApiEl = document.getElementById('api-information');
+            if (testApiEl) {
+                testApiEl.innerHTML = `<p class="error-message">Không thể tải phim. Vui lòng thử lại sau.</p>`;
+            }
+        });
+}
+
+// Gọi hàm để lấy phim
+fetchMovies();
+
+</script>
+  
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const token = localStorage.getItem("token"); // Lấy token từ localStorage
+    const userId = localStorage.getItem("userId"); // Lấy userId từ localStorage
+ 
+    const addFavoriteButton = document.getElementById('addMovieFavorite'); // Lấy nút thêm vào yêu thích
+    const movieId = getMovieId(); // Lấy movieId từ URL
+  
+
+    // Kiểm tra nếu không có token hoặc userId, không cho phép thêm vào yêu thích
+    if (!token || !userId || !movieId) {
+        alert("Vui lòng đăng nhập và chọn phim hợp lệ!");
+        return;
+    }
+
+    // Lắng nghe sự kiện click trên nút thêm vào yêu thích
+    if (addFavoriteButton) {
+    addFavoriteButton.addEventListener('click', function () {
+        fetch('https://localhost:7186/api/Movie/add-to-favorites', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userId: userId,
+                movieId: movieId
+            })
+        })
+     alert("Thêm thành công");
+    
+      
+    });
+}
+  
+});
+
+// Hàm lấy movieId từ URL (?movieId=xxx)
+function getMovieId() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('id'); // Thay đổi nếu URL chứa tham số khác
+ 
+}
+
+
+</script>
+  
+
 
 </html>
