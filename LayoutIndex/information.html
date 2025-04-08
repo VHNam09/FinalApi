@@ -9,6 +9,8 @@
   <!-- <link rel="stylesheet" href="../assets/css/base.css"> -->
   <link rel="stylesheet" href="../assets/css/grid.css" />
   <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <title>Movie</title>
 </head>
 
@@ -22,10 +24,10 @@
           <img class="header__logo" src="../assets/img/logo/logo.png" alt="netflix-font" />
         </a>
         <nav class="header__directory">
-          <a href="#" class="header__directory-link active">Trang chủ</a>
-          <a href="#" class="header__directory-link">Phim</a>
+          <a href="index.html" class="header__directory-link active">Trang chủ</a>
+          <a href="movie.html" class="header__directory-link">Phim</a>
           <a href="#" class="header__directory-link">Mới & Phổ biến</a>
-          <a href="#" class="header__directory-link">Danh sách của tôi</a>
+          <a href="favorites.html" class="header__directory-link">Danh sách của tôi</a>
           <a href="#" class="header__directory-link">Duyệt tìm theo ngôn ngữ</a>
         </nav>
       </div>
@@ -42,8 +44,12 @@
           </a>
         </div>
         <div class="header__button">
-          <button class="header__register">Register</button>
-          <button class="header__login"><span>Login</span></button>
+          <button class="header__register" style="color: azure;">Register</button>
+          <button class="header__login"><span style="color: azure;">Login</span></button>
+        </div>
+        <div id="userInfo" style="display: none;">
+          <span>👤 <strong id="usernameDisplay"></strong></span>
+          <button id="logoutBtn" style="margin-left: 8px;">Đăng xuất</button>
         </div>
         <div class="header__user">
           <img src="../assets/img/banner/one piece red/One_Piece_Film-_Red_-_Áp_phích_Việt_Nam.jpg" alt="" />
@@ -65,19 +71,49 @@
           frameborder="0"></iframe>
       </div>
       <div class="main__description-container" id="api-information">
-    
-      </div >
-    
-    
+
+      </div>
+
+
       <div class="abc">
-  <button class="button" id="addMovieFavorite">
-        <i class="fa-solid fa-plus"></i>
-        <span >Thêm Vào Danh Sách</span>
-    </button>
+        <button class="button" id="addMovieFavorite">
+          <i class="fa-solid fa-plus"></i>
+          <span>Thêm Vào Danh Sách</span>
+        </button>
       </div>
-       
-    
-   
+
+      <!-- Phần bình luận - Thêm ngay sau div class="content-details" trong div class="content-box" -->
+      <div class="comment-section">
+        <h3 class="comment-section-title">Bình luận</h3>
+
+        <!-- Form bình luận -->
+        <div class="comment-form">
+          <div class="comment-form-avatar">
+            <img src="https://ui-avatars.com/api/?name=User&background=random&color=fff" alt="Avatar">
+          </div>
+          <div class="comment-form-content">
+            <textarea id="commentText" placeholder="Viết bình luận của bạn về bộ phim..."></textarea>
+            <div class="comment-form-actions">
+              <button id="submitComment" class="btn-comment">Gửi bình luận</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Danh sách bình luận -->
+        <div class="comment-list" style="color : white">
+          <!-- Bình luận sẽ được thêm vào đây bằng JavaScript -->
+        </div>
+
+        <!-- Nút xem thêm bình luận -->
+        <div class="comment-load-more">
+          <button id="loadMoreComments" class="btn-load-more">Xem thêm bình luận</button>
+        </div>
+      </div>
+
+
+
+
+
       <div class="row_posters">
         <div class="content__main-title">
           <h3 class="content__main-title-left">Có thể bạn sẽ thích</h3>
@@ -268,7 +304,7 @@
           </div>
         </div>
       </div>
- 
+
     </div>
 
     <div class="footer">
@@ -350,38 +386,38 @@
 </body>
 <script src="../assets/js/main.js"></script>
 <script>
- 
- 
- 
-const params = new URLSearchParams(window.location.search);
-const id = params.get('id');
 
-function fetchMovies() {
+
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+
+  function fetchMovies() {
     if (!id) {
-        console.error("ID phim không tồn tại!");
-        let testApiEl = document.getElementById('api-information');
-        if (testApiEl) {
-            testApiEl.innerHTML = `<p class="error-message">Không tìm thấy ID phim.</p>`;
-        }
-        return;
+      console.error("ID phim không tồn tại!");
+      let testApiEl = document.getElementById('api-information');
+      if (testApiEl) {
+        testApiEl.innerHTML = `<p class="error-message">Không tìm thấy ID phim.</p>`;
+      }
+      return;
     }
 
     var apiUrl = `https://localhost:7186/api/Movie/${id}`;
 
     fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(movie => {
-            // Kiểm tra nếu response không phải object hợp lệ
-            if (!movie || typeof movie !== "object") {
-                throw new Error("Invalid response format. Expected an object.");
-            }
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(movie => {
+        // Kiểm tra nếu response không phải object hợp lệ
+        if (!movie || typeof movie !== "object") {
+          throw new Error("Invalid response format. Expected an object.");
+        }
 
-            var html1 = `
+        var html1 = `
                 <div class="img-box">
                     <img src="${movie.poster}" alt="">
                 </div>
@@ -390,23 +426,19 @@ function fetchMovies() {
                         <h3 class="title">${movie.title}</h3>
                     </div>
                     <div class="content-base-infor">
-                        <div class="base-infor"><p>2024</p></div>
-                        <div class="base-infor"><p>123</p></div>
+                        <div class="base-infor"><p>${movie.releaseYear}</p></div>
+                        <div class="base-infor"><p>HOT</p></div>
                         <div class="time">
                             <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em"
                                 width="1em" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
                                 <path d="M13 7h-2v5.414l3.293 3.293 1.414-1.414L13 11.586z"></path>
                             </svg>
-                            <p>84 Phút</p>
+                            <p>${movie.duration} phút</p>
                         </div>
                         <div class="view">
-                            <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em"
-                                width="1em" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="256" cy="256" r="64"></circle>
-                                <path d="M394.82 141.18C351.1 111.2 304.31 96 255.76 96c-43.69 0-86.28 13-126.59 38.48C88.52 160.23 48.67 207 16 256c26.42 44 62.56 89.24 100.2 115.18C159.38 400.92 206.33 416 255.76 416c49 0 95.85-15.07 139.3-44.79C433.31 345 469.71 299.82 496 256c-26.38-43.43-62.9-88.56-101.18-114.82zM256 352a96 96 0 1 1 96-96 96.11 96.11 0 0 1-96 96z"></path>
-                            </svg>
-                            <p>123456</p>
+                            
+                            <div class="base-infor"><p>18+</p></div>
                         </div>
                     </div>
                     <div class="content-description">
@@ -420,74 +452,258 @@ function fetchMovies() {
                     </div>
                 </div>`;
 
-            let testApiEl = document.getElementById('api-information');
-            if (testApiEl) {
-                testApiEl.innerHTML = html1;
-            } else {
-                console.error("Element with ID 'api-information' not found.");
-            }
+        let testApiEl = document.getElementById('api-information');
+        if (testApiEl) {
+          testApiEl.innerHTML = html1;
+        } else {
+          console.error("Element with ID 'api-information' not found.");
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching movie:", error);
+        let testApiEl = document.getElementById('api-information');
+        if (testApiEl) {
+          testApiEl.innerHTML = `<p class="error-message">Không thể tải phim. Vui lòng thử lại sau.</p>`;
+        }
+      });
+  }
+
+  // Gọi hàm để lấy phim
+  fetchMovies();
+
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const addFavoriteButton = document.getElementById("addMovieFavorite");
+
+    if (!addFavoriteButton) return;
+
+    addFavoriteButton.addEventListener("click", function () {
+      const token = localStorage.getItem("token");
+      const userId = parseInt(localStorage.getItem("userId"));  // ép kiểu cho chắc
+      const movieId = parseInt(getMovieId());  // Lấy id từ URL
+
+      // Debug (bạn có thể mở console để xem)
+      console.log("Token:", token);
+      console.log("User ID:", userId);
+      console.log("Movie ID:", movieId);
+
+      // Kiểm tra nếu chưa đăng nhập
+      if (!token || !userId) {
+        Swal.fire({
+          icon: "info",
+          title: "Bạn cần đăng nhập",
+          text: "Hãy đăng nhập để thêm phim vào danh sách yêu thích.",
+          confirmButtonText: "Đăng nhập"
+        }).then(() => {
+          window.location.href = "../Account/login.html";
+        });
+        return;
+      }
+
+      // Kiểm tra nếu không có movieId
+      if (!movieId) {
+        Swal.fire({
+          icon: "warning",
+          title: "Không tìm thấy phim!",
+          text: "Vui lòng kiểm tra lại URL.",
+        });
+        return;
+      }
+
+      // Gửi request đến API
+      fetch("https://localhost:7186/api/Movie/add-to-favorites", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer " + token,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          userId: userId,
+          movieId: movieId
+        })
+      })
+        .then(response => {
+          if (!response.ok) {
+            // Đọc lỗi dạng text nếu có
+            return response.text().then(errText => {
+              throw new Error(`Lỗi ${response.status}: ${errText}`);
+            });
+          }
+          return response.text(); // nếu server trả text
+        })
+        .then(message => {
+          console.log("✅ Server response:", message);
+          Swal.fire({
+            icon: "success",
+            title: "Thành công!",
+            text: message || "Phim đã được thêm vào danh sách yêu thích.",
+            timer: 2000,
+            showConfirmButton: false
+          });
         })
         .catch(error => {
-            console.error("Error fetching movie:", error);
-            let testApiEl = document.getElementById('api-information');
-            if (testApiEl) {
-                testApiEl.innerHTML = `<p class="error-message">Không thể tải phim. Vui lòng thử lại sau.</p>`;
-            }
+          console.error("❌ Lỗi:", error.message);
+          Swal.fire({
+            icon: "error",
+            title: "Không thể thêm vào yêu thích!",
+            text: error.message
+          });
         });
-}
+    });
+  });
 
-// Gọi hàm để lấy phim
-fetchMovies();
-
+  // 🔧 Hàm lấy movieId từ URL (?id=xxx)
+  function getMovieId() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id");
+  }
 </script>
-  
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const token = localStorage.getItem("token"); // Lấy token từ localStorage
-    const userId = localStorage.getItem("userId"); // Lấy userId từ localStorage
- 
-    const addFavoriteButton = document.getElementById('addMovieFavorite'); // Lấy nút thêm vào yêu thích
-    const movieId = getMovieId(); // Lấy movieId từ URL
-  
 
-    // Kiểm tra nếu không có token hoặc userId, không cho phép thêm vào yêu thích
-    if (!token || !userId || !movieId) {
-        alert("Vui lòng đăng nhập và chọn phim hợp lệ!");
-        return;
+
+<script>
+
+  const token = localStorage.getItem("token");
+  // const movieId = localStorage.getItem("userId");  // ID bộ phim mà bạn đang hiển thị bình luận
+  const userId = localStorage.getItem("userId");
+  const movieId = getMovieId(); // Lấy movieId từ URL
+  // const userId = 1;
+  // Hàm để lấy và hiển thị bình luận cho bộ phim
+  function loadComments(page = 1) {
+    fetch(`https://localhost:7186/api/Comment/movie/${movieId}/comments?page=${page}&limit=10`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          const commentList = document.querySelector(".comment-list");
+
+          commentList.innerHTML = ""; // Xóa các bình luận cũ trước khi thêm mới
+
+          data.forEach(comment => {
+            const avatarUrl = comment.Avatar
+              ? comment.Avatar
+              : `https://api.dicebear.com/7.x/thumbs/svg?seed=${encodeURIComponent(comment.userName)}&background=random&size=64`;
+            const newComment = document.createElement("div");
+            newComment.classList.add("comment-item");
+            newComment.innerHTML = `
+                          <div class="comment-user-avatar">
+                              <img src="${avatarUrl}" alt="Avatar">
+                          </div>
+                          <div class="comment-content  style="color : white">
+                              <strong style="color : white">${comment.userName}</strong>: ${comment.content}
+                              <p><small>Đã đăng vào: ${new Date(comment.createdAt).toLocaleString()}</small></p>
+                          </div>
+                      `;
+            commentList.appendChild(newComment);
+          });
+        } else {
+          Swal.fire({
+            icon: 'info',
+            title: 'Không có thêm bình luận nào!',
+            timer: 2000,
+            showConfirmButton: false
+          });
+        }
+
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        alert("Không thể tải bình luận.");
+      });
+
+  }
+
+  // Gọi hàm để tải bình luận khi trang được tải
+  loadComments();
+
+  // Xử lý khi người dùng bấm "Xem thêm bình luận"
+  document.getElementById("loadMoreComments").addEventListener("click", function () {
+    const currentPage = document.querySelectorAll(".comment-item").length / 10 + 1;
+    loadComments(currentPage); // Tải thêm bình luận
+  });
+
+  // Xử lý khi người dùng gửi bình luận
+  document.getElementById("submitComment").addEventListener("click", function (e) {
+    e.preventDefault();
+
+    if (!token) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Bạn cần đăng nhập',
+        text: 'Vui lòng đăng nhập để gửi bình luận.',
+        confirmButtonText: 'Đăng nhập',
+      }).then(() => {
+        window.location.href = "../Account/login.html"; // đường dẫn đến trang login
+      });
+      return;
     }
 
-    // Lắng nghe sự kiện click trên nút thêm vào yêu thích
-    if (addFavoriteButton) {
-    addFavoriteButton.addEventListener('click', function () {
-        fetch('https://localhost:7186/api/Movie/add-to-favorites', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + token,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                userId: userId,
-                movieId: movieId
-            })
-        })
-     alert("Thêm thành công");
-    
-      
-    });
-}
-  
-});
 
-// Hàm lấy movieId từ URL (?movieId=xxx)
-function getMovieId() {
+    const commentText = document.getElementById("commentText").value.trim();
+
+    if (!commentText) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Ôi!',
+        text: 'Vui lòng nhập nội dung bình luận trước khi gửi.',
+      });
+      return;
+    }
+
+
+    fetch("https://localhost:7186/api/Comment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        movieId: movieId,
+        userId: userId,  // Giả sử userId là 1, bạn có thể thay bằng ID người dùng từ token
+        content: commentText,
+        createdAt: new Date().toISOString()
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+
+        document.getElementById("commentText").value = "";
+        Swal.fire({
+          icon: 'success',
+          title: 'Gửi thành công!',
+          text: 'Cảm ơn bạn đã để lại bình luận.',
+          timer: 2000,
+          showConfirmButton: false
+        });
+        loadComments();
+
+      })
+      .catch(error => {
+        console.error("Error:", error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Gửi thất bại',
+          text: 'Bạn cần đăng nhập để thực hiện chức năng này.',
+        });
+
+      });
+  });
+
+
+  function getMovieId() {
     const params = new URLSearchParams(window.location.search);
     return params.get('id'); // Thay đổi nếu URL chứa tham số khác
- 
-}
 
-
+  }
 </script>
-  
+<script src="../assets/js/account.js"></script>
+
 
 
 </html>

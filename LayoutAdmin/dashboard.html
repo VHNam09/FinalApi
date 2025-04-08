@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/admin/admin.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>NOTFLEX Admin Dashboard</title>
 
 </head>
@@ -17,7 +18,7 @@
         <div class="header-title">Admin Dashboard</div>
         <div class="user-menu">
             <a href="#">Admin</a>
-            <a href="#">Đăng xuất</a>
+            <a id="logoutBtn">Đăng xuất</a>
         </div>
     </header>
 
@@ -70,11 +71,11 @@
                 </div>
                 <div class="stat-card">
                     <h3>Thể loại</h3>
-                    <div class="number">28</div>
+                    <div class="number" id="genres-count"></div>
                 </div>
                 <div class="stat-card">
                     <h3>Người dùng</h3>
-                    <div class="number">8,392</div>
+                    <div class="number" id="user-count"></div>
                 </div>
             </div>
 
@@ -90,16 +91,16 @@
                     <input type="text" placeholder="Tìm kiếm phim...">
                 </div>
                 <select class="filter-select" id="genreSelect">
-                 
+
                 </select>
                 <select class="filter-select" id="sort-options">
                     <option>Sắp xếp theo</option>
                     <option value="newest">Mới nhất</option>
                     <option value="Az">A-Z</option>
-                
+
                 </select>
             </div>
-           
+
             <table class="data-table">
                 <thead>
                     <tr>
@@ -125,7 +126,7 @@
                             <button class="action-btn delete">Xóa</button>
                         </td>
                     </tr> -->
-                 
+
                     </tr>
                 </tbody>
             </table>
@@ -137,24 +138,58 @@
 
     </script>
     <script>
-          document.addEventListener("DOMContentLoaded", function () {
-      const token = localStorage.getItem("token");
-      const username = localStorage.getItem("username");
+        document.addEventListener("DOMContentLoaded", function () {
+            const token = localStorage.getItem("token");
+            const username = localStorage.getItem("username");
 
-      if (!token) {
-          // Nếu không có token => chưa đăng nhập => về trang login
-          window.location.href = "http://127.0.0.1:5501/login.html"; // đổi đúng tên file login nếu khác
-          return;
-      }
+            if (!token) {
+                // Nếu không có token => chưa đăng nhập => về trang login
+                window.location.href = "http://127.0.0.1:5501/login.html"; // đổi đúng tên file login nếu khác
+                return;
+            }
 
-      // Nếu có token => cho phép ở lại và hiển thị thông tin user
-      const welcomeElement = document.getElementById("welcomeMessage");
-      if (welcomeElement && username) {
-          welcomeElement.innerText = `Đang xem phim với tài khoản: ${username}`;
-      }
-  });
+            // Nếu có token => cho phép ở lại và hiển thị thông tin user
+            const welcomeElement = document.getElementById("welcomeMessage");
+            if (welcomeElement && username) {
+                welcomeElement.innerText = `Đang xem phim với tài khoản: ${username}`;
+            }
+        });
     </script>
-    <h2 id="welcomeMessage"></h2>
 </body>
+
+<script>
+    document.getElementById("logoutBtn").addEventListener("click", function () {
+        // Xóa toàn bộ thông tin lưu trữ
+        localStorage.removeItem("token");
+        localStorage.removeItem("userId");
+        localStorage.removeItem("username");
+        localStorage.removeItem("role");
+
+        // Option: Nếu muốn xóa sạch luôn:
+        // localStorage.clear();
+
+        // Chuyển hướng về trang login
+        window.location.href = "http://127.0.0.1:5501/Account/login.html"; // link tới trang login
+    });
+</script>
+<script>document.addEventListener("DOMContentLoaded", function () {
+        const role = localStorage.getItem("role");
+
+        if (role != 1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Truy cập bị từ chối',
+                text: 'Bạn không có quyền truy cập trang quản trị!',
+                confirmButtonText: 'Quay về trang chính'
+            }).then(() => {
+                window.location.href = "../LayoutIndex/index.html"; // chuyển về trang user
+            });
+        }
+
+
+    });</script>
+<h2 id="welcomeMessage"></h2>
+
+
 
 </html>

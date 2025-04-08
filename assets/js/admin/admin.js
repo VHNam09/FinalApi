@@ -65,71 +65,90 @@ fetch('https://localhost:7186/api/Movie/count')
     })
     .catch(error => console.error("Lỗi khi lấy số lượng phim:", error));
 
+//Đếm số nguoi
+fetch('https://localhost:7186/api/Users/count-by-rolename?roleName=user')
+    .then(response => response.json())
+    .then(count => {
+        console.log("Tổng số người dùng:", count);
+        document.getElementById("user-count").innerText = `${count}`;
+    })
+    .catch(error => console.error("Lỗi khi lấy số lượng phim:", error));
 
 
-    function fetchGenres() {
-        var apiUrl = 'https://localhost:7186/api/Genres';
-    
-        fetch(apiUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(genres => {
-                if (!Array.isArray(genres)) {
-                    throw new Error("Invalid response format. Expected an array.");
-                }
-    
-                // Render thể loại vào dropdown
-                var optionsHtml = genres.map(genre => `
+//Đếm số the loai
+fetch('https://localhost:7186/api/Genres/count')
+    .then(response => response.json())
+    .then(count => {
+        console.log("Tổng số người dùng:", count);
+        document.getElementById("genres-count").innerText = `${count}`;
+    })
+    .catch(error => console.error("Lỗi khi lấy số lượng phim:", error));
+
+
+
+function fetchGenres() {
+    var apiUrl = 'https://localhost:7186/api/Genres';
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(genres => {
+            if (!Array.isArray(genres)) {
+                throw new Error("Invalid response format. Expected an array.");
+            }
+
+            // Render thể loại vào dropdown
+            var optionsHtml = genres.map(genre => `
                     <option value="${genre.id}">${genre.name}</option>
                 `).join("");
-    
-                let genreSelect = document.getElementById('genreSelect');
-                if (genreSelect) {
-                    genreSelect.innerHTML = `<option value="">-- Chọn thể loại --</option>` + optionsHtml;
-                    
-                    // Lắng nghe sự kiện thay đổi thể loại để lọc phim
-                    genreSelect.addEventListener('change', function () {
-                        var selectedGenreId = this.value;
-                        if (selectedGenreId) {
-                            fetchMoviesByGenre(selectedGenreId);
-                        }
-                    });
-                } else {
-                    console.error("Element with ID 'genreSelect' not found.");
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching genres:", error);
-            });
-    }
-    // Gọi hàm để lấy danh sách phim
-    fetchGenres();
+
+            let genreSelect = document.getElementById('genreSelect');
+            if (genreSelect) {
+                genreSelect.innerHTML = `<option value="">-- Chọn thể loại --</option>` + optionsHtml;
+
+                // Lắng nghe sự kiện thay đổi thể loại để lọc phim
+                genreSelect.addEventListener('change', function () {
+                    var selectedGenreId = this.value;
+                    if (selectedGenreId) {
+                        fetchMoviesByGenre(selectedGenreId);
+                    }
+                });
+            } else {
+                console.error("Element with ID 'genreSelect' not found.");
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching genres:", error);
+        });
+}
+// Gọi hàm để lấy danh sách phim
+fetchGenres();
 
 
-    function fetchMoviesByGenre(genreId) {
-        var apiUrl = `https://localhost:7186/api/Movie/by-genre/${genreId}`;
-    
-        fetch(apiUrl)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(movies => {
-                if (!Array.isArray(movies)) {
-                    throw new Error("Invalid response format. Expected an array.");
-                }
-    
-                // Hiển thị danh sách phim
-                let moviesContainer = document.getElementById('Dashboard-api');
-                if (moviesContainer) {
-                    moviesContainer.innerHTML = movies.length ? 
-                        movies.map(movie => `
+function fetchMoviesByGenre(genreId) {
+    var apiUrl = `https://localhost:7186/api/Movie/by-genre/${genreId}`;
+
+    fetch(apiUrl)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(movies => {
+            if (!Array.isArray(movies)) {
+                throw new Error("Invalid response format. Expected an array.");
+            }
+
+            // Hiển thị danh sách phim
+            let moviesContainer = document.getElementById('Dashboard-api');
+            if (moviesContainer) {
+                moviesContainer.innerHTML = movies.length ?
+                    movies.map(movie => `
                                       <tr>
              <td>${movie.id}</td>
                         <td>${movie.title}</td>
@@ -143,35 +162,35 @@ fetch('https://localhost:7186/api/Movie/count')
              </td>
               </tr>
                         `).join("") :
-                        `<p>Không có phim nào thuộc thể loại này.</p>`;
-                } else {
-                    console.error("Element with ID 'Dashboard-api' not found.");
-                }
-            })
-            .catch(error => {
-                console.error("Error fetching movies:", error);
-            });
-    } 
-    fetchMoviesByGenre()
-    
+                    `<p>Không có phim nào thuộc thể loại này.</p>`;
+            } else {
+                console.error("Element with ID 'Dashboard-api' not found.");
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching movies:", error);
+        });
+}
+fetchMoviesByGenre()
 
-    let selectedGenreId = "";
-    let selectedSortOrder = "";
-    
-    // Gọi API với bộ lọc thể loại và sắp xếp
-    function fetchMovies() {
-        let apiUrl = `https://localhost:7186/api/Movie/filtered-sorted?`;
-    
-        if (selectedGenreId) apiUrl += `genreId=${selectedGenreId}&`;
-        if (selectedSortOrder) apiUrl += `sortOrder=${selectedSortOrder}`;
-    
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(movies => {
-                let moviesContainer = document.getElementById('Dashboard-api');
-                if (moviesContainer) {
-                    moviesContainer.innerHTML = movies.length ?
-                        movies.map(movie => `
+
+let selectedGenreId = "";
+let selectedSortOrder = "";
+
+// Gọi API với bộ lọc thể loại và sắp xếp
+function fetchMovies() {
+    let apiUrl = `https://localhost:7186/api/Movie/filtered-sorted?`;
+
+    if (selectedGenreId) apiUrl += `genreId=${selectedGenreId}&`;
+    if (selectedSortOrder) apiUrl += `sortOrder=${selectedSortOrder}`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(movies => {
+            let moviesContainer = document.getElementById('Dashboard-api');
+            if (moviesContainer) {
+                moviesContainer.innerHTML = movies.length ?
+                    movies.map(movie => `
                             <tr>
                                 <td>${movie.id}</td>
                                 <td>${movie.title}</td>
@@ -185,24 +204,26 @@ fetch('https://localhost:7186/api/Movie/count')
                                 </td>
                             </tr>
                         `).join("") :
-                        `<p>Không có phim nào.</p>`;
-                }
-            })
-            .catch(error => console.error("Lỗi khi lấy danh sách phim:", error));
-    }
-    
-    // Cập nhật khi chọn thể loại
-    document.getElementById('genreSelect').addEventListener('change', function () {
-        selectedGenreId = this.value;
-        fetchMovies();
-    });
-    
-    // Cập nhật khi chọn sắp xếp
-    document.getElementById("sort-options").addEventListener("change", function () {
-        selectedSortOrder = this.value;
-        fetchMovies();
-    });
-    
-    // Gọi API khi trang tải lần đầu
+                    `<p>Không có phim nào.</p>`;
+            }
+        })
+        .catch(error => console.error("Lỗi khi lấy danh sách phim:", error));
+}
+
+// Cập nhật khi chọn thể loại
+document.getElementById('genreSelect').addEventListener('change', function () {
+    selectedGenreId = this.value;
     fetchMovies();
-    
+});
+
+// Cập nhật khi chọn sắp xếp
+document.getElementById("sort-options").addEventListener("change", function () {
+    selectedSortOrder = this.value;
+    fetchMovies();
+});
+
+// Gọi API khi trang tải lần đầu
+fetchMovies();
+
+
+

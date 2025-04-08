@@ -18,7 +18,7 @@
         <img class="header__logo" src="../assets/img/logo/logo.png" alt="netflix-font" />
       </a>
       <nav class="header__directory">
-        <a href="#" class="header__directory-link active">Trang chủ</a>
+        <a href="index.html" class="header__directory-link active">Trang chủ</a>
         <a href="movie.html" class="header__directory-link">Phim</a>
         <a href="#" class="header__directory-link">Mới & Phổ biến</a>
         <a href="favorites.html" class="header__directory-link">Danh sách của tôi</a>
@@ -38,9 +38,15 @@
         </a>
       </div>
       <div class="header__button">
-        <button class="header__register"><a href="../Account/register.html">Register</a></button>
-        <button class="header__login"><span><a href="../Account/login.html">Login</a></span></button>
+        <button class="header__register"><a href="../Account/register.html" style="color: azure;">Register</a></button>
+        <button class="header__login"><span><a href="../Account/login.html"
+              style="color: azure;">Login</a></span></button>
       </div>
+      <div id="userInfo" style="display: none;">
+        <span>👤 <strong id="usernameDisplay"></strong></span>
+        <button id="logoutBtn" style="margin-left: 8px;">Đăng xuất</button>
+      </div>
+
       <div class="header__user">
         <img src="../assets/img/banner/one piece red/One_Piece_Film-_Red_-_Áp_phích_Việt_Nam.jpg" alt="" />
         <p>Admin</p>
@@ -97,91 +103,13 @@
         <div class="content__main-title">
           <h3 class="content__main-title-left">Phim Mới Cập Nhật</h3>
           <h4 class="content__main-title-right">
-            <a href="">Xem Tất Cả</a>
+
           </h4>
         </div>
         <div class="content__main-posters">
-          <div class="content__main-icon left">
-            <i class="fa-solid fa-chevron-left"></i>
-          </div>
+
           <div class="content__main-posters-row" id="main-poster-api">
-            <div class="moviesposter-wrapper">
-              <a href="https://embed1.streamc.xyz/embed.php?hash=8a7dc71f6ad631c2685d467bf2927f97">
-                <img src="../assets/img/banner/one piece red/One_Piece_Film-_Red_-_Áp_phích_Việt_Nam.jpg" alt="" />
-              </a>
-              <h3 class="moviesposter-title">One Piece Flim Red</h3>
-              <div class="moviesposter-practice">1/1</div>
-              <div class="moviesposter-HD">HD</div>
-            </div>
-            <div class="moviesposter-wrapper">
-              <a href="https://embed1.streamc.xyz/embed.php?hash=1f16e30d78accee133bc9495ffc6bae4">
-                <img src="https://phim.nguonc.com/public/images/Film/1542.jpg" alt="" />
-              </a>
-              <h3 class="moviesposter-title">Tên cậu là gì?</h3>
-              <div class="moviesposter-practice">1/1</div>
-              <div class="moviesposter-HD">HD</div>
-            </div>
-            <div class="moviesposter-wrapper">
-              <a href="https://embed.streamc.xyz/embed.php?hash=7719391cf2dfb7b112bc381b058d5e76">
-                <img src="https://phim.nguonc.com/public/images/Film/2ndvx03fmREMxEgaZ1vWt756TOQ.jpg" alt="" />
-              </a>
-              <h3 class="moviesposter-title">Chú Thuật Hồi Chiến 0</h3>
-              <div class="moviesposter-practice">1/100</div>
-              <div class="moviesposter-HD">HD</div>
-            </div>
-            <div class="moviesposter-wrapper">
-              <a href="https://embed1.streamc.xyz/embed.php?hash=4438c2dbc49f1182cfa3e732b8789fb0">
-                <img src="https://phim.nguonc.com/public/images/Film/143101.jpg" alt="" />
-              </a>
-              <h3 class="moviesposter-title">
-                Tôi Sẽ Đỡ Hết Mọi Thứ: Người Mạnh Nhất Thế Giới Với Hiểu Lầm
-                Ngược Đời Muốn Làm Mạo Hiểm Giả
-              </h3>
-              <div class="moviesposter-practice">1/10</div>
-              <div class="moviesposter-HD">HD</div>
-            </div>
-            <div class="moviesposter-wrapper">
-              <a href="https://embed4.streamc.xyz/embed.php?hash=3c77d894817fc54116f9edef839c8715">
-                <img src="https://phim.nguonc.com/public/images/Post/6/tu-hom-nay-den-luot-toi.jpg" alt="" />
-              </a>
-              <h3 class="moviesposter-title">Từ hôm nay, đến lượt tôi!</h3>
-              <div class="moviesposter-practice">1/10</div>
-              <div class="moviesposter-HD">HD</div>
-            </div>
-            <div class="moviesposter-wrapper">
-              <a href="https://embed3.streamc.xyz/embed.php?hash=b9cfc0fc1f53d688acc19f1026ffae9a">
-                <img src="https://phim.nguonc.com/public/images/Film/13-phut-song-con-thumb.jpg" alt="" />
-              </a>
-              <h3 class="moviesposter-title">13 Phút Sống Còn</h3>
-              <div class="moviesposter-practice">1/1</div>
-              <div class="moviesposter-HD">HD</div>
-            </div>
-            <div class="moviesposter-wrapper">
-              <a href="https://embed4.streamc.xyz/embed.php?hash=a3bb56eb7d9a3c5487003ea937b5654a">
-                <img src="https://phim.nguonc.com/public/images/Film/uEpFxsBse6JY4OztlsuyAQoGszy.jpg" alt="" />
-              </a>
-              <h3 class="moviesposter-title">Vây Hãm Trên Không</h3>
-              <div class="moviesposter-practice">1/1</div>
-              <div class="moviesposter-HD">HD</div>
-            </div>
-            <div class="moviesposter-wrapper">
-              <a href="https://embed4.streamc.xyz/embed.php?hash=31e9138e79803241ac0ef7449ae6360d">
-                <img src="https://phim.nguonc.com/public/images/Film/4MRpQe6zhoKc792Bbrqmp3FjdaY.jpg" alt="" />
-              </a>
-              <h3 class="moviesposter-title">Cá Mập Không Gian</h3>
-              <div class="moviesposter-practice">1/10</div>
-              <div class="moviesposter-HD">HD</div>
-            </div>
-            <div class="moviesposter-wrapper">
-              <a href="https://embed4.streamc.xyz/embed.php?hash=02720fcc26a34d4b570f248f4edaf86b">
-                <img src="https://phim.nguonc.com/public/images/Film/j6d2GmScaSExdhMxFOfRhk36exu.jpg" alt="" />
-              </a>
-              <h3 class="moviesposter-title">
-                Sekai ga Horobiru Mae ni Kimi ni Aitai
-              </h3>
-              <div class="moviesposter-practice">1/10</div>
-              <div class="moviesposter-HD">HD</div>
-            </div>
+
           </div>
           <div class="content__main-icon right">
             <i class="fa-solid fa-chevron-right"></i>
@@ -273,24 +201,26 @@
 <script src="../assets/js/main.js"></script>
 <script src="../assets/js/fetch.js"></script>
 
-<script>
+<!-- <script>
   document.addEventListener("DOMContentLoaded", function () {
-      const token = localStorage.getItem("token");
-      const username = localStorage.getItem("username");
+    const token = localStorage.getItem("token");
+    const username = localStorage.getItem("username");
 
-      if (!token) {
-          // Nếu không có token => chưa đăng nhập => về trang login
-          window.location.href = "http://127.0.0.1:5501/login.html"; // đổi đúng tên file login nếu khác
-          return;
-      }
+    if (!token) {
+      // Nếu không có token => chưa đăng nhập => về trang login
+      window.location.href = "http://127.0.0.1:5501/Account/login.html"; // đổi đúng tên file login nếu khác
+      return;
+    }
 
-      // Nếu có token => cho phép ở lại và hiển thị thông tin user
-      const welcomeElement = document.getElementById("welcomeMessage");
-      if (welcomeElement && username) {
-          welcomeElement.innerText = `Đang xem phim với tài khoản: ${username}`;
-      }
+    // Nếu có token => cho phép ở lại và hiển thị thông tin user
+    const welcomeElement = document.getElementById("welcomeMessage");
+    if (welcomeElement && username) {
+      welcomeElement.innerText = `Đang xem phim với tài khoản: ${username}`;
+    }
   });
-</script>
+</script> -->
+
+<script src="../assets/js/account.js"></script>
 
 <!-- Ví dụ phần hiển thị -->
 <h2 id="welcomeMessage"></h2>

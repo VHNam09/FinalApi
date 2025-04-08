@@ -7,6 +7,7 @@
     <title>Đăng nhập</title>
     <link rel="stylesheet" href="../assets/css/account.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
@@ -53,52 +54,95 @@
             </div>
         </div>
     </div>
+    <!-- SweetAlert2 CDN nếu chưa có -->
+
     <script>
+        // Hàm hiển thị thông báo thành công và chuyển trang
+        function showLoginSuccessAndRedirect(role) {
+            let targetUrl;
+
+            if (role === 1) {
+                // Admin
+                targetUrl = "http://127.0.0.1:5501/LayoutAdmin/dashboard.html";
+            } else if (role === 0 || role === 2) {
+                // User thường (hoặc các quyền khác)
+                targetUrl = "http://127.0.0.1:5501/LayoutIndex/index.html";
+            } else {
+                // Role không xác định
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi phân quyền',
+                    text: 'Tài khoản không có quyền truy cập hợp lệ.',
+                });
+                return;
+            }
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Đăng nhập thành công!',
+                text: 'Chào mừng bạn quay trở lại 🎉',
+                timer: 2000,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = targetUrl;
+            });
+        }
+
+        // Hàm hiển thị thông báo đăng nhập thất bại
+        function showLoginFailed(message) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Đăng nhập thất bại',
+                text: message || 'Tên đăng nhập hoặc mật khẩu không đúng',
+                footer: 'Vui lòng thử lại hoặc liên hệ hỗ trợ.'
+            });
+        }
+
+        // Xử lý khi submit form
         document.getElementById("loginForm").addEventListener("submit", function (e) {
             e.preventDefault();
-    
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
-    
+
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            // Kiểm tra trống
+            if (!username || !password) {
+                showLoginFailed("Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.");
+                return;
+            }
+
+            // Gửi request đăng nhập
             fetch("https://localhost:7186/api/Auth/login", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "application/json"
                 },
-                body: JSON.stringify({
-                    username: username,
-                    password: password
-                })
+                body: JSON.stringify({ username, password })
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.token) {
-                    // Lưu token, id, username vào localStorage
-                    localStorage.setItem("token", data.token);
-                    localStorage.setItem("userId", data.id);
-                    localStorage.setItem("username", data.username);
-                    localStorage.setItem("role", data.role); // lưu thêm role nếu cần
-    
-                    // ⚡ Alert ra ID user
-                    alert("ID của bạn là: " + data.id);
-    
-                    // Điều hướng dựa trên vai trò
-                    if (data.role === 1) {
-                        window.location.href = "http://127.0.0.1:5501/LayoutAdmin/dashboard.html"; // link tới dashboard
+                .then(response => response.json())
+                .then(data => {
+                    if (data.token && data.role !== undefined) {
+                        // Lưu thông tin vào localStorage
+                        localStorage.setItem("token", data.token);
+                        localStorage.setItem("userId", data.id);
+                        localStorage.setItem("username", data.username);
+                        localStorage.setItem("role", data.role);
+
+                        // Gọi hàm xử lý điều hướng theo role
+                        showLoginSuccessAndRedirect(data.role);
                     } else {
-                        window.location.href = "http://127.0.0.1:5501/LayoutIndex/index.html"; // link tới user trang chính
+                        showLoginFailed(data.message || "Thông tin đăng nhập không hợp lệ.");
                     }
-                } else {
-                    alert("Đăng nhập thất bại: " + (data.message || "Lỗi không xác định"));
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("Có lỗi xảy ra khi đăng nhập: " + error.message);
-            });
+                })
+                .catch(error => {
+                    console.error("Lỗi đăng nhập:", error);
+                    showLoginFailed("Lỗi kết nối hoặc máy chủ không phản hồi.");
+                });
         });
+
     </script>
-    
+
+
 
 </body>
 

@@ -90,7 +90,7 @@ function fetchMovies1() {
                 testApiEl.innerHTML = `<p class="error-message">Failed to load movies. Please try again later.</p>`;
             }
         });
-        
+
 }
 // Gọi hàm để lấy danh sách phim
 fetchMovies1();
@@ -176,7 +176,7 @@ function fetchGenres() {
             let genreSelect = document.getElementById('genreSelect');
             if (genreSelect) {
                 genreSelect.innerHTML = `<option value="">-- Chọn thể loại --</option>` + optionsHtml;
-                
+
                 // Lắng nghe sự kiện thay đổi thể loại để lọc phim
                 genreSelect.addEventListener('change', function () {
                     var selectedGenreId = this.value;
@@ -318,14 +318,14 @@ function deleteMovie(movieId) {
         fetch('https://localhost:7186/api/Movie/' + id, {
             method: 'DELETE'
         })
-        .then(response => {
-            if (!response.ok) throw new Error('Lỗi xóa phim');
-            alert('Xóa thành công!');
-            window.location.reload();
-        })
-        .catch(error => {
-            alert('Lỗi: ' + error.message);
-        });
+            .then(response => {
+                if (!response.ok) throw new Error('Lỗi xóa phim');
+                alert('Xóa thành công!');
+                window.location.reload();
+            })
+            .catch(error => {
+                alert('Lỗi: ' + error.message);
+            });
     }
 }
 // Admin Fetch

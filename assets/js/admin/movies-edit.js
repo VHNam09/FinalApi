@@ -36,7 +36,7 @@ document.getElementById('poster').addEventListener('input', function () {
 });
 
 // Form validation
-document.getElementById('editMovieForm').addEventListener('submit', async function(e) {
+document.getElementById('editMovieForm').addEventListener('submit', async function (e) {
     e.preventDefault();
     let isValid = true;
 
@@ -46,7 +46,7 @@ document.getElementById('editMovieForm').addEventListener('submit', async functi
     if (isValid) {
         const submitButton = document.getElementById('submitButton');
         const originalButtonText = submitButton.textContent;
-        
+
         try {
             // Hiển thị trạng thái loading
             submitButton.disabled = true;
@@ -87,7 +87,8 @@ document.getElementById('editMovieForm').addEventListener('submit', async functi
             }
 
             // Xử lý thành công
-            alert('Phim đã được cập nhật thành công!');
+            alert("Cập nhật phim thành công");
+
             window.location.href = 'movies.html';
 
         } catch (error) {
@@ -109,9 +110,9 @@ document.getElementById('cancelButton').addEventListener('click', function () {
 });
 
 // Delete movie button
-document.getElementById('deleteMovieButton').addEventListener('click', async function() {
+document.getElementById('deleteMovieButton').addEventListener('click', async function () {
     const movieId = this.getAttribute('data-movie-id');
-    
+
     if (!movieId) {
         alert('Không tìm thấy ID phim');
         return;
@@ -135,9 +136,11 @@ document.getElementById('deleteMovieButton').addEventListener('click', async fun
             }
 
             // Xử lý khi xóa thành công
-            alert('Phim đã được xóa thành công!');
+            alert("Xóa thành công");
+
+
             window.location.href = 'movies.html'; // Chuyển hướng về trang danh sách
-            
+
         } catch (error) {
             console.error('Lỗi:', error);
             // alert(`Xóa phim thất bại: ${error.message}`);

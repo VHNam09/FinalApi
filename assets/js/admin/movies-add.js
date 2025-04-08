@@ -97,7 +97,7 @@ document.getElementById('addMovieForm').addEventListener('submit', function (e) 
     // Country validation
     const country = document.getElementById('country');
     if (!country.value.trim()) {
-document.getElementById('country-error').style.display = 'block';
+        document.getElementById('country-error').style.display = 'block';
         isValid = false;
     } else {
         document.getElementById('country-error').style.display = 'none';
@@ -121,70 +121,70 @@ document.getElementById('country-error').style.display = 'block';
         document.getElementById('trailerUrl-error').style.display = 'none';
     }
 
-        // Genres validation
-        const checkedGenres = document.querySelectorAll('input[name="genres"]:checked');
-        if (checkedGenres.length === 0) {
-            document.getElementById('genres-error').style.display = 'block';
-            isValid = false;
-        } else {
-            document.getElementById('genres-error').style.display = 'none';
-        }
+    // Genres validation
+    const checkedGenres = document.querySelectorAll('input[name="genres"]:checked');
+    if (checkedGenres.length === 0) {
+        document.getElementById('genres-error').style.display = 'block';
+        isValid = false;
+    } else {
+        document.getElementById('genres-error').style.display = 'none';
+    }
 
     if (isValid) {
-       // Lấy tất cả các checkbox genre đã chọn
-const checkedGenres = document.querySelectorAll('input[name="genres"]:checked');
+        // Lấy tất cả các checkbox genre đã chọn
+        const checkedGenres = document.querySelectorAll('input[name="genres"]:checked');
 
-if (!checkedGenres.length) {
-    alert("Vui lòng chọn ít nhất một thể loại phim!");
-    return;
-}
+        if (!checkedGenres.length) {
+            alert("Vui lòng chọn ít nhất một thể loại phim!");
+            return;
+        }
 
-const selectedGenres = Array.from(checkedGenres).map(checkbox => checkbox.value);
+        const selectedGenres = Array.from(checkedGenres).map(checkbox => checkbox.value);
 
-// Validate số
-const releaseYearValue = document.getElementById('releaseYear').value.trim();
-const durationValue = document.getElementById('duration').value.trim();
+        // Validate số
+        const releaseYearValue = document.getElementById('releaseYear').value.trim();
+        const durationValue = document.getElementById('duration').value.trim();
 
-if (!releaseYearValue || !durationValue || isNaN(releaseYearValue) || isNaN(durationValue)) {
-    alert("Năm phát hành và thời lượng phải là số hợp lệ!");
-    return;
-}
+        if (!releaseYearValue || !durationValue || isNaN(releaseYearValue) || isNaN(durationValue)) {
+            alert("Năm phát hành và thời lượng phải là số hợp lệ!");
+            return;
+        }
 
-// Tạo dữ liệu gửi lên API
-const movieData = {
-    title: document.getElementById('title').value.trim(),
-    description: document.getElementById('description').value.trim(),
-    releaseYear: parseInt(releaseYearValue),
-    director: document.getElementById('director').value.trim(),
-    actors: document.getElementById('actors').value.trim(),
-    duration: parseInt(durationValue),
-    country: document.getElementById('country').value.trim(),
-    poster: document.getElementById('poster').value.trim(),
-    trailerUrl: document.getElementById('trailerUrl').value.trim(),
-    createdAt: new Date().toISOString(),
-    genreIds: selectedGenres
-    };
+        // Tạo dữ liệu gửi lên API
+        const movieData = {
+            title: document.getElementById('title').value.trim(),
+            description: document.getElementById('description').value.trim(),
+            releaseYear: parseInt(releaseYearValue),
+            director: document.getElementById('director').value.trim(),
+            actors: document.getElementById('actors').value.trim(),
+            duration: parseInt(durationValue),
+            country: document.getElementById('country').value.trim(),
+            poster: document.getElementById('poster').value.trim(),
+            trailerUrl: document.getElementById('trailerUrl').value.trim(),
+            createdAt: new Date().toISOString(),
+            genreIds: selectedGenres
+        };
 
-console.log("Data to send:", movieData); // Kiểm tra dữ liệu trước khi gửi
+        console.log("Data to send:", movieData); // Kiểm tra dữ liệu trước khi gửi
 
-// Gọi API
-fetch("https://localhost:7186/api/Movie", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify(movieData)
-})
-.then(response => response.json())
-.then(data => {
-    console.log("Kết quả API:", data);
-    alert("Thêm phim thành công!");
-    window.location.href = "movies.html"; // Chuyển hướng về trang danh sách phim
-})
-.catch(error => console.error("Lỗi API:", error));
+        // Gọi API
+        fetch("https://localhost:7186/api/Movie", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(movieData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Kết quả API:", data);
+                alert("Thêm phim thành công!");
+                window.location.href = "movies.html"; // Chuyển hướng về trang danh sách phim
+            })
+            .catch(error => console.error("Lỗi API:", error));
 
 
-        
+
     }
 });
 
@@ -196,7 +196,7 @@ document.getElementById('cancelButton').addEventListener('click', function () {
 });
 
 
-    function FetchGenres() {
+function FetchGenres() {
     var apiUrl = 'https://localhost:7186/api/Genres'; // Nên trỏ đúng route lấy kèm genres'
 
     fetch('https://localhost:7186/api/Genres')

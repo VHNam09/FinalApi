@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../assets/css/style.css" />
   <link rel="stylesheet" href="../assets/css/grid.css" />
   <link rel="stylesheet" href="../assets/fonts/fontawesome-free-6.5.2-web/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <title>Movie</title>
 </head>
 
@@ -19,10 +20,10 @@
           <img class="header__logo" src="../assets/img/logo/logo.png" alt="netflix-font" />
         </a>
         <nav class="header__directory">
-          <a href="#" class="header__directory-link active">Trang chủ</a>
-          <a href="#" class="header__directory-link">Phim</a>
+          <a href="index.html" class="header__directory-link active">Trang chủ</a>
+          <a href="movie.html" class="header__directory-link">Phim</a>
           <a href="#" class="header__directory-link">Mới & Phổ biến</a>
-          <a href="#" class="header__directory-link">Danh sách của tôi</a>
+          <a href="favorites.html" class="header__directory-link">Danh sách của tôi</a>
           <a href="#" class="header__directory-link">Duyệt tìm theo ngôn ngữ</a>
         </nav>
       </div>
@@ -39,8 +40,12 @@
           </a>
         </div>
         <div class="header__button">
-          <button class="header__register">Register</button>
-          <button class="header__login"><span>Login</span></button>
+          <button class="header__register" style="color: azure;">Register</button>
+          <button class="header__login"><span style="color: azure;">Login</span></button>
+        </div>
+        <div id="userInfo" style="display: none;">
+          <span>👤 <strong id="usernameDisplay"></strong></span>
+          <button id="logoutBtn" style="margin-left: 8px;">Đăng xuất</button>
         </div>
         <div class="header__user">
           <img src="../assets/img/banner/one piece red/One_Piece_Film-_Red_-_Áp_phích_Việt_Nam.jpg" alt="" />
@@ -58,6 +63,10 @@
     </div>
     <div class="app_main">
       <div class="grid wide container">
+        <div>
+          <h2 id="welcomeMessage" style="padding-top: 100px; color: azure;font-family: cursive; font-size: larger;">
+          </h2>
+        </div>
         <div class="row main_container" id="test-api">
           <!-- Hiện Phim qua Api -->
         </div>
@@ -181,6 +190,7 @@
   </div>
 </body>
 <script src="../assets/js/main.js"></script>
+<script src="../assets/js/account.js"></script>
 
 
 
@@ -189,41 +199,57 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-      const token = localStorage.getItem("token");
-      const username = localStorage.getItem("username");
-      const userId = localStorage.getItem("userId");  // ✨ Thêm dòng này để lấy userId từ localStorage
+    const token = localStorage.getItem("token");
+    const username = localStorage.getItem("username");
+    const userId = localStorage.getItem("userId");  // ✨ Thêm dòng này để lấy userId từ localStorage
 
-      if (!token) {
-          window.location.href = "http://127.0.0.1:5501/login.html";
-          return;
-      }
+    if (!token) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Bạn cần đăng nhập',
+        text: 'Vui lòng đăng nhập để sử dụng tính năng này.',
+        confirmButtonText: 'Đăng nhập ngay',
+        showCancelButton: true,
+        cancelButtonText: 'Để sau'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "http://127.0.0.1:5501/Account/login.html";
+        }
+        else {
 
-      const welcomeElement = document.getElementById("welcomeMessage");
-      if (welcomeElement && username) {
-          welcomeElement.innerText = `Đang xem phim với tài khoản: ${username}`;
-      }
+          window.location.href = "http://127.0.0.1:5501/LayoutIndex/index.html";
+        }
+      });
+      return;
+    }
 
-      fetchMovies(userId);  // ✨ Truyền userId vào hàm fetchMovies
+
+    const welcomeElement = document.getElementById("welcomeMessage");
+    if (welcomeElement && username) {
+      welcomeElement.innerText = `Danh sách phim yêu thích của: ${username}`;
+    }
+
+    fetchMovies(userId);  // ✨ Truyền userId vào hàm fetchMovies
   });
 
   function fetchMovies(userId) {
     var apiUrl = `https://localhost:7186/api/Movie/favorites/${userId}`;
 
     fetch(apiUrl, {
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("token"), // ✨ Nên thêm Authorization cho an toàn
-            "Content-Type": "application/json"
-        }
+      headers: {
+        "Authorization": "Bearer " + localStorage.getItem("token"), // ✨ Nên thêm Authorization cho an toàn
+        "Content-Type": "application/json"
+      }
     })
-    .then(response => {
+      .then(response => {
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
         return response.json();
-    })
-    .then(movies => {
+      })
+      .then(movies => {
         if (!Array.isArray(movies)) {
-            throw new Error("Invalid response format. Expected an array.");
+          throw new Error("Invalid response format. Expected an array.");
         }
 
         var html1 = movies.map(movie => `
@@ -239,22 +265,22 @@
 
         let testApiEl = document.getElementById('test-api');
         if (testApiEl) {
-            testApiEl.innerHTML = html1;
+          testApiEl.innerHTML = html1;
         } else {
-            console.error("Element with ID 'test-api' not found.");
+          console.error("Element with ID 'test-api' not found.");
         }
-    })
-    .catch(error => {
+      })
+      .catch(error => {
         console.error("Error fetching movies:", error);
         let testApiEl = document.getElementById('test-api');
         if (testApiEl) {
-            testApiEl.innerHTML = `<p class="error-message">Failed to load movies. Please try again later.</p>`;
+          testApiEl.innerHTML = `<p class="error-message">Failed to load movies. Please try again later.</p>`;
         }
-    });
-}
+      });
+  }
 </script>
 
-<h2 id="welcomeMessage"></h2>
+
 
 
 </html>

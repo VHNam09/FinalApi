@@ -19,10 +19,10 @@
           <img class="header__logo" src="../assets/img/logo/logo.png" alt="netflix-font" />
         </a>
         <nav class="header__directory">
-          <a href="#" class="header__directory-link active">Trang chủ</a>
-          <a href="#" class="header__directory-link">Phim</a>
+          <a href="index.html" class="header__directory-link active">Trang chủ</a>
+          <a href="movie.html" class="header__directory-link">Phim</a>
           <a href="#" class="header__directory-link">Mới & Phổ biến</a>
-          <a href="#" class="header__directory-link">Danh sách của tôi</a>
+          <a href="favorites.html" class="header__directory-link">Danh sách của tôi</a>
           <a href="#" class="header__directory-link">Duyệt tìm theo ngôn ngữ</a>
         </nav>
       </div>
@@ -39,8 +39,14 @@
           </a>
         </div>
         <div class="header__button">
-          <button class="header__register">Register</button>
-          <button class="header__login"><span>Login</span></button>
+          <button class="header__register" style="color: azure;">Register</button>
+          <button class="header__login">
+            <spa style="color: azure;">Login</span>
+          </button>
+        </div>
+        <div id="userInfo" style="display: none;">
+          <span>👤 <strong id="usernameDisplay"></strong></span>
+          <button id="logoutBtn" style="margin-left: 8px;">Đăng xuất</button>
         </div>
         <div class="header__user">
           <img src="../assets/img/banner/one piece red/One_Piece_Film-_Red_-_Áp_phích_Việt_Nam.jpg" alt="" />
@@ -182,5 +188,6 @@
 </body>
 <script src="../assets/js/main.js"></script>
 <script src="../assets/js/fetch.js"></script>
+<script src="../assets/js/account.js"></script>
 
 </html>

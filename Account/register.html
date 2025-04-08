@@ -7,6 +7,8 @@
     <title>Đăng ký</title>
     <link rel="stylesheet" href="../assets/css/account.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -78,7 +80,16 @@
 
             // Kiểm tra mật khẩu và xác nhận mật khẩu có khớp không
             if (password !== confirmPassword) {
-                alert("Mật khẩu xác nhận không khớp!");
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'warning',
+                    title: 'Mật khẩu xác nhận không khớp!',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true
+                });
+
                 return;
             }
 
@@ -104,13 +115,31 @@
                         alert(data.Message);  // Thông báo kết quả đăng ký
                         window.location.href = "login.html";  // Chuyển hướng đến trang đăng nhập
                     } else {
-                        alert("Đăng ký thành công ");
-                        window.location.href = "login.html";
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Đăng ký thành công!',
+                            text: 'Bạn sẽ được chuyển đến trang đăng nhập.',
+                            timer: 3000,
+                            showConfirmButton: false
+                        }).then(() => {
+                            window.location.href = "login.html";
+                        });
+
                     }
                 })
                 .catch(error => {
                     console.error("Error:", error);
-                    alert("Có lỗi xảy ra khi đăng ký");
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Đăng ký thất bại',
+                        text: 'Có lỗi xảy ra',
+                        timer: 3000,
+                        showConfirmButton: false,
+                        timerProgressBar: true
+                    });
+
                 });
         });
 

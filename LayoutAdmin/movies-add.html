@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../assets/css/admin/movies.css" />
     <link rel="stylesheet" href="../assets/css/admin/movies-add.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <title>NOTFLEX Admin - Thêm Phim</title>
 
 </head>
@@ -117,42 +119,41 @@
                         </div>
                     </div>
 
-                    <div class="form-group" >
+                    <div class="form-group">
                         <label for="genres" class="required-field">Thể loại</label>
-                        <div class="genres-container" >
+                        <div class="genres-container">
                             <div class="genre-items" id="eTest">
-                  
-                                </div>
+
                             </div>
                         </div>
-                        <div id="genres-error" class="error-message">Vui lòng chọn ít nhất một thể loại</div>
                     </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="poster" class="required-field">URL Poster</label>
-                            <input type="text" id="poster" class="form-control" placeholder="Nhập URL hình ảnh poster"
-                                required>
-                            <div id="poster-error" class="error-message">Vui lòng nhập URL poster</div>
-                            <div class="poster-preview" id="posterPreview">
-                                <div class="poster-placeholder">🖼️</div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="trailerUrl" class="required-field">URL Trailer</label>
-                            <input type="text" id="trailerUrl" class="form-control"
-                                placeholder="Nhập URL trailer (YouTube)" required>
-                            <div id="trailerUrl-error" class="error-message">Vui lòng nhập URL trailer</div>
-                        </div>
-                    </div>
-
-                    <div class="form-actions">
-                        <button type="button" id="cancelButton" class="btn btn-cancel">Hủy</button>
-                        <button type="submit" id="submitButton" class="btn btn-submit">Thêm phim</button>
-                    </div>
-                </form>
+                    <div id="genres-error" class="error-message">Vui lòng chọn ít nhất một thể loại</div>
             </div>
-        </main>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="poster" class="required-field">URL Poster</label>
+                    <input type="text" id="poster" class="form-control" placeholder="Nhập URL hình ảnh poster" required>
+                    <div id="poster-error" class="error-message">Vui lòng nhập URL poster</div>
+                    <div class="poster-preview" id="posterPreview">
+                        <div class="poster-placeholder">🖼️</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="trailerUrl" class="required-field">URL Trailer</label>
+                    <input type="text" id="trailerUrl" class="form-control" placeholder="Nhập URL trailer (YouTube)"
+                        required>
+                    <div id="trailerUrl-error" class="error-message">Vui lòng nhập URL trailer</div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" id="cancelButton" class="btn btn-cancel">Hủy</button>
+                <button type="submit" id="submitButton" class="btn btn-submit">Thêm phim</button>
+            </div>
+            </form>
+    </div>
+    </main>
     </div>
 
     <script src="../assets/js/admin/movies-add.js">
