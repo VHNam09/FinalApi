@@ -1,6 +1,6 @@
 
 //Layout fetch
-function fetchMovies() {
+function fetchMoviesAll() {
     var apiUrl = 'https://localhost:7186/api/Movie/with-genres';
 
     fetch(apiUrl)
@@ -17,7 +17,8 @@ function fetchMovies() {
 
             var html1 = movies.map(movie => `
                 <div class="col c-6 m-3 l-2 moviesposter-wrapper">
-                    <a href="${movie.trailerUrl}" target="_blank">
+                    <a href="information.html?id=${movie.id}" target="_blank">
+
                         <img src="${movie.poster}" alt="${movie.title}" />
                     </a>
                     <h3 class="moviesposter-title">${movie.title}</h3>
@@ -43,12 +44,12 @@ function fetchMovies() {
         });
 }
 // Gọi hàm để lấy danh sách phim
-fetchMovies();
+fetchMoviesAll();
 
 
 
 
-function fetchMovies1() {
+function fetchMoviesIndex() {
     var apiUrl = 'https://localhost:7186/api/Movie/with-genres';
 
     fetch(apiUrl)
@@ -93,9 +94,9 @@ function fetchMovies1() {
 
 }
 // Gọi hàm để lấy danh sách phim
-fetchMovies1();
+fetchMoviesIndex();
 
-function fetchMovies2() {
+function fetchMoviesViewAdmin() {
     var apiUrl = 'https://localhost:7186/api/Movie/with-genres'; // Nên trỏ đúng route lấy kèm genres'
 
     fetch(apiUrl)
@@ -148,7 +149,7 @@ function fetchMovies2() {
 }
 
 // Gọi hàm để lấy danh sách phim
-fetchMovies2();
+fetchMoviesViewAdmin();
 
 
 

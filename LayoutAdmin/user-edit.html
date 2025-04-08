@@ -46,13 +46,13 @@
                     <i class="fa fa-lock">🔒</i> Role
                 </a>
 
-                <div class="menu-title">Hệ thống</div>
+                <!-- <div class="menu-title">Hệ thống</div>
                 <a href="settings.html" class="menu-item">
                     <i class="fa fa-cog">⚙️</i> Cài đặt
                 </a>
                 <a href="statistics.html" class="menu-item">
                     <i class="fa fa-bar-chart">📈</i> Thống kê
-                </a>
+                </a> -->
             </nav>
         </aside>
 
@@ -98,7 +98,7 @@
                     <div class="form-group">
                         <label for="role" class="required-field">Vai trò</label>
                         <select id="role" class="form-control" required>
-                            <option value="">Chọn vai trò</option>
+                            <option value="1">Admin</option>
                             <!-- Các vai trò sẽ được điền vào đây từ API -->
                         </select>
                         <div id="role-error" class="error-message">Vui lòng chọn vai trò</div>
@@ -325,7 +325,7 @@
 
     </script>
 
-    <script>
+    <!-- <script>
         // Hàm để lấy các vai trò từ API và điền vào select
         function loadRoles() {
             const apiUrl = 'https://localhost:7186/api/Roles'; // API lấy danh sách vai trò
@@ -360,7 +360,7 @@
         // Gọi hàm loadRoles khi trang được tải
         loadRoles();
 
-    </script>
+    </script> -->
 </body>
 
 </html>

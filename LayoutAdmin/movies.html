@@ -44,13 +44,13 @@
                     <i class="fa fa-lock">🔒</i> Role
                 </a>
 
-                <div class="menu-title">Hệ thống</div>
+                <!-- <div class="menu-title">Hệ thống</div>
                 <a href="settings.html" class="menu-item">
                     <i class="fa fa-cog">⚙️</i> Cài đặt
                 </a>
                 <a href="statistics.html" class="menu-item">
                     <i class="fa fa-bar-chart">📈</i> Thống kê
-                </a>
+                </a> -->
             </nav>
         </aside>
 
@@ -58,7 +58,7 @@
         <main class="main-content">
             <div class="page-title">
                 <h1>Quản lý Phim</h1>
-                <button class="btn" ><a href="movies-add.html">Thêm Phim mới</a></button>
+                <button class="btn"><a href="movies-add.html">Thêm Phim mới</a></button>
             </div>
             <div class="filters">
                 <div class="search-box">
@@ -67,36 +67,38 @@
                 </div>
                 <div class="search-box" style="display: flex; align-items: center;">
                     <input type="number" id="yearInput" placeholder="Nhập năm phát hành" />
-                    <button style=" height: 37.2px; width: 20%; background-color: black; color: rgb(237, 226, 226); font-weight: 600;" onclick="filterByYear()">🔍</button>
+                    <button
+                        style=" height: 37.2px; width: 20%; background-color: black; color: rgb(237, 226, 226); font-weight: 600;"
+                        onclick="filterByYear()">🔍</button>
                 </div>
                 <table class="data-table">
-                <select class="filter-select" id="genreSelect">
-                 
-                </select>
-                <select class="filter-select" id="sort-options">
-                    <option>Sắp xếp theo</option>
-                    <option value="newest">Mới nhất</option>
-                    <option value="Az">A-Z</option>
-                
-                </select>
+                    <select class="filter-select" id="genreSelect">
+
+                    </select>
+                    <select class="filter-select" id="sort-options">
+                        <option>Sắp xếp theo</option>
+                        <option value="newest">Mới nhất</option>
+                        <option value="Az">A-Z</option>
+
+                    </select>
             </div>
-  
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Poster</th>
-                        <th>Tên phim</th>
-                        <th>Thể loại</th>
-                        <th>Năm phát hành</th>
-                        <th>Đạo diễn</th>
-                        <th>Thời lượng</th>
-                        <th>Ngày tạo</th>
-                        <th>Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody id="movies-list-api">
-           <!--Hiện phim để thêm sửa xóa-->
-                </tbody>
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Poster</th>
+                    <th>Tên phim</th>
+                    <th>Thể loại</th>
+                    <th>Năm phát hành</th>
+                    <th>Đạo diễn</th>
+                    <th>Thời lượng</th>
+                    <th>Ngày tạo</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody id="movies-list-api">
+                <!--Hiện phim để thêm sửa xóa-->
+            </tbody>
             </table>
 
             <div class="pagination">
@@ -118,28 +120,28 @@
 
 
 
-<script src="../assets/js/fetch.js"></script>
+    <script src="../assets/js/fetch.js"></script>
 
-<script>
-        
+    <script>
 
-    let selectedGenreId = "";
-    let selectedSortOrder = "";
-    
-    // Gọi API với bộ lọc thể loại và sắp xếp
-    function fetchMovies() {
-        let apiUrl = `https://localhost:7186/api/Movie/filtered-sorted?`;
-    
-        if (selectedGenreId) apiUrl += `genreId=${selectedGenreId}&`;
-        if (selectedSortOrder) apiUrl += `sortOrder=${selectedSortOrder}`;
-    
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(movies => {
-                let moviesContainer = document.getElementById('movies-list-api');
-                if (moviesContainer) {
-                    moviesContainer.innerHTML = movies.length ?
-                        movies.map(movie => `
+
+        let selectedGenreId = "";
+        let selectedSortOrder = "";
+
+        // Gọi API với bộ lọc thể loại và sắp xếp
+        function fetchMovies() {
+            let apiUrl = `https://localhost:7186/api/Movie/filtered-sorted?`;
+
+            if (selectedGenreId) apiUrl += `genreId=${selectedGenreId}&`;
+            if (selectedSortOrder) apiUrl += `sortOrder=${selectedSortOrder}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(movies => {
+                    let moviesContainer = document.getElementById('movies-list-api');
+                    if (moviesContainer) {
+                        moviesContainer.innerHTML = movies.length ?
+                            movies.map(movie => `
                      <tr>
                 <td>${movie.id}</td>
                 <td>
@@ -158,28 +160,28 @@
                 </td>
             </tr>
                         `).join("") :
-                        `<p>Không có phim nào.</p>`;
-                }
-            })
-            .catch(error => console.error("Lỗi khi lấy danh sách phim:", error));
-    }
-    
-    // Cập nhật khi chọn thể loại
-    document.getElementById('genreSelect').addEventListener('change', function () {
-        selectedGenreId = this.value;
+                            `<p>Không có phim nào.</p>`;
+                    }
+                })
+                .catch(error => console.error("Lỗi khi lấy danh sách phim:", error));
+        }
+
+        // Cập nhật khi chọn thể loại
+        document.getElementById('genreSelect').addEventListener('change', function () {
+            selectedGenreId = this.value;
+            fetchMovies();
+        });
+
+        // Cập nhật khi chọn sắp xếp
+        document.getElementById("sort-options").addEventListener("change", function () {
+            selectedSortOrder = this.value;
+            fetchMovies();
+        });
+
+        // Gọi API khi trang tải lần đầu
         fetchMovies();
-    });
-    
-    // Cập nhật khi chọn sắp xếp
-    document.getElementById("sort-options").addEventListener("change", function () {
-        selectedSortOrder = this.value;
-        fetchMovies();
-    });
-    
-    // Gọi API khi trang tải lần đầu
-    fetchMovies();
-    
-</script>
+
+    </script>
 
 
 </body>

@@ -442,7 +442,9 @@
                         </div>
                     </div>
                     <div class="content-description">
-                        <p>${movie.description}</p>
+                        <p style="color: white; font-size: 20px;">${movie.description}</p>
+
+
                     </div>
                     <div class="content-details">
                         <div class="item"><p>Quốc Gia :</p><span>${movie.country}</span></div>
@@ -611,11 +613,11 @@
           });
         }
 
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        alert("Không thể tải bình luận.");
       });
+    // .catch(error => {
+    //   console.error("Error:", error);
+    //   alert("Không thể tải bình luận.");
+    // });
 
   }
 
