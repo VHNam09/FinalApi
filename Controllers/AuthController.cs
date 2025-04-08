@@ -83,7 +83,7 @@ namespace MovieApi.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            // ✅ Sửa ở đây nè: trả thêm id và username
+            //  Sửa ở đây : trả thêm id và username
             return Ok(new
             {
                 id = user.Id,            // <- thêm ID user
