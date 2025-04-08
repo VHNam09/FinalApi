@@ -18,6 +18,8 @@ namespace MovieApi.Data
         public DbSet<Genres> Genres { get; set; }
         public DbSet<MovieGenres> MovieGenres { get; set; }
 
+        public DbSet<Comment> Comments { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -31,6 +33,17 @@ namespace MovieApi.Data
                 .HasOne(mg => mg.Genre)
                 .WithMany(g => g.MovieGenres)
                 .HasForeignKey(mg => mg.GenreId);
+
+
+            modelBuilder.Entity<Comment>()
+        .HasOne(c => c.User)
+        .WithMany(u => u.Comments)
+        .HasForeignKey(c => c.UserId);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.Movie)
+                .WithMany(m => m.Comments)
+                .HasForeignKey(c => c.MovieId);
         }
 
 

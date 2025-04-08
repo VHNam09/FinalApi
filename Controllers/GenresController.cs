@@ -91,6 +91,13 @@ namespace MovieApi.Controllers
             return Ok(result);
         }
 
+        [HttpGet("count")]
+        public async Task<IActionResult> CountGenres()
+        {
+            var count = await _context.Genres.CountAsync();
+            return Ok(count);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateGenre([FromBody] Genres genre)

@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieApi.Data;
 
-#nullable disable   
+#nullable disable
 
 namespace MovieApi.Migrations
 {
     [DbContext(typeof(GenresContext))]
-    partial class MovieContextModelSnapshot : ModelSnapshot
+    [Migration("20250407075430_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,36 @@ namespace MovieApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("MovieApi.Entities.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MovieId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
 
             modelBuilder.Entity("MovieApi.Entities.Favorites", b =>
                 {
@@ -195,6 +228,25 @@ namespace MovieApi.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("MovieApi.Entities.Comment", b =>
+                {
+                    b.HasOne("MovieApi.Entities.Movies", "Movie")
+                        .WithMany("Comments")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MovieApi.Entities.Users", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("MovieApi.Entities.Favorites", b =>
                 {
                     b.HasOne("MovieApi.Entities.Movies", "Movie")
@@ -223,7 +275,7 @@ namespace MovieApi.Migrations
                         .IsRequired();
 
                     b.HasOne("MovieApi.Entities.Movies", "Movie")
-                        .WithMany()
+                        .WithMany("MovieGenres")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -251,7 +303,11 @@ namespace MovieApi.Migrations
 
             modelBuilder.Entity("MovieApi.Entities.Movies", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Favorites");
+
+                    b.Navigation("MovieGenres");
                 });
 
             modelBuilder.Entity("MovieApi.Entities.Roles", b =>
@@ -261,6 +317,8 @@ namespace MovieApi.Migrations
 
             modelBuilder.Entity("MovieApi.Entities.Users", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("Favorites");
                 });
 #pragma warning restore 612, 618

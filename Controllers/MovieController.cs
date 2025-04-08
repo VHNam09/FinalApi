@@ -372,19 +372,19 @@ namespace MovieApi.Controllers
         public async Task<IActionResult> AddToFavorites([FromBody] AddFavoriteDto favoriteDto)
         {
             if (favoriteDto == null)
-                return BadRequest("Invalid data.");
+                return BadRequest(new { message = "Dữ liệu không hợp lệ." });
 
             // Kiểm tra movie có tồn tại không
             var movie = await _context.Movies.FindAsync(favoriteDto.MovieId);
             if (movie == null)
-                return NotFound("Movie not found.");
+                return NotFound(new { message = "Không tìm thấy phim." });
 
             // Kiểm tra nếu phim đã tồn tại trong danh sách yêu thích của user
             var existingFavorite = await _context.Favorites
                 .FirstOrDefaultAsync(fm => fm.UserId == favoriteDto.UserId && fm.MovieId == favoriteDto.MovieId);
 
             if (existingFavorite != null)
-                return BadRequest("Movie already in favorites.");
+                return BadRequest(new { message = "Phim đã có trong danh sách yêu thích." });
 
             // Thêm vào danh sách yêu thích
             var favorite = new Favorites
@@ -397,8 +397,9 @@ namespace MovieApi.Controllers
             _context.Favorites.Add(favorite);
             await _context.SaveChangesAsync();
 
-            return Ok("Movie added to favorites successfully.");
+            return Ok(new { message = "Đã thêm vào danh sách yêu thích thành công!" });
         }
+
 
         [HttpGet("favorites/{userId}")]
         public async Task<IActionResult> GetFavoriteMovies(int userId)

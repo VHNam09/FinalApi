@@ -23,7 +23,9 @@ namespace MovieApi.Entities
         // Danh sách người dùng đã yêu thích bộ phim này
         public ICollection<Favorites> Favorites { get; set; } = new List<Favorites>();
         public ICollection<MovieGenres> MovieGenres { get; set; } = new List<MovieGenres>();
- 
+
+        public ICollection<Comment> Comments { get; set; }
+
     }
 
 

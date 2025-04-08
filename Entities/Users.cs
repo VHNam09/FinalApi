@@ -1,4 +1,6 @@
-﻿namespace MovieApi.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace MovieApi.Entities
 {
     public class Users:BaseEntity
     {
@@ -13,6 +15,9 @@
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public ICollection<Favorites> Favorites { get; set; } = new List<Favorites>();
+
+        [JsonIgnore]
+        public ICollection<Comment> Comments { get; set; }
     }
 
 

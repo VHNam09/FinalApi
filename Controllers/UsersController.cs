@@ -61,6 +61,22 @@ namespace MovieApi.Controllers
             });
         }
 
+        // Action để đếm số lượng người dùng có Username = "user"
+        [HttpGet("count-by-rolename")]
+        public async Task<ActionResult<int>> CountUsersByRoleName([FromQuery] string roleName)
+        {
+            if (string.IsNullOrWhiteSpace(roleName))
+            {
+                return BadRequest("RoleName không được để trống.");
+            }
+
+            var count = await _context.Users
+                .Include(u => u.Role) // thêm Include để join
+                .CountAsync(u => u.Role.Name == roleName); // lấy theo Role.Name
+
+            return Ok(count);
+        }
+
 
         [HttpPost]
         public async Task<ActionResult<UserWithRoleDto>> CreateUser([FromBody] CreateUserDto userDto)
